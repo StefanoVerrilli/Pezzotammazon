@@ -76,4 +76,22 @@ public class ProductOperations {
         p.close();
         return NewProduct;
     }
+
+    public static void DeleteProduct(int ID) throws SQLException{
+        String query = "DELETE FROM products "
+                + "WHERE ID=? ";
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
+        p.setInt(1,ID);
+        p.executeUpdate();
+        p.close();
+    }
+
+    private static void FixAutoIncrement() throws SQLException{
+        String query = "UPDATE products "
+                + "SET ID = (@increment_value := @increment_value+ 1) "
+                + "order by ID ";
+        Statement stat = (Statement) myDb.getConnection().createStatement();
+        stat.executeUpdate(query);
+        stat.close();
+    }
 }

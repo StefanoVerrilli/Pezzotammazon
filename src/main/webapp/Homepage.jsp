@@ -20,9 +20,7 @@
       user = (String) session.getAttribute("user");
   }
 %>
+<jsp:include page="Header.jsp" />
 <h1>HI ${user}</h1>
-<a href="${pageContext.request.contextPath}/logout">logout</a>
-<a href="ProductVisualization">Prodotti</a>
-<a href="${pageContext.request.contextPath}/InsertProduct.jsp">Insert Product</a>
 </body>
 </html>

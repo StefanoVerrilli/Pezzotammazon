@@ -21,6 +21,7 @@
     }
 %>
 <body>
+<jsp:include page="Header.jsp" />
 <form action="AddProduct" method="get" id="productForm">
     <input type="text" id="productName" name="productName" placeholder="Product Name" required>
     <input type="text" id="productDesc" name="productDesc"placeholder="Short Description">
