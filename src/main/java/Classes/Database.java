@@ -17,7 +17,6 @@ public class Database {
 
     public static Database getInstance() {
         if (dbIsntance == null) {
-            System.out.println("instance");
             dbIsntance = new Database();
         }
         return dbIsntance;

@@ -24,8 +24,8 @@
             id = Integer.parseInt(request.getParameter("id"));
             request.setAttribute("id",id);
             oldProduct = ProductOperations.GetSpecificProduct(Integer.parseInt(request.getParameter("id")));
-            Memento list = (Memento) request.getSession().getAttribute("concreteMemento");
-            list.
+            //Memento list = (Memento) request.getSession().getAttribute("concreteMemento");
+
         }
 
     %>

@@ -1,5 +1,8 @@
 package Classes.TFIDF;
 
+import Classes.Pair;
+
+import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,18 +11,45 @@ public class TFIDF {
     //acquistati dall' utente i-esimo
     public void TF(){
     ArrayList<String> UserPurchase = new ArrayList<>();
-    UserPurchase.add("cibo per cani cani");
-    UserPurchase.add("Spazzola per capelli");
-    UserPurchase.add("Spazzola per cani");
+    UserPurchase.add("Sabbia per gatti");
+    UserPurchase.add("Giochi per bambini");
+    UserPurchase.add("Oggetti per la casa");
+    UserPurchase.add("Cibo per cani");
     HashMap<String, HashMap<String, Float>> TermFrequencyMap = new HashMap<String,HashMap<String,Float>>();
     for(String Purchase : UserPurchase) {
         TermFrequencyMap.put(Purchase, GetOccurrence(Purchase));
     }
-    vsavasavasv
     for(String Purchase : UserPurchase){
         TermFrequencyMap.put(Purchase,getFrequency(TermFrequencyMap.get(Purchase),Purchase));
     }
-        PrintTF(UserPurchase,TermFrequencyMap);
+        //PrintTF(UserPurchase,TermFrequencyMap);
+    HashMap<String, Double> SentenceWithWord = new HashMap<>();
+    for(String Purchase : UserPurchase){
+        for(String word : TermFrequencyMap.get(Purchase).keySet()){
+            if(Purchase.contains(word)){
+                if(SentenceWithWord.get(word) == null)
+                    SentenceWithWord.put(word, 1.0);
+                else
+                    SentenceWithWord.put(word, SentenceWithWord.get(word) + 1);
+                }
+        }
+    }
+    for(String WordInText : SentenceWithWord.keySet()){
+        System.out.println("Num occurence : " + SentenceWithWord.get(WordInText));
+        System.out.println("Size: " + UserPurchase.size());
+        SentenceWithWord.put(WordInText,(Math.log((UserPurchase.size())/(SentenceWithWord.get(WordInText)))));
+        System.out.println(WordInText);
+        System.out.println(SentenceWithWord.get(WordInText).floatValue());
+    }
+
+    for(String Purchase : UserPurchase){
+        System.out.println("Next: ----");
+        for(String word : TermFrequencyMap.get(Purchase).keySet()){
+            System.out.println(word);
+            System.out.println(TermFrequencyMap.get(Purchase).get(word) * SentenceWithWord.get(word));
+        }
+    }
+
     }
 
     private void PrintTF(ArrayList<String> UserPurchase,HashMap<String, HashMap<String, Float>> occurrenceForSentence){

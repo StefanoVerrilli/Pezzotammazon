@@ -3,21 +3,22 @@
 <%@ page import="Classes.ProductOperations" %>
 <%@ page import="Classes.Memento.ProductList" %>
 <%@ page import="Classes.Memento.Memento" %>
+<%@ page import="java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
     <title>Products</title>
     <%
-        List<Product> data = (List<Product>) request.getSession().getAttribute("data");
-        List<Memento> myMemento = (List<Memento>) request.getSession().getAttribute("concreteMemento");
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
         String user = null;
+        List<Product> data = new ArrayList<>();
         int access_type;
         if(session.getAttribute("user") == null) {
             response.sendRedirect("/LogIn.jsp");
         }else{
             access_type = (int) session.getAttribute("access_type");
             user = (String) session.getAttribute("user");
+            data = (List<Product>) request.getSession().getAttribute("data");
         }
     %>
 </head>
