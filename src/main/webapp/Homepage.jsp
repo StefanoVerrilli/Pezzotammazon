@@ -14,13 +14,17 @@
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
   String user = null;
-  if(session.getAttribute("user") == null)
+  int access_type;
+  if(session.getAttribute("user") == null) {
       response.sendRedirect("/LogIn.jsp");
-  else{
+  }else{
+      access_type = (int) session.getAttribute("access_type");
       user = (String) session.getAttribute("user");
   }
 %>
-<jsp:include page="Header.jsp" />
+<jsp:include page="Header.jsp">
+    <jsp:param name="access_type" value="${access_type}"/>
+</jsp:include>
 <h1>HI ${user}</h1>
 </body>
 </html>

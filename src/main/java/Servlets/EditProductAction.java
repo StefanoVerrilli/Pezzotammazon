@@ -25,7 +25,7 @@ public class EditProductAction extends HttpServlet {
         productToAdd.setID(Integer.parseInt(request.getParameter("productID")));
         try {
             ProductOperations.ModifyProduct(productToAdd);
-            response.sendRedirect("ProductsTable.jsp");
+            response.sendRedirect("ProductPageLogic");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

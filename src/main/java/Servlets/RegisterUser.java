@@ -14,8 +14,9 @@ public class RegisterUser extends HttpServlet {
             throws ServletException, IOException {
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
+        String username = request.getParameter("username");
         try{
-            if(UsersOperations.RegisterNewUser(mail,password)){
+            if(UsersOperations.RegisterNewUser(mail,password,username)){
                 HttpSession newSession = request.getSession();
                 response.sendRedirect("/LogIn.jsp");
         }else{

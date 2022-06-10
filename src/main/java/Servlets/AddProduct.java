@@ -21,6 +21,7 @@ public class AddProduct extends HttpServlet {
         productToAdd.setName(request.getParameter("productName"));
         productToAdd.setDesc(request.getParameter("productDesc"));
         Float Cost = Float.parseFloat(request.getParameter("productCost"));
+        System.out.println(Cost);
         int Amount = Integer.parseInt(request.getParameter("productAmount"));
         productToAdd.setCost(Cost);
         productToAdd.setAmount(Amount);

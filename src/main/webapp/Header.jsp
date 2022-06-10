@@ -15,10 +15,22 @@
 <head>
     <title>Header</title>
     <%
+        Navbar myNavbar = new Navbar();
+        if(session.getAttribute("user") == null) {
+            response.sendRedirect("/LogIn.jsp");
+        }else{
         Director director = new Director();
         AdminNavBuilder adminNavBar = new AdminNavBuilder();
-        director.constructUserNavBar(adminNavBar);
-        Navbar myNavbar = adminNavBar.getProduct();
+        int Access;
+        Access = Integer.parseInt(request.getParameter("access_type"));
+        if(Access == 0) {
+            director.constructUserNavBar(adminNavBar);
+            myNavbar = adminNavBar.getProduct();
+        }else{
+            director.constructAdminNavBar(adminNavBar);
+            myNavbar = adminNavBar.getProduct();
+        }
+        }
         %>
 </head>
 <body>

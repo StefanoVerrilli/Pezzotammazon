@@ -1,16 +1,30 @@
 <%@ page import="Classes.Product" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Classes.ProductOperations" %>
+<%@ page import="Classes.Memento.ProductList" %>
+<%@ page import="Classes.Memento.Memento" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
     <title>Products</title>
     <%
-        List<Product> data = ProductOperations.GetProducts();
+        List<Product> data = (List<Product>) request.getSession().getAttribute("data");
+        List<Memento> myMemento = (List<Memento>) request.getSession().getAttribute("concreteMemento");
+        response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
+        String user = null;
+        int access_type;
+        if(session.getAttribute("user") == null) {
+            response.sendRedirect("/LogIn.jsp");
+        }else{
+            access_type = (int) session.getAttribute("access_type");
+            user = (String) session.getAttribute("user");
+        }
     %>
 </head>
 <body>
-<jsp:include page="Header.jsp" />
+<jsp:include page="Header.jsp">
+    <jsp:param name="access_type" value="${access_type}"/>
+</jsp:include>
 <table>
     <tr>
     <th>ID</th>
@@ -36,5 +50,6 @@
     %>
     </tbody>
 </table>
+<a href="Undo">undo</a>
 </body>
 </html>

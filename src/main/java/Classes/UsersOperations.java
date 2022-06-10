@@ -56,19 +56,54 @@ public class UsersOperations {
         }
 
     }
-    public static boolean RegisterNewUser(String mail,String Password) throws SQLException{
+    public static boolean RegisterNewUser(String mail,String Password,String username) throws SQLException{
         if(!checkMailExists(mail)){
-            String Registration = "INSERT INTO users (email,password) "
-                    + "VALUES(?,?)";
+            String Registration = "INSERT INTO users (email,password,username) "
+                    + "VALUES(?,?,?)";
             PreparedStatement p = myDb.getConnection().prepareStatement(Registration);
             String MyHash = MyHashfunction.HashValue(Password);
             p.setString(1,mail);
             p.setString(2,MyHash);
+            p.setString(3,username);
             int result = p.executeUpdate();
             p.close();
             return true;
         }else{
             return false;
         }
+    }
+    public static String GetUsername(String email) throws SQLException{
+        String cc = null;
+        if(checkMailExists(email)) {
+            String UsernameQuery = "SELECT username "
+                    + "FROM users "
+                    + "WHERE email=?";
+            PreparedStatement p = myDb.getConnection().prepareStatement(UsernameQuery);
+            p.setString(1, email);
+            ResultSet rest = p.executeQuery();
+            while (rest.next()) {
+                cc = rest.getString(1);
+            }
+            p.close();
+            rest.close();
+        }
+            return cc;
+        }
+
+    public static String GetAccess(String email) throws SQLException{
+        String cc = null;
+        String UsernameQuery = "SELECT User_type "
+                + "FROM users "
+                + "WHERE email=?";
+        PreparedStatement p = myDb.getConnection().prepareStatement(UsernameQuery);
+        p.setString(1,email);
+        ResultSet rest = p.executeQuery();
+        while (rest.next()) {
+            cc = rest.getString(1);
+        }
+        p.close();
+        rest.close();
+        return cc;
+
     }
 }

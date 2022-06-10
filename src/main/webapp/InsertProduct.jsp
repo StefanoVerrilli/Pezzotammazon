@@ -14,14 +14,18 @@
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
     String user = null;
+    int access_type;
     if(session.getAttribute("user") == null)
         response.sendRedirect("/LogIn.jsp");
     else{
         user = (String) session.getAttribute("user");
+        access_type = (int) session.getAttribute("access_type");
     }
 %>
 <body>
-<jsp:include page="Header.jsp" />
+<jsp:include page="Header.jsp">
+    <jsp:param name="access_type" value="${access_type}"/>
+</jsp:include>
 <form action="AddProduct" method="get" id="productForm">
     <input type="text" id="productName" name="productName" placeholder="Product Name" required>
     <input type="text" id="productDesc" name="productDesc"placeholder="Short Description">
