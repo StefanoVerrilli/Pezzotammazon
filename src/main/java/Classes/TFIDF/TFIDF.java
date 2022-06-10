@@ -15,6 +15,7 @@ public class TFIDF {
     for(String Purchase : UserPurchase) {
         TermFrequencyMap.put(Purchase, GetOccurrence(Purchase));
     }
+    vsavasavasv
     for(String Purchase : UserPurchase){
         TermFrequencyMap.put(Purchase,getFrequency(TermFrequencyMap.get(Purchase),Purchase));
     }
