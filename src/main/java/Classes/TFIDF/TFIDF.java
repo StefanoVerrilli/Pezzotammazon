@@ -12,7 +12,7 @@ public class TFIDF {
     UserPurchase.add("Spazzola per capelli");
     UserPurchase.add("Spazzola per cani");
     HashMap<String, HashMap<String, Float>> TermFrequencyMap = new HashMap<String,HashMap<String,Float>>();
-    for(String Purchase : UserPurchase){
+    for(String Purchase : UserPurchase) {
         TermFrequencyMap.put(Purchase, GetOccurrence(Purchase));
     }
     for(String Purchase : UserPurchase){
@@ -38,8 +38,8 @@ public class TFIDF {
         }
         return occurrences;
     }
-    private HashMap<String,Float> GetOccurrence(String sentence){
-        String[] words = sentence.split(" ");
+    private HashMap<String,Float> GetOccurrence(String Purchase){
+        String[] words = Purchase.split(" ");
         HashMap<String,Float> Occurrence = new HashMap<>();
         for(String word : words){
             if(Occurrence.get(word) == null)
