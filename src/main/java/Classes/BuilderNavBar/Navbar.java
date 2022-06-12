@@ -7,7 +7,6 @@ import java.util.List;
 
 public class Navbar {
     private List<Pair<String,String>> elements = new ArrayList<>();
-
     public List<Pair<String,String>> getElements(){
         return this.elements;
     }

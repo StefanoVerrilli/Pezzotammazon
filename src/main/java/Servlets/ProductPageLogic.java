@@ -31,7 +31,7 @@ public class ProductPageLogic extends HttpServlet {
             mementoList = (ProductList) request.getSession().getAttribute("mymemento");
             ArrayMemento = (List<Memento>) request.getSession().getAttribute("concreteMemento");
         }
-        request.getSession().setAttribute("data",mementoList.getCurrentProductList());
+        request.getSession().setAttribute("data",data);
         ArrayMemento.get(ArrayMemento.size()-1).getLastmem();
         response.sendRedirect("ProductsTable.jsp");
     }

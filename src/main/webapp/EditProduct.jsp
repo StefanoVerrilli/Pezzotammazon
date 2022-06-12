@@ -13,19 +13,15 @@
         String user = null;
         int access_type;
         int id;
-        ProductList ListMemento;
         Product oldProduct = new Product();
         if(session.getAttribute("user") == null) {
             response.sendRedirect("/LogIn.jsp");
         }else{
             access_type = (int) session.getAttribute("access_type");
             user = (String) session.getAttribute("user");
-            ListMemento = (ProductList) session.getAttribute("mymemento");
             id = Integer.parseInt(request.getParameter("id"));
             request.setAttribute("id",id);
             oldProduct = ProductOperations.GetSpecificProduct(Integer.parseInt(request.getParameter("id")));
-            //Memento list = (Memento) request.getSession().getAttribute("concreteMemento");
-
         }
 
     %>
@@ -44,9 +40,21 @@
         <option value="giochi">giochi</option>
         <option value="casa">casa</option>
     </select>
+    <input type="file" id="productImage" name="productImage">
     <input type="submit">
     <input type="hidden" name="productID" value="<%=request.getParameter("id")%>">
 </form>
+<script>
+    const inputElement = document.getElementById('productImage');
+    inputElement.addEventListener("change",function (){
+        const [file] = this.files;
+        if(file){
+            preview.src = URL.createObjectURL(file)
+        }
+        result = this.files;
+    })
+</script>
+<img src="data:image/jpeg;base64,<%=oldProduct.getImage()%>" id="preview">
 <jsp:include page="DeleteProduct.jsp">
     <jsp:param name="id" value="${id}"/>
 </jsp:include>

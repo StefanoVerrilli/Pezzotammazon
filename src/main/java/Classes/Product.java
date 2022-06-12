@@ -9,25 +9,21 @@ public class Product {
     private float cost = 0;
     private String category = "";
 
+    private String image;
+
     public Product(){
     }
 
-    public Product(int _ID,String _name,String _desc,int _amount,float _cost,String _Category){
+    public Product(int _ID, String _name, String _desc, int _amount, float _cost, String _Category, String _image){
         this.ID = _ID;
         this.name = _name;
         this.desc = _desc;
         this.amount = _amount;
         this.cost = _cost;
         this.category = _Category;
+        this.image = _image;
     }
-    public Product(String _ID,String _name,String _desc,String _amount,String _cost,String _Category){
-        this.ID = Integer.parseInt(_ID);
-        this.name = _name;
-        this.desc = _desc;
-        this.amount = Integer.parseInt(_amount);
-        this.cost = Float.parseFloat(_cost);
-        this.category = _Category;
-    }
+
 
     public String getCategory() {
         return category;
@@ -74,5 +70,13 @@ public class Product {
     }
     public void setID(int ID){
         this.ID = ID;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

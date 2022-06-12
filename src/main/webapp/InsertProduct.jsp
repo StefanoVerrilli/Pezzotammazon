@@ -1,25 +1,28 @@
 <%@ page import="Classes.ProductOperations" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <html>
 <head>
     <title>InsertProduct</title>
     <script>
+        var result;
         function submitForm(){
             let form = document.getElementById('productForm');
-            console.log("ciao");
+            var formData = new FormData();
+            formData.append("productName",document.getElementById("productName").value)
+            formData.append("productDesc",document.getElementById("productDesc").value)
+            formData.append("productCost",document.getElementById("productCost").value)
+            formData.append("productAmount",document.getElementById("productAmount").value)
+            formData.append("productCategory",document.getElementById("productCategory").value)
+            formData.append("productImage",productImage.files[0])
+            console.log(productImage.files[0]);
             $.ajax({
                 url: 'AddProduct' ,
-                type: 'GET' ,
-                data: {
-                    'productName' : document.getElementById("productName").value,
-                    'productDesc' : document.getElementById("productDesc").value,
-                    'productCost' : document.getElementById("productCost").value,
-                    'productAmount' : document.getElementById("productAmount").value,
-                    'productCategory' : document.getElementById("productCategory").value
-                },
+                type: 'POST' ,
+                data: formData,
+                processData : false,
+                contentType : false,
                 success : function (){
-                    //Mettici quello che vuoi qua france
+                    alert("success");
                 }
             });
             form.reset();
@@ -42,7 +45,7 @@
 <jsp:include page="Header.jsp">
     <jsp:param name="access_type" value="${access_type}"/>
 </jsp:include>
-<form id="productForm">
+<form id="productForm" enctype="multipart/form-data">
     <input type="text" id="productName" name="productName" placeholder="Product Name" required>
     <input type="text" id="productDesc" name="productDesc"placeholder="Short Description">
     <input type="number" id="productCost" placeholder="Cost" name="productCost" step="0.01" required>
@@ -52,7 +55,19 @@
         <option value="giochi">giochi</option>
         <option value="casa">casa</option>
     </select>
+    <input type="file" id="productImage" name="productImage">
     <input type="button" value="submit" onclick="submitForm()">
 </form>
+<script>
+    const inputElement = document.getElementById('productImage');
+    inputElement.addEventListener("change",function (){
+        const [file] = this.files;
+        if(file){
+            preview.src = URL.createObjectURL(file)
+        }
+        result = this.files;
+    })
+</script>
+<img src="#" id="preview">
 </body>
 </html>

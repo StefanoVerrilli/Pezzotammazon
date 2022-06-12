@@ -22,9 +22,9 @@ public class Check extends HttpServlet {
                     oldsession.invalidate();
                 }
                 HttpSession actualSession = request.getSession();
-                System.out.println("actually here");
                 String user = UsersOperations.GetUsername(mail);
                 actualSession.setAttribute("user",user);
+                actualSession.setAttribute("email",mail);
                 int access_type = Integer.parseInt(UsersOperations.GetAccess(mail));
                 actualSession.setAttribute("access_type",access_type);
                 response.sendRedirect("Homepage.jsp");

@@ -14,6 +14,7 @@
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
   String user = null;
+  String email = null;
   int access_type;
   if(session.getAttribute("user") == null) {
       response.sendRedirect("/LogIn.jsp");
