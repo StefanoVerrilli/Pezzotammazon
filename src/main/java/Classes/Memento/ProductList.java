@@ -29,8 +29,6 @@ public class ProductList {
 
     public void getLastmem(){
         for(int i=0;i<mem_currentProductList.size();i++){
-            System.out.println(mem_currentProductList.get(i).getDesc());
-            System.out.println(mem_currentProductList.get(i).getName());
         }
     }
 

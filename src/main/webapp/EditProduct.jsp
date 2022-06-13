@@ -1,12 +1,36 @@
 <%@ page import="Classes.Product" %>
-<%@ page import="Classes.Database" %>
 <%@ page import="Classes.ProductOperations" %>
-<%@ page import="Classes.Memento.ProductList" %>
-<%@ page import="java.util.List" %>
-<%@ page import="Classes.Memento.Memento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <html>
 <head>
+    <script>
+            var result;
+            function submitForm(){
+            let form = document.getElementById('productForm');
+            var formData = new FormData();
+            formData.append("productName",document.getElementById("productName").value)
+            formData.append("productDesc",document.getElementById("productDesc").value)
+            formData.append("productCost",document.getElementById("productCost").value)
+            formData.append("productAmount",document.getElementById("productAmount").value)
+            formData.append("productCategory",document.getElementById("productCategory").value)
+            formData.append("productID",document.getElementById("productID").value)
+                if(productImage.files[0] != null)
+                    formData.append("productImage",productImage.files[0])
+            $.ajax({
+            url: 'EditProductAction' ,
+            type: 'POST' ,
+            data: formData,
+            processData : false,
+            contentType : false,
+            success: function () {
+                    window.location = "ProductPageLogic"
+            },
+        });
+            form.reset();
+            return false;
+        }
+    </script>
     <title>EditProduct</title>
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
@@ -19,9 +43,8 @@
         }else{
             access_type = (int) session.getAttribute("access_type");
             user = (String) session.getAttribute("user");
-            id = Integer.parseInt(request.getParameter("id"));
-            request.setAttribute("id",id);
-            oldProduct = ProductOperations.GetSpecificProduct(Integer.parseInt(request.getParameter("id")));
+            id = (int) session.getAttribute("id");
+            oldProduct = (Product) session.getAttribute("oldProduct");
         }
 
     %>
@@ -30,7 +53,7 @@
 <jsp:include page="Header.jsp">
     <jsp:param name="access_type" value="${access_type}"/>
 </jsp:include>
-<form action="EditProductAction" method="get" id="productForm">
+<form id="productForm" enctype="multipart/form-data">
     <input type="text" id="productName" name="productName" value="<%=oldProduct.getName() %>" required>
     <input type="text" id="productDesc" name="productDesc" value="<%=oldProduct.getDesc() %>">
     <input type="number" id="productCost" value="<%=oldProduct.getCost() %>" name="productCost" step="0.01" required>
@@ -41,8 +64,8 @@
         <option value="casa">casa</option>
     </select>
     <input type="file" id="productImage" name="productImage">
-    <input type="submit">
-    <input type="hidden" name="productID" value="<%=request.getParameter("id")%>">
+    <input type="button" value="submit" onclick="submitForm()">
+    <input type="hidden" id="productID" name="productID" value="<%=oldProduct.getID()%>">
 </form>
 <script>
     const inputElement = document.getElementById('productImage');
