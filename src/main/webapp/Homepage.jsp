@@ -1,4 +1,4 @@
-<%--
+<%@ page import="Classes.User" %><%--
   Created by IntelliJ IDEA.
   User: stefanoverrilli
   Date: 06/06/22
@@ -13,19 +13,19 @@
 <body>
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-  String user = null;
+  User user = null;
   String email = null;
   int access_type;
   if(session.getAttribute("user") == null) {
       response.sendRedirect("/LogIn.jsp");
   }else{
-      access_type = (int) session.getAttribute("access_type");
-      user = (String) session.getAttribute("user");
+      user = (User) session.getAttribute("user");
+      session.setAttribute("access_type",user.getAccessType());
   }
 %>
 <jsp:include page="Header.jsp">
     <jsp:param name="access_type" value="${access_type}"/>
 </jsp:include>
-<h1>HI ${user}</h1>
+<h1>HI ${user.getUsername()}</h1>
 </body>
 </html>

@@ -12,12 +12,16 @@
 </head>
 <body>
 <h1>Register Now</h1>
-<form action="${pageContext.request.contextPath}/RegisterUser" method="get">
+<form action="LogIn.do" method="post">
     <input type="text" name="username" required>
     <input type="email" name="mail" required>
     <input type="password" name="password" required>
     <input type="submit">
 </form>
+<%
+    if(request.getSession().getAttribute("error") != null){
+    out.print(request.getSession().getAttribute("error"));}
+%>
 <a href="/LogIn.jsp">go back</a>
 </body>
 </html>
