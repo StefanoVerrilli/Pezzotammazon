@@ -1,4 +1,0 @@
-
-database:
-   db_driver: org.sqlite.JDBC
-   db_path: /home/francesco/Documenti/Pezzotammazon/db.sqlite
