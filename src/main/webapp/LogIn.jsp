@@ -8,7 +8,7 @@
 <%response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");%>
 <h1>Log In</h1>
 <br/>
-<form action="${pageContext.request.contextPath}/Check" method="get">
+<form action="${pageContext.request.contextPath}/Check" method="POST">
 <input type="email" name="mail" required>
 <input type="password" name="password" required>
 <input type="submit">

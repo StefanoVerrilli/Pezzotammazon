@@ -1,13 +1,15 @@
 package Classes;
 
-import javax.swing.plaf.nimbus.State;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static Classes.DatabaseSettings.*;
 
 public class Database {
-    private final static String JDBC_DRIVER="org.sqlite.JDBC";
-    private final static String DATABASE_URL = "jdbc:sqlite:/Users/stefanoverrilli/IdeaProjects/UserLogin/db.sqlite";
+    private final static String JDBC_DRIVER = DB_DRIVER;
+    private final static String DATABASE_URL = "jdbc:" + DB_TYPE + ":"+ DB_PATH;
     private Connection conn;
     private static Database dbIsntance;
 
