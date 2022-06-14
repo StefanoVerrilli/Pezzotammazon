@@ -17,39 +17,23 @@ import java.util.List;
 public class ProductPageLogic extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
-        List<Product> data = ProductOperations.GetProducts();
-        ProductList mementoList;
-        List<Memento> ArrayMemento = new ArrayList<>();
-        if(request.getAttribute("mymemento") == null){
-            mementoList = new ProductList();
-            mementoList.setCurrentProductList(ProductOperations.GetProducts());
-            ArrayMemento.add(mementoList.createMemento());
-            request.getSession().setAttribute("mymemento",mementoList);
-            request.getSession().setAttribute("concreteMemento",ArrayMemento);
-        }else{
-            mementoList = (ProductList) request.getSession().getAttribute("mymemento");
-            ArrayMemento = (List<Memento>) request.getSession().getAttribute("concreteMemento");
+            throws ServletException, IOException {
+        List<Product> data = null;
+        try {
+            data = ProductOperations.GetProducts();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         request.getSession().setAttribute("data",data);
-        ArrayMemento.get(ArrayMemento.size()-1).getLastmem();
         response.sendRedirect("ProductsTable.jsp");
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            processRequest(request,response);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        processRequest(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            processRequest(request,response);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+       processRequest(request,response);
     }
 }

@@ -11,29 +11,30 @@ public class UsersOperations {
     private static HashInterface MyHashfunction = new ConcreteHashAlg();
 
 
-    public static boolean checkUser(String mail, String password) throws SQLException {
+    public static User checkUser(String mail, String password) throws SQLException {
 
         String cc = null;
         String HashValue = MyHashfunction.HashValue(password);
-        String query = "SELECT COUNT(*) "
+        String query = "SELECT * "
                 + "FROM users "
                 + "WHERE email= ? AND password= ?";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setString(1,mail);
         p.setString(2,HashValue);
         ResultSet rest = p.executeQuery();
-        while (rest.next()) {
-            cc = rest.getString(1);
+        if(!rest.next()){
+            return null;
         }
+        User newUser = new User();
+        newUser.setEmail(rest.getString(1));
+        newUser.setPassword(rest.getString(2));
+        newUser.setUsername(rest.getString(3));
+        newUser.setAccessType(rest.getInt(4));
 
         p.close();
         rest.close();
 
-        if(Integer.parseInt(cc) == 1){
-            return true;
-        }else{
-            return false;
-        }
+        return newUser;
     }
 
     public static boolean checkMailExists(String mail) throws SQLException{

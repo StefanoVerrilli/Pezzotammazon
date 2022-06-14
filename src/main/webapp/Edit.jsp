@@ -1,6 +1,7 @@
 <%@ page import="Classes.Product" %>
-<%@ page import="Classes.ProductOperations" %>
+<%@ page import="Classes.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <html>
 <head>
@@ -10,7 +11,7 @@
             let form = document.getElementById('productForm');
             var formData = new FormData();
             formData.append("productName",document.getElementById("productName").value)
-            formData.append("productDesc",document.getElementById("productDesc").value)
+                formData.append("productDesc",document.getElementById("productDesc").value)
             formData.append("productCost",document.getElementById("productCost").value)
             formData.append("productAmount",document.getElementById("productAmount").value)
             formData.append("productCategory",document.getElementById("productCategory").value)
@@ -18,7 +19,7 @@
                 if(productImage.files[0] != null)
                     formData.append("productImage",productImage.files[0])
             $.ajax({
-            url: 'EditProductAction' ,
+            url: 'EditAction.do' ,
             type: 'POST' ,
             data: formData,
             processData : false,
@@ -34,17 +35,17 @@
     <title>EditProduct</title>
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-        String user = null;
+        User user = null;
         int access_type;
         int id;
         Product oldProduct = new Product();
         if(session.getAttribute("user") == null) {
             response.sendRedirect("/LogIn.jsp");
         }else{
-            access_type = (int) session.getAttribute("access_type");
-            user = (String) session.getAttribute("user");
-            id = (int) session.getAttribute("id");
-            oldProduct = (Product) session.getAttribute("oldProduct");
+            user = (User) session.getAttribute("user");
+            access_type = user.getAccessType();
+            oldProduct = (Product) session.getAttribute("Product");
+            id = oldProduct.getID();
         }
 
     %>
@@ -63,9 +64,9 @@
         <option value="giochi">giochi</option>
         <option value="casa">casa</option>
     </select>
+    <input type="hidden" id="productID" name="productID" value="<%=oldProduct.getID()%>">
     <input type="file" id="productImage" name="productImage">
     <input type="button" value="submit" onclick="submitForm()">
-    <input type="hidden" id="productID" name="productID" value="<%=oldProduct.getID()%>">
 </form>
 <script>
     const inputElement = document.getElementById('productImage');
@@ -78,8 +79,8 @@
     })
 </script>
 <img src="data:image/jpeg;base64,<%=oldProduct.getImage()%>" id="preview">
-<jsp:include page="DeleteProduct.jsp">
-    <jsp:param name="id" value="${id}"/>
-</jsp:include>
+
+<a href="delete.do?id=<%=oldProduct.getID()%>">Delete</a>
+
 </body>
 </html>

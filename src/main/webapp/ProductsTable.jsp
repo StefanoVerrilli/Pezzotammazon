@@ -1,29 +1,24 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="Classes.Product" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.sql.Blob" %>
-<%@ page import="java.util.Arrays" %>
-<%@ page import="java.util.Base64" %>
-<%@ page import="Classes.State.OperationContext" %>
-<%@ page import="Servlets.EditProductAction" %>
+<%@ page import="Classes.User" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
     <title>Products</title>
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-        String user = null;
+        User user = null;
         List<Product> data = new ArrayList<>();
         int access_type;
         if(session.getAttribute("user") == null) {
             response.sendRedirect("/LogIn.jsp");
         }else{
             access_type = (int) session.getAttribute("access_type");
-            user = (String) session.getAttribute("user");
-            data = (List<Product>) request.getSession().getAttribute("data");
-            OperationContext context = new OperationContext();
-            EditProductAction editMode = new EditProductAction();
-            context.setOperationState(editMode);
+            user = (User) session.getAttribute("user");
+            data = (List<Product>) session.getAttribute("data");
         }
     %>
 </head>
@@ -42,22 +37,18 @@
         <th>Image</th>
         <th>Modify</th>
     </tr>
-    <tbody>
-    <%
-        for(int i=0;i<data.size();i++){
-            out.print("<tr>");
-            out.print("<td>"+data.get(i).getID() + "</td>");
-            out.print("<td>"+data.get(i).getName() + "</td>");
-            out.print("<td>"+data.get(i).getAmount() + "</td>");
-            out.print("<td>"+data.get(i).getCost() + "</td>");
-            out.print("<td>"+data.get(i).getCategory() + "</td>");
-            out.print("<td>"+data.get(i).getDesc() + "</td>");
-            out.print("<td>"+"<img src=\"data:image/png;base64,"+data.get(i).getImage()+"\" width=100 height=100></img>"+"</td>");
-            out.print("<td>"+"<a href=\"EditProductActionState?id=" + data.get(i).getID() +"\">Edit</a>" +"</td>");
-        }
-    %>
-    </tbody>
+    <c:forEach items="${data}" var="product">
+        <tr>
+            <td><fmt:formatNumber value="${product.getID()}" type="number"/> </td>
+            <td><c:out value="${product.getName()}"/> </td>
+            <td><fmt:formatNumber value="${product.getAmount()}" groupingUsed="false" type="number" /> </td>
+            <td><fmt:formatNumber value="${product.getCost()}" type="currency" maxFractionDigits="2" currencyCode="EUR" /></td>
+            <td><c:out value="${product.getCategory()}" /> </td>
+            <td><c:out value="${product.getDesc()}" /> </td>
+            <td><img src="data:image/png;base64,${product.getImage()}" width="100" height="100"></td>
+            <td><a href="${pageContext.request.contextPath}/Edit.do?id=${product.getID()}">modifica</a> </td>
+        </tr>
+    </c:forEach>
 </table>
-<a href="Undo">undo</a>
 </body>
 </html>

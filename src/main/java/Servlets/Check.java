@@ -1,4 +1,4 @@
-package Servlets;
+/*package Servlets;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -47,3 +47,4 @@ public class Check extends HttpServlet {
         processRequest(request,response);
     }
 }
+*/

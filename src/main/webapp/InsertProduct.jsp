@@ -1,4 +1,5 @@
 <%@ page import="Classes.ProductOperations" %>
+<%@ page import="Classes.User" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <html>
 <head>
@@ -14,9 +15,8 @@
             formData.append("productAmount",document.getElementById("productAmount").value)
             formData.append("productCategory",document.getElementById("productCategory").value)
             formData.append("productImage",productImage.files[0])
-            console.log(productImage.files[0]);
             $.ajax({
-                url: 'AddProduct' ,
+                url: 'Insert.do' ,
                 type: 'POST' ,
                 data: formData,
                 processData : false,
@@ -32,12 +32,12 @@
 </head>
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-    String user = null;
+    User user = null;
     int access_type;
     if(session.getAttribute("user") == null)
         response.sendRedirect("/LogIn.jsp");
     else{
-        user = (String) session.getAttribute("user");
+        user = (User) session.getAttribute("user");
         access_type = (int) session.getAttribute("access_type");
     }
 %>

@@ -1,3 +1,4 @@
+<%@ page import="Classes.Pattern.*" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -6,7 +7,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
-<%response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");%>
+
+<%//response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
+    Actions.putAction("POST/LogIn.do", new LogIn());
+    //Actions.putAction("POST/LogIn.do",new Register());
+    Actions.putAction("GET/ProductsTable.do",new ProductsPageLogic());
+    Actions.putAction("GET/Edit.do",new Edit());
+    Actions.putAction("GET/delete.do",new delete());
+    Actions.putAction("POST/EditAction.do",new EditAction());
+    Actions.putAction("POST/Insert.do",new Insert());
+%>
+
 
 <!-- NAVBAR -->
 <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -55,7 +66,7 @@
     <h1 class="has-text-centered title is-1">Log In</h1>
     <div class="columns is-mobile is-centered">
         <div class="column is-half">
-            <form method="POST" action="${pageContext.request.contextPath}/Check" class="box">
+            <form method="POST" action="LogIn.do" class="box">
                 <div class="column is-vcentered">
                     <label class="label" for="email">Email</label>
                     <div class="control">
@@ -69,12 +80,11 @@
 
                     <input type="submit" class="button is-primary is-half mt-3 block" value="Login">
                 </div>
-                Don't have an account yet? <a href="/LogIn.jsp/register.jsp">Register</a>.
+                Don't have an account yet? <a href="register.jsp">Register</a>.
             </form>
         </div>
     </div>
 </div>
-
 
 </body>
 </html>

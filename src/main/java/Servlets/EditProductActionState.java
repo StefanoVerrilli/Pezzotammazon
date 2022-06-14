@@ -32,7 +32,7 @@ public class EditProductActionState extends HttpServlet implements State {
             request.getSession().setAttribute("redirect",redirect);
             request.getSession().setAttribute("oldProduct",lastLoadedProduct);
             System.out.println("hi pt.2");
-            response.sendRedirect("EditProduct.jsp");
+            response.sendRedirect("Edit.jsp");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
