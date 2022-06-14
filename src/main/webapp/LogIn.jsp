@@ -17,7 +17,7 @@
 %>
 <h1>Log In</h1>
 <br/>
-<form action="LogIn.do" method="get">
+<form action="LogIn.do" method="post">
 <input type="email" name="mail" required>
 <input type="password" name="password" required>
 <input type="submit">
