@@ -10,7 +10,6 @@
 
 <%//response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
     Actions.putAction("POST/LogIn.do", new LogIn());
-    //Actions.putAction("POST/LogIn.do",new Register());
     Actions.putAction("GET/ProductsTable.do",new ProductsPageLogic());
     Actions.putAction("GET/Edit.do",new Edit());
     Actions.putAction("GET/delete.do",new delete());

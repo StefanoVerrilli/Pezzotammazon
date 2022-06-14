@@ -5,6 +5,7 @@
   Time: 09:33
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -18,10 +19,9 @@
     <input type="password" name="password" required>
     <input type="submit">
 </form>
-<%
-    if(request.getSession().getAttribute("error") != null){
-    out.print(request.getSession().getAttribute("error"));}
-%>
+<c:if test="${error !=null}">
+    <p><c:out value="${error}"></c:out></p>
+</c:if>
 <a href="/LogIn.jsp">go back</a>
 </body>
 </html>

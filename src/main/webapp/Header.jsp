@@ -1,15 +1,7 @@
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="Classes.Pair" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="Classes.BuilderNavBar.Director" %>
-<%@ page import="java.util.List" %>
 <%@ page import="Classes.BuilderNavBar.AdminNavBuilder" %>
-<%@ page import="Classes.BuilderNavBar.Navbar" %><%--
-  Created by IntelliJ IDEA.
-  User: stefanoverrilli
-  Date: 07/06/22
-  Time: 13:24
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="Classes.BuilderNavBar.Navbar" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -30,17 +22,16 @@
             director.constructAdminNavBar(adminNavBar);
             myNavbar = adminNavBar.getProduct();
         }
+        request.getSession().setAttribute("myNavbar",myNavbar);
         }
         %>
 </head>
 <body>
 <table>
     <tr>
-    <%
-        for(int i=0;i<myNavbar.getElements().size();i++){
-            out.print("<td>"+"<a href="+"\"" + myNavbar.getElements().get(i).getValue() + "\">" + myNavbar.getElements().get(i).getKey() +"</a>"+"</td>");
-        }
-    %>
+    <c:forEach items="${myNavbar.getElements()}" var="link" >
+        <td><a href="<c:out value="${product.getValue()}"/>">${link.getKey()}</a> </td>
+    </c:forEach>
     </tr>
 </table>
 </body>
