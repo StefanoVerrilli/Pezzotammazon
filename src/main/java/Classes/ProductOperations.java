@@ -19,8 +19,6 @@ public class ProductOperations {
             Statement stat = (Statement) myDb.getConnection().createStatement();
             ResultSet rest = stat.executeQuery(query);
             ResultSetMetaData metaData = rest.getMetaData();
-            int ColsCount = metaData.getColumnCount();
-            System.out.println("ciao");
             while(rest.next()){
                 Product CurrProduct = new Product();
                 CurrProduct.setID(Integer.parseInt(rest.getString("ID")));
@@ -60,8 +58,7 @@ public class ProductOperations {
         p.setFloat(4,myProduct.getCost());
         p.setString(5,myProduct.getCategory());
         p.setString(6,myProduct.getImage());
-        System.out.println("questo vede" + myProduct.getID());
-        p.setInt(6,myProduct.getID());
+        p.setInt(7,myProduct.getID());
         p.executeUpdate();
         p.close();
     }
@@ -74,6 +71,7 @@ public class ProductOperations {
         p.setInt(1,ID);
         ResultSet rest = p.executeQuery();
         Product NewProduct = new Product();
+        NewProduct.setID(rest.getInt("ID"));
         NewProduct.setName(rest.getString("Name"));
         NewProduct.setAmount(rest.getInt("Amount"));
         NewProduct.setDesc(rest.getString("Description"));

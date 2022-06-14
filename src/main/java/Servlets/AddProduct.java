@@ -33,7 +33,6 @@ public class AddProduct extends HttpServlet {
         productToAdd.setImage(Base64.getEncoder().encodeToString(bytesArray));
         try {
             ProductOperations.AddProduct(productToAdd);
-            response.sendRedirect("InsertProduct.jsp");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
