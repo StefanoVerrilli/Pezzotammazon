@@ -1,10 +1,14 @@
 <%@ page import="Classes.Pattern.*" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>${page_title}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+<jsp:include page="Head.jsp">
+    <jsp:param name="page_title" value="Login to Pezzotammazon"/>
+</jsp:include>
+
+<jsp:include page="Navbar.jsp">
+    <jsp:param name="access_type" value="${access_type}"/>
+</jsp:include>
+
     <%//response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
         Actions.putAction("POST/LogIn.do", new LogIn());
         Actions.putAction("GET/ProductsTable.do",new ProductsPageLogic());
@@ -14,49 +18,7 @@
         Actions.putAction("POST/Insert.do",new Insert());
         Actions.putAction("POST/Register.do",new Register());
     %>
-</head>
 <body>
-<!-- NAVBAR -->
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-            <img src="static/logo.png" width="150" height="80" style="max-height: initial">
-        </a>
-
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-    </div>
-
-    <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-            <a class="navbar-item">
-                Home
-            </a>
-
-            <a class="navbar-item">
-                Documentation
-            </a>
-        </div>
-
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light">
-                        Log in
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-
-
 
 
 <div class="container content">
@@ -77,7 +39,7 @@
 
                     <input type="submit" class="button is-primary is-half mt-3 block" value="Login">
                 </div>
-                Don't have an account yet? <a href="register.jsp">Register</a>.
+                Don't have an account yet? <a href="register.jsp">Sign up now</a>.
             </form>
         </div>
     </div>

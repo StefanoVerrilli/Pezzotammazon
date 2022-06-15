@@ -8,9 +8,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Cart</title>
+
+<jsp:include page="Head.jsp">
+    <jsp:param name="page_title" value="Cart - Pezzotammazon"/>
+</jsp:include>
+
+<jsp:include page="Navbar.jsp">
+    <jsp:param name="access_type" value="${access_type}"/>
+</jsp:include>
+
   <%
       int access_type = 0;
       String user = null;
@@ -24,9 +30,8 @@
           shoppingList = (List<Order>) session.getAttribute("shoppingList");
       }
   %>
-</head>
 <body>
-<jsp:include page="Header.jsp">
+<jsp:include page="Navbar.jsp">
     <jsp:param name="access_type" value="${access_type}"/>
 </jsp:include>
 <table>

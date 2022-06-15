@@ -41,7 +41,7 @@
     }
 %>
 <body>
-<jsp:include page="Header.jsp">
+<jsp:include page="Navbar.jsp">
     <jsp:param name="access_type" value="${access_type}"/>
 </jsp:include>
 <form id="productForm" enctype="multipart/form-data">
