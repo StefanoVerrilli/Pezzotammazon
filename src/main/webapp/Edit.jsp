@@ -47,7 +47,6 @@
             oldProduct = (Product) session.getAttribute("Product");
             id = oldProduct.getID();
         }
-
     %>
 </head>
 <body>

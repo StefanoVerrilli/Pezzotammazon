@@ -5,19 +5,17 @@
 <head>
     <title>${page_title}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <%//response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
+        Actions.putAction("POST/LogIn.do", new LogIn());
+        Actions.putAction("GET/ProductsTable.do",new ProductsPageLogic());
+        Actions.putAction("GET/Edit.do",new Edit());
+        Actions.putAction("GET/delete.do",new delete());
+        Actions.putAction("POST/EditAction.do",new EditAction());
+        Actions.putAction("POST/Insert.do",new Insert());
+        Actions.putAction("POST/Register.do",new Register());
+    %>
 </head>
 <body>
-
-<%//response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-    Actions.putAction("POST/LogIn.do", new LogIn());
-    Actions.putAction("GET/ProductsTable.do",new ProductsPageLogic());
-    Actions.putAction("GET/Edit.do",new Edit());
-    Actions.putAction("GET/delete.do",new delete());
-    Actions.putAction("POST/EditAction.do",new EditAction());
-    Actions.putAction("POST/Insert.do",new Insert());
-%>
-
-
 <!-- NAVBAR -->
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">

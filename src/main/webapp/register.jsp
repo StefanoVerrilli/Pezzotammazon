@@ -13,7 +13,7 @@
 </head>
 <body>
 <h1>Register Now</h1>
-<form action="LogIn.do" method="post">
+<form action="Register.do" method="post">
     <input type="text" name="username" required>
     <input type="email" name="mail" required>
     <input type="password" name="password" required>

@@ -2,6 +2,7 @@
 <%@ page import="Classes.BuilderNavBar.Director" %>
 <%@ page import="Classes.BuilderNavBar.AdminNavBuilder" %>
 <%@ page import="Classes.BuilderNavBar.Navbar" %>
+<%@ page import="Classes.Pair" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -23,6 +24,10 @@
             myNavbar = adminNavBar.getProduct();
         }
         request.getSession().setAttribute("myNavbar",myNavbar);
+        for(Pair<String,String> navElement: myNavbar.getElements()){
+            System.out.println(navElement.getKey());
+            System.out.println(navElement.getValue());
+        }
         }
         %>
 </head>
@@ -30,7 +35,7 @@
 <table>
     <tr>
     <c:forEach items="${myNavbar.getElements()}" var="link" >
-        <td><a href="<c:out value="${product.getValue()}"/>">${link.getKey()}</a> </td>
+        <td><a href="<c:out value="${link.getValue()}"/>">${link.getKey()}</a> </td>
     </c:forEach>
     </tr>
 </table>
