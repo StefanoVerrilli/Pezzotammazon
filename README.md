@@ -2,9 +2,28 @@
 
 ## Roadmap
 
-- [ ] Memento
+### Features
+
+- [X] Login/Registration
+
+#### Admin
+
+- [X] Add product 
+- [X] Edit product
+- [ ] User view
+
+#### User
+
+- [ ] Cart
+- [ ] Buy product page
+- [ ] Payment page
+- [ ] Main page
+
+
+### Patterns
+
 - [ ] Bridge (clustering, distance metrics)
-- [ ] Builder (user/admin)
+- [X] Builder (user/admin)
 - [ ] Decorator (products)
 - [ ] Strategy (payment)
 - [ ] Suggested products
