@@ -14,16 +14,6 @@ public class Product {
     public Product(){
     }
 
-    public Product(int _ID, String _name, String _desc, int _amount, float _cost, String _Category, String _image){
-        this.ID = _ID;
-        this.name = _name;
-        this.desc = _desc;
-        this.amount = _amount;
-        this.cost = _cost;
-        this.category = _Category;
-        this.image = _image;
-    }
-
 
     public String getCategory() {
         return category;

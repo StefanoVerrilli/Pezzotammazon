@@ -6,7 +6,7 @@ import Classes.Pair;
 public class Director {
 
 
-    private AdminNavBuilder Builder;
+    private BuilderInterface Builder;
 
     public void constructAdminNavBar(BuilderInterface builder){
         builder.addLink(new Pair<String,String>("Inserisci prodotto","InsertProduct.jsp"));
@@ -22,4 +22,5 @@ public class Director {
         builder.addLink(new Pair<String,String>("Visualizza prodotti","ShoppingProduct.jsp"));
         builder.addLink(new Pair<String,String>("Logout","logout"));
     }
+
 }

@@ -4,30 +4,13 @@
 <%@ page import="Classes.BuilderNavBar.Navbar" %>
 <%@ page import="Classes.Pair" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <%
-        Navbar myNavbar = new Navbar();
         if(session.getAttribute("user") == null) {
             response.sendRedirect("/LogIn.jsp");
-        }else{
-        Director director = new Director();
-        AdminNavBuilder adminNavBar = new AdminNavBuilder();
-        int Access;
-        Access = Integer.parseInt(request.getParameter("access_type"));
-        System.out.println(Access);
-        if(Access == 0) {
-            director.constructUserNavBar(adminNavBar);
-            myNavbar = adminNavBar.getProduct();
-        }else{
-            director.constructAdminNavBar(adminNavBar);
-            myNavbar = adminNavBar.getProduct();
-        }
-        request.getSession().setAttribute("myNavbar",myNavbar);
-        for(Pair<String,String> navElement: myNavbar.getElements()){
-            System.out.println(navElement.getKey());
-            System.out.println(navElement.getValue());
-        }
         }
         %>
+
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="/">

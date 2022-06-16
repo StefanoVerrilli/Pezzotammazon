@@ -33,7 +33,7 @@
             processData : false,
             contentType : false,
             success: function () {
-                    window.location = "ProductPageLogic"
+                    window.location = "ProductsTable.do"
             },
         });
             form.reset();

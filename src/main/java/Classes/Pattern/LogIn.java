@@ -15,6 +15,7 @@ public class LogIn implements Action{
         if(user != null){
             request.getSession().setAttribute("access_type",user.getAccessType());
             request.getSession().setAttribute("user",user);
+            BuildNavbar.GetNavbar(request);
             return "Homepage";
         }else{
             request.setAttribute("error","Failed Login");

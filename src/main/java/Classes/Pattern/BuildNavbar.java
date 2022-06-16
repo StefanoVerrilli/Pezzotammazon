@@ -1,0 +1,25 @@
+package Classes.Pattern;
+
+import Classes.BuilderNavBar.AdminNavBuilder;
+import Classes.BuilderNavBar.Director;
+import Classes.BuilderNavBar.Navbar;
+import Classes.Pair;
+
+import javax.servlet.http.HttpServletRequest;
+public class BuildNavbar{
+
+    public static void GetNavbar(HttpServletRequest request) throws Exception {
+        Director director = new Director();
+        Navbar myNavbar;
+        AdminNavBuilder adminNavBar = new AdminNavBuilder();
+        int Access = (int) request.getSession().getAttribute("access_type");
+        if(Access == 0) {
+            director.constructUserNavBar(adminNavBar);
+            myNavbar = adminNavBar.getProduct();
+        }else{
+            director.constructAdminNavBar(adminNavBar);
+            myNavbar = adminNavBar.getProduct();
+        }
+        request.getSession().setAttribute("myNavbar",myNavbar);
+    }
+}

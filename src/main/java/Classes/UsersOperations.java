@@ -73,38 +73,4 @@ public class UsersOperations {
             return false;
         }
     }
-    public static String GetUsername(String email) throws SQLException{
-        String cc = null;
-        if(checkMailExists(email)) {
-            String UsernameQuery = "SELECT username "
-                    + "FROM users "
-                    + "WHERE email=?";
-            PreparedStatement p = myDb.getConnection().prepareStatement(UsernameQuery);
-            p.setString(1, email);
-            ResultSet rest = p.executeQuery();
-            while (rest.next()) {
-                cc = rest.getString(1);
-            }
-            p.close();
-            rest.close();
-        }
-            return cc;
-        }
-
-    public static String GetAccess(String email) throws SQLException{
-        String cc = null;
-        String UsernameQuery = "SELECT User_type "
-                + "FROM users "
-                + "WHERE email=?";
-        PreparedStatement p = myDb.getConnection().prepareStatement(UsernameQuery);
-        p.setString(1,email);
-        ResultSet rest = p.executeQuery();
-        while (rest.next()) {
-            cc = rest.getString(1);
-        }
-        p.close();
-        rest.close();
-        return cc;
-
-    }
 }
