@@ -1,9 +1,10 @@
 <%@ page import="Classes.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>MainPage</title>
-</head>
+
+<jsp:include page="Head.jsp">
+    <jsp:param name="page_title" value="Pezzotammazon"/>
+</jsp:include>
+
 <body>
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
@@ -17,7 +18,7 @@
       session.setAttribute("access_type",user.getAccessType());
   }
 %>
-<jsp:include page="Header.jsp">
+<jsp:include page="Navbar.jsp">
     <jsp:param name="access_type" value="${access_type}"/>
 </jsp:include>
 <h1>HI ${user.getUsername()}</h1>
