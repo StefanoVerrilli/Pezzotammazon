@@ -1,7 +1,5 @@
 package Classes;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-
 import java.sql.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
