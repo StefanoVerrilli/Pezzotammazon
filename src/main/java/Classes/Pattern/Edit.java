@@ -2,7 +2,6 @@ package Classes.Pattern;
 
 import Classes.Product;
 import Classes.ProductOperations;
-import Servlets.ProductPageLogic;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

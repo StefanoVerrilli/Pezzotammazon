@@ -2,7 +2,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <html>
 <head>
-    <title>InsertProduct</title>
+    <jsp:include page="Head.jsp">
+        <jsp:param name="page_title" value="Cart - Pezzotammazon"/>
+    </jsp:include>
+
+    <jsp:include page="Navbar.jsp">
+        <jsp:param name="access_type" value="${access_type}"/>
+    </jsp:include>
+
     <script>
         var result;
         function submitForm(){
@@ -42,9 +49,6 @@
     }
 %>
 <body>
-<jsp:include page="Navbar.jsp">
-    <jsp:param name="access_type" value="${access_type}"/>
-</jsp:include>
 <form id="productForm" enctype="multipart/form-data">
     <input type="text" id="productName" name="productName" placeholder="Product Name" required>
     <input type="text" id="productDesc" name="productDesc"placeholder="Short Description">

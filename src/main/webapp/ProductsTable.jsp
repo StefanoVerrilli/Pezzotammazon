@@ -8,7 +8,14 @@
 <html>
 
 <head>
-    <title>Products</title>
+    <jsp:include page="Head.jsp">
+        <jsp:param name="page_title" value="Cart - Pezzotammazon"/>
+    </jsp:include>
+
+    <jsp:include page="Navbar.jsp">
+        <jsp:param name="access_type" value="${access_type}"/>
+    </jsp:include>
+
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
         User user = null;
@@ -17,16 +24,12 @@
         if(session.getAttribute("user") == null) {
             response.sendRedirect("/LogIn.jsp");
         }else{
-            access_type = (int) session.getAttribute("access_type");
             user = (User) session.getAttribute("user");
             data = (List<Product>) session.getAttribute("data");
         }
     %>
 </head>
 <body>
-<jsp:include page="Navbar.jsp">
-    <jsp:param name="access_type" value="${access_type}"/>
-</jsp:include>
 <table>
     <tr>
     <th>ID</th>

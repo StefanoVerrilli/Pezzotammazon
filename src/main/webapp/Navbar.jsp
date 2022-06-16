@@ -13,6 +13,7 @@
         AdminNavBuilder adminNavBar = new AdminNavBuilder();
         int Access;
         Access = Integer.parseInt(request.getParameter("access_type"));
+        System.out.println(Access);
         if(Access == 0) {
             director.constructUserNavBar(adminNavBar);
             myNavbar = adminNavBar.getProduct();
