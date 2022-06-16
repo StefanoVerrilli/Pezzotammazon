@@ -25,6 +25,7 @@
                 }
             });
             form.reset();
+            document.getElementById("preview").src = "";
             return false;
         }
     </script>

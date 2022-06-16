@@ -2,6 +2,7 @@ package Classes.Pattern;
 
 import Classes.User;
 import Classes.UsersOperations;
+import sun.text.normalizer.ICUBinary;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

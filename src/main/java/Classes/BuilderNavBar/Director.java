@@ -17,7 +17,8 @@ public class Director {
 
     public void constructUserNavBar(BuilderInterface builder){
         builder.addLink(new Pair<String,String>("Go Back","Homepage.jsp"));
-        builder.addLink(new Pair<String,String>("Carrello","CartLogic"));
+        builder.addLink(new Pair<String,String>("Carrello","Cart.jsp"));
+        builder.addLink(new Pair<String,String>("Test Insert","TestInsertOrder.do"));
         builder.addLink(new Pair<String,String>("Visualizza prodotti","ShoppingProduct.jsp"));
         builder.addLink(new Pair<String,String>("Logout","logout"));
     }

@@ -1,4 +1,5 @@
 <%@ page import="Classes.Pattern.*" %>
+<%@ page import="Classes.Pair" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -6,13 +7,16 @@
     <title>${page_title}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <%//response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-        Actions.putAction("POST/LogIn.do", new LogIn());
-        Actions.putAction("GET/ProductsTable.do",new ProductsPageLogic());
-        Actions.putAction("GET/Edit.do",new Edit());
-        Actions.putAction("GET/delete.do",new delete());
-        Actions.putAction("POST/EditAction.do",new EditAction());
-        Actions.putAction("POST/Insert.do",new Insert());
-        Actions.putAction("POST/Register.do",new Register());
+        Actions.putAction("POST/LogIn.do", new Pair<>(new LogIn(),0));
+        Actions.putAction("GET/ProductsTable.do",new Pair<>(new ProductsPageLogic(),1));
+        Actions.putAction("GET/Edit.do",new Pair<>(new Edit(),1));
+        Actions.putAction("GET/delete.do",new Pair<>(new delete(),1));
+        Actions.putAction("POST/EditAction.do",new Pair<>(new EditAction(),1));
+        Actions.putAction("POST/Insert.do",new Pair<>(new Insert(),1));
+        Actions.putAction("POST/Register.do",new Pair<>(new Register(),0));
+        Actions.putAction("GET/TestInsertOrder.do",new Pair<>(new TestInsertOrder(),0));
+        Actions.putAction("POST/ChangeCost.do",new Pair<>(new ChangeCost(),0));
+        Actions.putAction("POST/DeleteOrder.do",new Pair<>(new DeleteOrder(),0));
     %>
 </head>
 <body>

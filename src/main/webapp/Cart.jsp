@@ -1,6 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="Classes.Order" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="Classes.User" %><%--
   Created by IntelliJ IDEA.
   User: stefanoverrilli
   Date: 10/06/22
@@ -8,45 +10,80 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <html>
 <head>
     <title>Cart</title>
   <%
-      int access_type = 0;
-      String user = null;
+      User user;
       List<Order> shoppingList = new ArrayList<>();
       response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
       if(session.getAttribute("user") == null) {
           response.sendRedirect("/LogIn.jsp");
       }else{
-          access_type = (int) session.getAttribute("access_type");
-          user = (String) session.getAttribute("user");
-          shoppingList = (List<Order>) session.getAttribute("shoppingList");
+          user = (User) session.getAttribute("user");
       }
   %>
+    <script>
+        function Quantity(id){
+            let quantity = document.getElementById("quantity").value;
+            let formdata = new FormData();
+            formdata.append("orderId",id);
+            formdata.append("orderQuantity",quantity);
+            $.ajax({
+                url: 'ChangeCost.do' ,
+                type: 'POST' ,
+                data: formdata,
+                processData : false,
+                contentType : false,
+                success : function (){
+                    $('#table').load("Cart.jsp #table");
+                    $('#total').load("Cart.jsp #total");
+                }
+            });
+            return false;
+        }
+        function Delete(id){
+            let formdata = new FormData();
+            console.log("arrived")
+            formdata.append("id",id);
+            $.ajax({
+                url: 'DeleteOrder.do',
+                type: 'POST',
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success : function (){
+                    $('#table').load("Cart.jsp #table");
+                    $('#total').load("Cart.jsp #total");
+                }
+            })
+        }
+    </script>
 </head>
 <body>
 <jsp:include page="Header.jsp">
     <jsp:param name="access_type" value="${access_type}"/>
 </jsp:include>
-<table>
+<c:set var="total" value="${0}"/>
+<table id="table">
     <tr>
         <th>Name</th>
         <th>Quantity</th>
-        <th>Cost</th>
-    </tr>
-    <tbody>
-    <%
-        for(int i=0;i<shoppingList.size();i++){
-            out.print("<tr>");
-            out.print("<td>"+shoppingList.get(i).getName() + "</td>");
-            out.print("<td>"+shoppingList.get(i).getQuantity() + "</td>");
-            out.print("<td>"+shoppingList.get(i).getCost() + "</td>");
-            out.print("<tr>");
-        }
-    %>
-    </tbody>
+        <th>SubTotal</th>
+        <th>Delete</th>
+    <c:forEach items="${ShoppingList}" var="item">
+    <c:set var="total" value="${total + item.getSubTotal()}"/>
+    <tr>
+        <td> <c:out value="${item.getName()}"/> </td>
+        <td> <input type="number" id="quantity" name="quantity" min="1" max="100" value="${item.getQuantity()}" onchange="Quantity(${item.getID()})" ></td>
+        <td>  <input type="number" id="subtotal" value="${item.getSubTotal()}" disabled readonly></td>
+        <td> <button onclick="Delete(${item.getID()})">Remove</button> </td>
+</tr>
+    </c:forEach>
 </table>
-
+<div id="total">
+    ${total}
+</div>
 </body>
 </html>

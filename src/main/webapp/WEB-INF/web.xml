@@ -23,5 +23,4 @@
     <welcome-file-list>
         <welcome-file>LogIn.jsp</welcome-file>
     </welcome-file-list>
-
 </web-app>
