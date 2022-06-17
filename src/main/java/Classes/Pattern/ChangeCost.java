@@ -1,6 +1,8 @@
 package Classes.Pattern;
 
 import Classes.Order;
+import Classes.OrdersOperations;
+import Classes.User;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -12,14 +14,13 @@ public class ChangeCost implements Action{
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int quantity = Integer.parseInt(request.getParameter("orderQuantity"));
         int id = Integer.parseInt(request.getParameter("orderId"));
-        List<Order> ShoppingList = (List<Order>) request.getSession().getAttribute("ShoppingList");
-        for(Order element : ShoppingList){
-            if(element.getID() == id){
-                element.setQuantity(quantity);
-                element.UpdateSubTotal();
-            }
-        }
-        request.setAttribute("ShoppingList",ShoppingList);
+        OrdersOperations ordersOperations = new OrdersOperations();
+        Order order = ordersOperations.get(id).get();
+        System.out.println(order.getQuantity());
+        order.setQuantity(quantity);
+        ordersOperations.update(order);
+        User user = (User) request.getSession().getAttribute("user");
+        request.getSession().setAttribute("ShoppingList",ordersOperations.getCart(user.getId()));
         return "Cart";
     }
 }

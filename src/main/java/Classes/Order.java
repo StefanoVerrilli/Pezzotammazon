@@ -1,31 +1,17 @@
 package Classes;
 
-public class Order {
+import Classes.Observer.Subscriber;
+
+public class Order implements Subscriber {
+
+    private Product product;
+
+    private int user_id;
 
     private int ID;
-    private float SubTotal;
-    private int quantity;
-    private float Cost;
-    private String Name;
+    private int quantity = 1;
 
     public Order(){
-        this.quantity = 1;
-        this.SubTotal = quantity*Cost;
-    }
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public float getCost() {
-        return Cost;
-    }
-
-    public void setCost(float cost) {
-        Cost = cost;
     }
 
     public int getQuantity() {
@@ -45,10 +31,22 @@ public class Order {
     }
 
     public float getSubTotal() {
-        return SubTotal;
-    }
-    public void UpdateSubTotal(){
-        this.SubTotal = this.Cost*this.quantity;
+        return this.product.getCost()*quantity;
     }
 
+    public void setProduct(Product product){this.product = product;}
+    public Product getProduct(){return this.product;}
+
+    @Override
+    public void update(Product product) {
+        this.product = product;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 }

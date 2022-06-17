@@ -7,11 +7,14 @@ public class User {
     private String username;
     private int accessType;
 
+    private int id;
+
     public User(User passedUser){
         this.accessType = passedUser.getAccessType();
         this.password = passedUser.getPassword();
         this.email = passedUser.getEmail();
         this.username = passedUser.getUsername();
+        this.id = passedUser.getId();
     }
 
     public User() {
@@ -48,5 +51,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -18,13 +18,11 @@
 </jsp:include>
 
     <%
-      User user;
-      List<Order> shoppingList = new ArrayList<>();
       response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
       if(session.getAttribute("user") == null) {
           response.sendRedirect("/LogIn.jsp");
       }else{
-          user = (User) session.getAttribute("user");
+          List<Order> ShoppingList = (List<Order>) request.getSession().getAttribute("ShoppingList");
       }
   %>
     <script>
@@ -48,7 +46,7 @@
         }
         function Delete(id){
             let formdata = new FormData();
-            console.log("arrived")
+            console.log(id)
             formdata.append("id",id);
             $.ajax({
                 url: 'DeleteOrder.do',
@@ -75,9 +73,9 @@
     <c:forEach items="${ShoppingList}" var="item">
     <c:set var="total" value="${total + item.getSubTotal()}"/>
     <tr>
-        <td> <c:out value="${item.getName()}"/> </td>
+        <td> <c:out value="${item.getProduct().getName()}"/> </td>
         <td> <input type="number" id="quantity" name="quantity" min="1" max="100" value="${item.getQuantity()}" onchange="Quantity(${item.getID()})" ></td>
-        <td>  <input type="number" id="subtotal" value="${item.getSubTotal()}" disabled readonly></td>
+        <td>  <input type="number" id="subtotal" value="${item.getProduct().getCost()*item.getQuantity()}" disabled readonly></td>
         <td> <button onclick="Delete(${item.getID()})">Remove</button> </td>
 </tr>
     </c:forEach>

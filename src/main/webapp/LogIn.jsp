@@ -14,6 +14,8 @@
         Actions.putAction("GET/TestInsertOrder.do",new TestInsertOrder());
         Actions.putAction("POST/ChangeCost.do",new ChangeCost());
         Actions.putAction("POST/DeleteOrder.do",new DeleteOrder());
+        Actions.putAction("GET/LogOut.do",new LogOut());
+        Actions.putAction("GET/CartLogic.do",new CartLogic());
         if(request.getSession().getAttribute("user") != null){
             response.sendRedirect("Homepage.jsp");
         }

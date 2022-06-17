@@ -1,6 +1,8 @@
 package Classes.Pattern;
 
 import Classes.Order;
+import Classes.OrdersOperations;
+import Classes.User;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -10,10 +12,12 @@ import java.util.List;
 public class DeleteOrder implements Action{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-            List<Order> tempList = (List<Order>) request.getSession().getAttribute("ShoppingList");
             int id = Integer.parseInt(request.getParameter("id"));
-            tempList.removeIf(element -> element.getID() == id);
-            request.getSession().setAttribute("ShoppingList", tempList);
+            System.out.println(id);
+            OrdersOperations ordersOperations = new OrdersOperations();
+            ordersOperations.delete(id);
+            User user = (User) request.getSession().getAttribute("user");
+            request.getSession().setAttribute("ShoppingList", ordersOperations.getCart(user.getId()));
             return "Cart";
     }
 }

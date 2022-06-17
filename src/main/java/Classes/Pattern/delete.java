@@ -10,8 +10,9 @@ public class delete implements Action{
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String  id = request.getParameter("id");
         if(id != null){
-            ProductOperations.DeleteProduct(Integer.parseInt(id));
-            request.getSession().setAttribute("data",ProductOperations.GetProducts());
+            ProductOperations productOperations = new ProductOperations();
+            productOperations.delete(Integer.parseInt(id));
+            request.getSession().setAttribute("data",productOperations.getAll());
             return "ProductsTable";
         }else{
             return "";

@@ -1,8 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="Classes.BuilderNavBar.Director" %>
-<%@ page import="Classes.BuilderNavBar.AdminNavBuilder" %>
-<%@ page import="Classes.BuilderNavBar.Navbar" %>
-<%@ page import="Classes.Pair" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <%
@@ -23,7 +19,7 @@
             <span aria-hidden="true"></span>
         </a>
     </div>
-
+<c:if test="${user != null}">
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
             <c:forEach items="${myNavbar.getElements()}" var="link" >
@@ -32,7 +28,7 @@
             </a>
             </c:forEach>
         </div>
-
     </div>
+</c:if>
 </nav>
 

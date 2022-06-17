@@ -26,7 +26,8 @@ public class Insert implements Action{
         byte[] bytesArray = IOUtils.toByteArray(is);
         productToAdd.setImage(Base64.getEncoder().encodeToString(bytesArray));
         try {
-            ProductOperations.AddProduct(productToAdd);
+            ProductOperations productOperations = new ProductOperations();
+            productOperations.add(productToAdd);
             return "";
         } catch (SQLException e) {
             throw new RuntimeException(e);
