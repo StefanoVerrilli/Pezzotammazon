@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <jsp:include page="Head.jsp">
         <jsp:param name="page_title" value="Products - Pezzotammazon"/>
@@ -20,16 +21,27 @@
     <!-- TITOLO SEZIONE -->
     <h2 class="title">Section title</h2>
 
-    <div class="block is-flex is-flex-direction-row is-justify-content-flex-start is-flex-wrap-wrap">
+    <div class="block is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap">
 <c:forEach var="product" items="${data}">
         <!-- PRODOTTO SINGOLO -->
-        <a href="/" class="mx-5 my-3">
-            <div class="box is-inline-block">
+        <a href="/" class="mx-5 my-3 box is-inline-block">
+            <div class="block is-clipped" style="height: 200px; width:300px">
                 <figure class="image has-ratio 16by9" style="max-width:300px">
                     <img src="data:image/png;base64,${product.getImage()}">
                 </figure>
-                <p class="title is-6 mt-3"><c:out value="${product.getName()}"/> </p>
             </div>
+            <p class="title is-5 mt-3"><c:out value="${product.getName()}"/> </p>
+            <p class="title is-4 mt-3">
+                <c:choose>
+                    <c:when test="${product.decimalIsZero(product.getCost())}">
+                        <fmt:formatNumber value="${product.getCost()}" minFractionDigits="0" maxFractionDigits="0"/>
+                    </c:when>
+                    <c:otherwise>
+                        <fmt:formatNumber value="${product.getCost()}" minFractionDigits="2" maxFractionDigits="2"/>
+                    </c:otherwise>
+                </c:choose>
+                 €
+            </p>
         </a>
 </c:forEach>
     </div>

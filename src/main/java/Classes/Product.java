@@ -87,4 +87,6 @@ public class Product {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public boolean decimalIsZero(float number) {return (number % 1) == 0;}
 }
