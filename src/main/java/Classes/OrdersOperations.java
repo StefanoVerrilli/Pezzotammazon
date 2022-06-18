@@ -9,6 +9,15 @@ import java.util.Optional;
 
 public class OrdersOperations implements DAO<Order>{
 
+    public void EmptyOrders(int User_id) throws SQLException{
+        String query = "DELETE FROM \"Order\" "
+                + "WHERE User_ID = ? ";
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
+        p.setInt(1,User_id);
+        p.executeUpdate();
+        p.close();
+    }
+
     @Override
     public Optional<Order> get(int id) throws SQLException {
         String query = "SELECT * "

@@ -10,17 +10,21 @@ import java.util.List;
 public class TestInsertOrder implements Action{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Order TestOrder = new Order();
-        ProductOperations productOperations = new ProductOperations();
-        Product TestProduct = productOperations.get(5).get();
-        TestOrder.setQuantity(1);
-        TestOrder.setProduct(TestProduct);
-        User user = (User) request.getSession().getAttribute("user");
-        TestOrder.setUser_id(user.getId());
-        OrdersOperations ordersOperations = new OrdersOperations();
-        ordersOperations.add(TestOrder);
-        request.getSession().setAttribute("ShoppingList",ordersOperations.getCart(user.getId()));
-
-        return "Homepage";
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        if(id != null){
+            ProductOperations productOperations = new ProductOperations();
+            Product newProduct = productOperations.get(id).get();
+            Order newOrder = new Order();
+            newOrder.setProduct(newProduct);
+            User user = (User) request.getSession().getAttribute("user");
+            newOrder.setUser_id(user.getId());
+            OrdersOperations ordersOperations = new OrdersOperations();
+            ordersOperations.add(newOrder);
+            request.getSession().setAttribute("ShoppingList",ordersOperations.getCart(user.getId()));
+            return "Homepage";
+        }else{
+            request.getSession().setAttribute("error","Invalid Product, please retry");
+            return "UserProducts";
+        }
     }
 }

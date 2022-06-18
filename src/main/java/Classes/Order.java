@@ -1,8 +1,7 @@
 package Classes;
 
-import Classes.Observer.Subscriber;
 
-public class Order implements Subscriber {
+public class Order {
 
     private Product product;
 
@@ -36,11 +35,6 @@ public class Order implements Subscriber {
 
     public void setProduct(Product product){this.product = product;}
     public Product getProduct(){return this.product;}
-
-    @Override
-    public void update(Product product) {
-        this.product = product;
-    }
 
     public int getUser_id() {
         return user_id;

@@ -1,12 +1,9 @@
 package Classes;
 
-import Classes.Observer.Subscriber;
-
 import java.util.List;
 
 public class Product {
 
-    private List<Subscriber> subs;
 
     private int ID = 0;
     private String name = "";
@@ -18,19 +15,6 @@ public class Product {
     private String image;
 
     public Product(){
-    }
-
-
-    public void subscribe(Subscriber sub){
-        subs.add(sub);
-    }
-    public void unsubscribe(Subscriber sub){
-        subs.remove(sub);
-    }
-    public void Update(){
-        for(Subscriber sub : subs){
-            sub.update(this);
-        }
     }
 
     public String getCategory() {

@@ -18,7 +18,6 @@ public class BuildNavbar{
         AdminNavBuilder adminNavBar = new AdminNavBuilder();
         if(request.getSession().getAttribute("access_type") != null){
         int Access = (int) request.getSession().getAttribute("access_type");
-        System.out.println("access: " + request.getSession().getAttribute("access_type"));
         if(Access == 0) {
             director.constructUserNavBar(adminNavBar);
             myNavbar = adminNavBar.getProduct();

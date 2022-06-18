@@ -83,5 +83,6 @@
 <div id="total">
     ${total}
 </div>
+<button onclick="" >Pay</button>
 </body>
 </html>
