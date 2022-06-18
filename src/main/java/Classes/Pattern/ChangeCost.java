@@ -13,10 +13,10 @@ public class ChangeCost implements Action{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int quantity = Integer.parseInt(request.getParameter("orderQuantity"));
+        System.out.println(quantity);
         int id = Integer.parseInt(request.getParameter("orderId"));
         OrdersOperations ordersOperations = new OrdersOperations();
         Order order = ordersOperations.get(id).get();
-        System.out.println(order.getQuantity());
         order.setQuantity(quantity);
         ordersOperations.update(order);
         User user = (User) request.getSession().getAttribute("user");

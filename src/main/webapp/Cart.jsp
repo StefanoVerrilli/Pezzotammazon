@@ -26,8 +26,8 @@
       }
   %>
     <script>
-        function Quantity(id){
-            let quantity = document.getElementById("quantity").value;
+        function Quantity(id,quantity){
+            console.log(quantity);
             let formdata = new FormData();
             formdata.append("orderId",id);
             formdata.append("orderQuantity",quantity);
@@ -74,7 +74,7 @@
     <c:set var="total" value="${total + item.getSubTotal()}"/>
     <tr>
         <td> <c:out value="${item.getProduct().getName()}"/> </td>
-        <td> <input type="number" id="quantity" name="quantity" min="1" max="100" value="${item.getQuantity()}" onchange="Quantity(${item.getID()})" ></td>
+        <td> <input type="number" id="quantity" name="quantity" min="1" max="100" value="${item.getQuantity()}" onchange="Quantity(${item.getID()},this.value)" ></td>
         <td>  <input type="number" id="subtotal" value="${item.getProduct().getCost()*item.getQuantity()}" disabled readonly></td>
         <td> <button onclick="Delete(${item.getID()})">Remove</button> </td>
 </tr>

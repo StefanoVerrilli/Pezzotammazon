@@ -1,10 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: francesco
-  Date: 18/06/22
-  Time: 13:58
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="Head.jsp">
     <jsp:param name="page_title" value="Products - Pezzotammazon"/>
@@ -18,20 +13,20 @@
     <div class="column is-flex-grow-3 is-flex-shrink-1 container is-max-desktop" style="min-width:300px">
         <div class="block">
             <figure class="image is-fullwidth mx-auto">
-                <img src="https://bulma.io/images/placeholders/128x128.png">
+                <img src="data:image/png;base64,${Product.getImage()}">
             </figure>
         </div>
     </div>
     <div class="column is-flex-grow-4 is-flex-shink-2 is-align-self-flex-start" style="min-width:500px">
         <div class="block">
-            <p class="title">Product title</p>
-                Product description
+            <p class="title">${Product.getName()}</p>
+                ${Product.getDesc()}
             </div>
     </div>
     <div style="min-width:250px" class="column is-flex-grow-2 is-flex-shink-4">
         <div class="block">
-            <p class="title is-5">--,-- €</p>
-            <button class="button is-large is-fullwidth is-primary">Add to cart</button>
+            <p class="title is-2"><fmt:formatNumber value="${Product.getCost()}" type="currency" maxFractionDigits="2" currencyCode="EUR"/></p>
+            <a href="TestInsertOrder.do?id=${Product.getID()}" class="button is-large is-fullwidth is-primary">Add to cart</a>
         </div>
     </div>
 </div>

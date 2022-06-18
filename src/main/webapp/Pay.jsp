@@ -18,8 +18,10 @@
 </head>
 <body>
 <form method="post" action="">
-  <input type="radio" value="Carta" name="CreditCard">
-  <input type="radio" value="Bancomat" name="Bancomat">
+  <input type="radio" value="Card" id="Card" name="CreditCard">
+  <label for="Card">Card</label><br>
+  <input type="radio" id="Bacomat" value="Bancomat" name="Bancomat">
+  <label for="Bacomat">Bancomat</label>
   <input type="submit" name="Proceed">
 </form>
 </body>

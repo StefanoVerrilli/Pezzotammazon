@@ -21,7 +21,7 @@ public class TestInsertOrder implements Action{
             OrdersOperations ordersOperations = new OrdersOperations();
             ordersOperations.add(newOrder);
             request.getSession().setAttribute("ShoppingList",ordersOperations.getCart(user.getId()));
-            return "Homepage";
+            return "Cart";
         }else{
             request.getSession().setAttribute("error","Invalid Product, please retry");
             return "UserProducts";

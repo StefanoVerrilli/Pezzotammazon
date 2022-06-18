@@ -11,7 +11,7 @@ public class Discriminator {
     }
 
     public String UserDiscriminator(){
-        return (id != null) ? "ProductDetail" : "UserProducts";
+        return (id != null) ? "ProductPage" : "UserProducts";
     }
 
     public String AdminDiscriminator(){
