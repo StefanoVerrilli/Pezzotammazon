@@ -5,9 +5,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Classes.User" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<html>
 
-<head>
     <jsp:include page="Head.jsp">
         <jsp:param name="page_title" value="Cart - Pezzotammazon"/>
     </jsp:include>
