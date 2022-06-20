@@ -48,7 +48,7 @@
             <td><c:out value="${product.getCategory()}" /> </td>
             <td><c:out value="${product.getDesc()}" /> </td>
             <td><img src="data:image/png;base64,${product.getImage()}" width="100" height="100"></td>
-            <td><a href="${pageContext.request.contextPath}/Edit.do?id=${product.getID()}">modifica</a> </td>
+            <td><a href="${pageContext.request.contextPath}/FetchProduct.do?id=${product.getID()}">modifica</a> </td>
         </tr>
     </c:forEach>
 </table>

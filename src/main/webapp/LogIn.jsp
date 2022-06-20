@@ -1,21 +1,12 @@
-<%@ page import="Classes.Pattern.*" %>
-<%@ page import="Classes.Pair" %>
+<%@ page import="Classes.State.Context" %>
+<%@ page import="Classes.State.DefaultState" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-        Actions.putAction("POST/LogIn.do", new LogIn());
-        Actions.putAction("GET/ProductsTable.do",new ProductsPageLogic());
-        Actions.putAction("GET/Edit.do",new Edit());
-        Actions.putAction("GET/delete.do",new delete());
-        Actions.putAction("POST/EditAction.do",new EditAction());
-        Actions.putAction("POST/Insert.do",new Insert());
-        Actions.putAction("POST/Register.do",new Register());
-        Actions.putAction("GET/TestInsertOrder.do",new TestInsertOrder());
-        Actions.putAction("POST/ChangeCost.do",new ChangeCost());
-        Actions.putAction("POST/DeleteOrder.do",new DeleteOrder());
-        Actions.putAction("GET/LogOut.do",new LogOut());
-        Actions.putAction("GET/CartLogic.do",new CartLogic());
+        Context context = new Context();
+        DefaultState defaultState = new DefaultState(context);
+        defaultState.LoadLink();
         if(request.getSession().getAttribute("user") != null){
             response.sendRedirect("Homepage.jsp");
         }

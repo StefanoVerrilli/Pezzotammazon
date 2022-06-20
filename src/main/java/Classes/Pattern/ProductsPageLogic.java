@@ -1,5 +1,8 @@
 package Classes.Pattern;
 
+import Classes.Command.DiscriminatorProducts;
+import Classes.Command.Dispatcher;
+import Classes.Command.Invoker;
 import Classes.Product;
 import Classes.ProductOperations;
 import Classes.User;
@@ -16,6 +19,8 @@ public class ProductsPageLogic implements Action{
         List<Product> data = productOperations.getAll();
         request.getSession().setAttribute("data",data);
         User user = (User) request.getSession().getAttribute("user");
-        return (user.getAccessType() == 1) ? "ProductsTable" : "UserProducts";
+        DiscriminatorProducts discriminator = new DiscriminatorProducts(data);
+        Invoker invoker = new Invoker(new Dispatcher(discriminator,user));
+        return  invoker.executeOperation();
     }
 }

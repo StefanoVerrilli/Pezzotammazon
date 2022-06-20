@@ -3,12 +3,8 @@ package Classes.Pattern;
 import Classes.BuilderNavBar.AdminNavBuilder;
 import Classes.BuilderNavBar.Director;
 import Classes.BuilderNavBar.Navbar;
-import Classes.Pair;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BuildNavbar{
 

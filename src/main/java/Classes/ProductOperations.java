@@ -24,6 +24,7 @@ public class ProductOperations implements DAO<Product>{
         NewProduct.setDesc(rest.getString("Description"));
         NewProduct.setCategory(rest.getString("Category"));
         NewProduct.setCost(rest.getFloat("Cost"));
+
         NewProduct.setImage(rest.getString("Image"));
         p.close();
         return Optional.of(NewProduct);
@@ -54,7 +55,7 @@ public class ProductOperations implements DAO<Product>{
     public boolean add(Product product) throws SQLException {
         int result;
         String query = "INSERT INTO products (Name,Description,Amount,Cost,Category,Image) "
-                + "VALUES(?,?,?,?,?,?)";
+                + "VALUES(?,?,?,ROUND(?,2),?,?)";
         PreparedStatement p = DAO.myDb.getConnection().prepareStatement(query);
         p.setString(1,product.getName());
         p.setString(2,product.getDesc());

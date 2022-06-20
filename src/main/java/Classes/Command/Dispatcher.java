@@ -1,15 +1,18 @@
 package Classes.Command;
 
-import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import Classes.User;
 
-public class Dispatcher {
-    private final List<Command> operations = new ArrayList<>();
+public class Dispatcher implements Command{
 
-    public String executeOperation(Command command) throws SQLException {
-        operations.add(command);
-        return command.Execute();
+    private User user;
+    private DiscriminatorInterface discriminator;
+
+    public Dispatcher(DiscriminatorInterface discriminator, User user){
+        this.user = user;
+        this.discriminator = discriminator;
+    }
+    @Override
+    public String Execute() {
+        return user.getAccessType() == 1 ? this.discriminator.AdminPages() : this.discriminator.UserPages();
     }
 }

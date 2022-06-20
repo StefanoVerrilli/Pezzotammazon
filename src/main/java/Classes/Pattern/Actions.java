@@ -14,4 +14,6 @@ public class Actions {
     public static Action getAction(String method){
         return ActionsAccess.get(method);
     }
+
+    public static void delete(){ActionsAccess.clear();}
 }

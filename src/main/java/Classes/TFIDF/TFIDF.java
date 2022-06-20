@@ -10,10 +10,9 @@ public class TFIDF {
     //acquistati dall' utente i-esimo
     public void TF(){
     ArrayList<String> UserPurchase = new ArrayList<>();
-    UserPurchase.add("Sabbia per gatti");
-    UserPurchase.add("Giochi per bambini");
-    UserPurchase.add("Oggetti per la casa");
-    UserPurchase.add("Cibo per cani");
+    UserPurchase.add("Minecraft sandbox game");
+    UserPurchase.add("Terraria sandbox game");
+    UserPurchase.add("Pallone supersantos");
     HashMap<String, HashMap<String, Float>> TermFrequencyMap = new HashMap<String,HashMap<String,Float>>();
     for(String Purchase : UserPurchase) {
         TermFrequencyMap.put(Purchase, GetOccurrence(Purchase));
@@ -21,7 +20,7 @@ public class TFIDF {
     for(String Purchase : UserPurchase){
         TermFrequencyMap.put(Purchase,getFrequency(TermFrequencyMap.get(Purchase),Purchase));
     }
-        //PrintTF(UserPurchase,TermFrequencyMap);
+
     HashMap<String, Double> SentenceWithWord = new HashMap<>();
     for(String Purchase : UserPurchase){
         for(String word : TermFrequencyMap.get(Purchase).keySet()){

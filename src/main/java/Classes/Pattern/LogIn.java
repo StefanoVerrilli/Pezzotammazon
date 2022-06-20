@@ -1,5 +1,8 @@
 package Classes.Pattern;
 
+import Classes.Command.DiscriminatorLinks;
+import Classes.Command.Dispatcher;
+import Classes.Command.Invoker;
 import Classes.User;
 import Classes.UsersOperations;
 
@@ -16,7 +19,9 @@ public class LogIn implements Action{
             request.getSession().setAttribute("access_type",user.getAccessType());
             request.getSession().setAttribute("user",user);
             BuildNavbar.GetNavbar(request);
-            return "Homepage";
+            DiscriminatorLinks discriminatorLinks = new DiscriminatorLinks();
+            Invoker invoker = new Invoker(new Dispatcher(discriminatorLinks,user));
+            return invoker.executeOperation();
         }else{
             request.setAttribute("error","Failed Login");
             return "LogIn";

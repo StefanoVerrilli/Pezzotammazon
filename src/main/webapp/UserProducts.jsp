@@ -24,7 +24,7 @@
     <div class="block is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap">
 <c:forEach var="product" items="${data}">
         <!-- PRODOTTO SINGOLO -->
-        <a href="Edit.do?id=${product.getID()}" class="mx-5 my-3 box is-inline-block">
+        <a href="FetchProduct.do?id=${product.getID()}" class="mx-5 my-3 box is-inline-block">
             <div class="block is-clipped" style="height: 200px; width:300px">
                 <figure class="image has-ratio 16by9" style="max-width:300px">
                     <img src="data:image/png;base64,${product.getImage()}">

@@ -1,6 +1,8 @@
 package Classes;
 
 
+import java.math.BigDecimal;
+
 public class Order {
 
     private Product product;
@@ -29,8 +31,9 @@ public class Order {
         this.ID = ID;
     }
 
-    public float getSubTotal() {
-        return this.product.getCost()*quantity;
+    public double getSubTotal() {
+        float subtotal = this.product.getCost()*quantity;
+        return (Math.round(subtotal*100.0)/100.0);
     }
 
     public void setProduct(Product product){this.product = product;}

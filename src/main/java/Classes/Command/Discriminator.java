@@ -1,8 +1,6 @@
 package Classes.Command;
 
-import java.util.Optional;
-
-public class Discriminator {
+public class Discriminator implements DiscriminatorInterface{
 
     private Integer id;
 
@@ -10,11 +8,10 @@ public class Discriminator {
         this.id = id;
     }
 
-    public String UserDiscriminator(){
-        return (id != null) ? "ProductPage" : "UserProducts";
-    }
-
-    public String AdminDiscriminator(){
+    @Override
+    public String UserPages(){return (id != null) ? "ProductPage" : "UserProducts";}
+    @Override
+    public String AdminPages(){
         return (id != null) ? "Edit" : "ProductsTable";
     }
 }

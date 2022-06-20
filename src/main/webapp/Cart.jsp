@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Classes.User" %>
+<%@ page import="java.text.DecimalFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <html>
@@ -24,6 +25,8 @@
       }else{
           List<Order> ShoppingList = (List<Order>) request.getSession().getAttribute("ShoppingList");
       }
+        DecimalFormat df = new DecimalFormat("#.##");
+
   %>
     <script>
         function Quantity(id,quantity){
@@ -75,7 +78,7 @@
     <tr>
         <td> <c:out value="${item.getProduct().getName()}"/> </td>
         <td> <input type="number" id="quantity" name="quantity" min="1" max="100" value="${item.getQuantity()}" onchange="Quantity(${item.getID()},this.value)" ></td>
-        <td>  <input type="number" id="subtotal" value="${item.getProduct().getCost()*item.getQuantity()}" disabled readonly></td>
+        <td>  <input type="number" id="subtotal" value="${item.getSubTotal()}" disabled readonly></td>
         <td> <button onclick="Delete(${item.getID()})">Remove</button> </td>
 </tr>
     </c:forEach>

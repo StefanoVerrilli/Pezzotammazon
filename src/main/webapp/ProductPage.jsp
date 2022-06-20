@@ -8,6 +8,10 @@
 <jsp:include page="Navbar.jsp">
    <jsp:param name="access_type" value="${access_type}"/>
 </jsp:include>
+<%
+    if(session.getAttribute("user") == null) {
+        response.sendRedirect("/LogIn.jsp");}
+%>
 <body>
 <div class="mx-auto container is-fullhd columns is-flex is-flex-direction-row is-flex-wrap-wrap is-justify-content-space-between is-align-content-center is-align-items-center">
     <div class="column is-flex-grow-3 is-flex-shrink-1 container is-max-desktop" style="min-width:300px">
@@ -26,7 +30,7 @@
     <div style="min-width:250px" class="column is-flex-grow-2 is-flex-shink-4">
         <div class="block">
             <p class="title is-2"><fmt:formatNumber value="${Product.getCost()}" type="currency" maxFractionDigits="2" currencyCode="EUR"/></p>
-            <a href="TestInsertOrder.do?id=${Product.getID()}" class="button is-large is-fullwidth is-primary">Add to cart</a>
+            <a href="AddCart.do?id=${Product.getID()}" class="button is-large is-fullwidth is-primary">Add to cart</a>
         </div>
     </div>
 </div>
