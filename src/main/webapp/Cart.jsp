@@ -58,7 +58,7 @@
             contentType: false,
             success : function (){
                 $('#cart').load("Cart.jsp #cart");
-                $('#total').load("Cart.jsp #total");
+                $('#pay').load("Cart.jsp #pay");
             }
         })
     }
@@ -111,11 +111,12 @@
     </div>
 
 
-
+    <span id="pay">
     <div class="is-pulled-right has-text-centered box mx-5" style="width:30vw; position:sticky; top:10vh">
         <p class="has-text-centered is-size-2 has-text-info"><span id="total">${total}</span> €</p>
         <a href="Pay.jsp" class="mt-3 block button is-primary is-medium is-responsive">Pay</a>
     </div>
+    </span>
     </c:otherwise>
     </c:choose>
 </div>
