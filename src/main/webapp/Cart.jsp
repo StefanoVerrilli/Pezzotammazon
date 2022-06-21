@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="Classes.Order" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
@@ -113,7 +114,7 @@
 
 
     <div class="is-pulled-right has-text-centered box mx-5" style="width:30vw; position:sticky; top:10vh">
-        <p class="has-text-centered is-size-2 has-text-info"><span id="total">${total}</span> €</p>
+        <p class="has-text-centered is-size-2 has-text-info"><span id="total"><fmt:formatNumber value="${total}" type="currency" maxFractionDigits="2" currencyCode="EUR" /></span></p>
         <a href="Pay.jsp" class="mt-3 block button is-primary is-medium is-responsive">Pay</a>
     </div>
     </c:otherwise>
