@@ -107,7 +107,7 @@ public class UsersOperations implements DAO<User>{
             p.setString(1,user.getEmail());
             p.setString(2,MyHash);
             p.setString(3,user.getUsername());
-            int result = p.executeUpdate();
+            p.executeUpdate();
             p.close();
             return true;
         }
