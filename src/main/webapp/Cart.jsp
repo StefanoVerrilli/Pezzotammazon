@@ -86,6 +86,6 @@
 <div id="total">
     ${total}
 </div>
-<button onclick="" >Pay</button>
+<a href="Pay.jsp">Pay</a>
 </body>
 </html>

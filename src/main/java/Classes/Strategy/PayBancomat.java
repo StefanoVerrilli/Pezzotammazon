@@ -1,8 +1,15 @@
 package Classes.Strategy;
 
-public class PayBancomat implements IPay{
+public class PayBancomat implements IPayMethod{
+    String key = "Bancomat";
+
     @Override
-    public void Pay() {
-        System.out.println("U paid with Bancomat");
+    public String getKey() {
+        return key;
+    }
+
+    @Override
+    public Payment Create() {
+        return new PaymentBancomat();
     }
 }

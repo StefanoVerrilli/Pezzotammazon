@@ -17,12 +17,14 @@
   </jsp:include>
 </head>
 <body>
-<form method="post" action="">
-  <input type="radio" value="Card" id="Card" name="CreditCard">
+<form method="post" action="PaymentLogic.do">
+  <fieldset name="selected">
+  <input type="radio" value="CreditCard" id="Card" name="Option">
   <label for="Card">Card</label><br>
-  <input type="radio" id="Bacomat" value="Bancomat" name="Bancomat">
+  <input type="radio" id="Bacomat" value="Bancomat" name="Option">
   <label for="Bacomat">Bancomat</label>
   <input type="submit" name="Proceed">
+    </fieldset>
 </form>
 </body>
 </html>
