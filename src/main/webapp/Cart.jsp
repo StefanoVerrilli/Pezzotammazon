@@ -6,10 +6,6 @@
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<html>
-<head>
-    <title>Cart</title>
-
 <jsp:include page="Head.jsp">
     <jsp:param name="page_title" value="Cart - Pezzotammazon"/>
 </jsp:include>
@@ -28,64 +24,82 @@
         DecimalFormat df = new DecimalFormat("#.##");
 
   %>
-    <script>
-        function Quantity(id,quantity){
-            console.log(quantity);
-            let formdata = new FormData();
-            formdata.append("orderId",id);
-            formdata.append("orderQuantity",quantity);
-            $.ajax({
-                url: 'ChangeCost.do' ,
-                type: 'POST' ,
-                data: formdata,
-                processData : false,
-                contentType : false,
-                success : function (){
-                    $('#table').load("Cart.jsp #table");
-                    $('#total').load("Cart.jsp #total");
-                }
-            });
-            return false;
-        }
-        function Delete(id){
-            let formdata = new FormData();
-            console.log(id)
-            formdata.append("id",id);
-            $.ajax({
-                url: 'DeleteOrder.do',
-                type: 'POST',
-                data: formdata,
-                processData: false,
-                contentType: false,
-                success : function (){
-                    $('#table').load("Cart.jsp #table");
-                    $('#total').load("Cart.jsp #total");
-                }
-            })
-        }
-    </script>
-</head>
+
 <body>
+
+<script>
+    function Quantity(id,quantity){
+        console.log(quantity);
+        let formdata = new FormData();
+        formdata.append("orderId",id);
+        formdata.append("orderQuantity",quantity);
+        $.ajax({
+            url: 'ChangeCost.do' ,
+            type: 'POST' ,
+            data: formdata,
+            processData : false,
+            contentType : false,
+            success : function (){
+                $('#cart').load("Cart.jsp #cart");
+                $('#total').load("Cart.jsp #total");
+            }
+        });
+        return false;
+    }
+    function Delete(id){
+        let formdata = new FormData();
+        console.log(id)
+        formdata.append("id",id);
+        $.ajax({
+            url: 'DeleteOrder.do',
+            type: 'POST',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success : function (){
+                $('#cart').load("Cart.jsp #cart");
+                $('#total').load("Cart.jsp #total");
+            }
+        })
+    }
+</script>
+
 <c:set var="total" value="${0}"/>
-<table id="table">
-    <tr>
-        <th>Name</th>
-        <th>Quantity</th>
-        <th>SubTotal</th>
-        <th>Delete</th>
-    <c:forEach items="${ShoppingList}" var="item">
-    <c:set var="total" value="${total + item.getSubTotal()}"/>
-    <tr>
-        <td> <c:out value="${item.getProduct().getName()}"/> </td>
-        <td> <input type="number" id="quantity" name="quantity" min="1" max="100" value="${item.getQuantity()}" onchange="Quantity(${item.getID()},this.value)" ></td>
-        <td>  <input type="number" id="subtotal" value="${item.getSubTotal()}" disabled readonly></td>
-        <td> <button onclick="Delete(${item.getID()})">Remove</button> </td>
-</tr>
-    </c:forEach>
-</table>
-<div id="total">
-    ${total}
+<div id="cart" class="container is-flex is-justify-content-center block">
+    <c:choose>
+        <c:when test="${empty ShoppingList}">
+            <p class="has-text-centered">Your cart is empty.</p>
+        </c:when>
+        <c:otherwise>
+        <div class="columns">
+            <div class="column is-align-self-center">
+                <c:forEach items="${ShoppingList}" var="item">
+                    <c:set var="total" value="${total + item.getSubTotal()}"/>
+                    <div class="block">
+                        <div class="columns">
+                            <div class="column"> <c:out value="${item.getProduct().getName()}"/> </div>
+                            <div class="column"> <input type="number" id="quantity" name="quantity" min="1" max="100" value="${item.getQuantity()}" onchange="Quantity(${item.getID()},this.value)" ></div>
+                            <div class="is-hidden">  <input type="number" id="subtotal" value="${item.getSubTotal()}" disabled readonly></div>
+                            <div class="column">
+                                <button onclick="Delete(${item.getID()})" class="button is-danger is-outlined is-small">
+                                    <span class="icon is-small">
+                                       <i class="fas fa-times"></i>
+                                    </span>
+                                    <span>Remove</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+        </div>
+            <div class="column">
+            <p class="has-text-centered"><span id="total">${total}</span> €</p>
+        <button onclick="" class="mx-auto block button is-primary is-medium is-responsive">Pay</button>
+        </div>
+        </div>
+        </c:otherwise>
+    </c:choose>
 </div>
-<button onclick="" >Pay</button>
+
 </body>
 </html>

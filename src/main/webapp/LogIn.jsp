@@ -26,13 +26,19 @@
             <form method="POST" action="LogIn.do" class="box">
                 <div class="column is-vcentered">
                     <label class="label" for="email">Email</label>
-                    <div class="control">
+                    <div class="control has-icons-left has-icons-right">
                         <input class="input" id="email" name="mail" type="email" placeholder="username@example.org" required="">
+                        <span class="icon is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
                     </div>
 
                     <label for="password" class="label mt-3">Password</label>
-                    <div class="control">
+                    <div class="control has-icons-left has-icons-right">
                         <input class="input" id="password" name="password" type="password" placeholder="password" required="">
+                        <span class="icon is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
                     </div>
 
                     <input type="submit" class="button is-primary is-half mt-3 block" value="Login">
