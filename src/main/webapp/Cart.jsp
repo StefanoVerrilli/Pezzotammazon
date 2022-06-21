@@ -65,40 +65,67 @@
 </script>
 
 <c:set var="total" value="${0}"/>
-<div id="cart" class="container is-flex is-justify-content-center block">
-    <c:choose>
-        <c:when test="${empty ShoppingList}">
-            <p class="has-text-centered">Your cart is empty.</p>
-        </c:when>
-        <c:otherwise>
-        <div class="columns">
-            <div class="column is-align-self-center">
-                <c:forEach items="${ShoppingList}" var="item">
-                    <c:set var="total" value="${total + item.getSubTotal()}"/>
-                    <div class="block">
-                        <div class="columns">
-                            <div class="column"> <c:out value="${item.getProduct().getName()}"/> </div>
-                            <div class="column"> <input type="number" id="quantity" name="quantity" min="1" max="100" value="${item.getQuantity()}" onchange="Quantity(${item.getID()},this.value)" ></div>
-                            <div class="is-hidden">  <input type="number" id="subtotal" value="${item.getSubTotal()}" disabled readonly></div>
-                            <div class="column">
-                                <button onclick="Delete(${item.getID()})" class="button is-danger is-outlined is-small">
+<div class="container is-fluid" style="margin-top: 20vh">
+        <div  class="is-flex is-align-content-space-around is-inline-block mx-5 box" style="width: 50vw">
+        <div class="column is-align-self-center">
+        <div id="cart">
+            <c:choose>
+            <c:when test="${empty ShoppingList}">
+                <p class="has-text-centered">Your cart is empty.</p>
+            </c:when>
+            <c:otherwise>
+        <c:forEach items="${ShoppingList}" var="item">
+            <c:set var="total" value="${total + item.getSubTotal()}"/>
+            <div class="py-5" style="border-bottom: 1px solid gray; border-top: 1px solid gray">
+                <div class="columns">
+                    <div class="is-pulled-right ">
+                        <figure class="image is-128x128">
+                            <img src="https://bulma.io/images/placeholders/128x128.png">
+                        </figure>
+                    </div>
+
+                    <div class="column">
+                        <p class="is-size-3"> <c:out value="${item.getProduct().getName()}"/>  </p><div class="columns">
+
+                        <div class="column"> <input type="number" id="quantity" name="quantity" min="1" max="100" value="${item.getQuantity()}" onchange="Quantity(${item.getID()},this.value)" >
+                        <div class="is-hidden">   <input type="number" id="subtotal" value="${item.getSubTotal()}" disabled readonly></div>
+                        <div class="column has-text-centered">
+                            <button onclick="Delete(${item.getID()})" class="button is-danger is-outlined is-small">
                                     <span class="icon is-small">
                                        <i class="fas fa-times"></i>
                                     </span>
-                                    <span>Remove</span>
-                                </button>
-                            </div>
+                                <span>Remove</span>
+                            </button>
                         </div>
                     </div>
-                </c:forEach>
+
+                    </div>
+
+                </div>
+                    <div></div></div></div>
+                 </c:forEach>
         </div>
-            <div class="column">
-            <p class="has-text-centered"><span id="total">${total}</span> €</p>
-            <a href="Pay.jsp" class="mx-auto block button is-primary is-medium is-responsive">Pay</a>
         </div>
-        </div>
-        </c:otherwise>
+
+
+    </div>
+
+
+
+    <div class="is-pulled-right has-text-centered box mx-5" style="width:30vw">
+        <p class="has-text-centered is-size-2 has-text-info"><span id="total">${total}</span> €</p>
+        <a href="Pay.jsp" class="mt-3 block button is-primary is-medium is-responsive">Pay</a>
+    </div>
+    </c:otherwise>
     </c:choose>
 </div>
+</div>
+
+
+
+
+
+
+
 </body>
 </html>
