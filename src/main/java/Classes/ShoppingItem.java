@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class OrdersOperations implements DAO<Order>{
+public class ShoppingItem implements DAO<Order>{
 
     public void EmptyOrders(int User_id) throws SQLException{
         String query = "DELETE FROM \"Order\" "
@@ -21,8 +21,8 @@ public class OrdersOperations implements DAO<Order>{
     @Override
     public Optional<Order> get(int id) throws SQLException {
         String query = "SELECT * "
-                + "FROM \"Order\" "
-                + "WHERE Order_ID = ? ";
+                + "FROM \"ShoppingItem\" "
+                + "WHERE CartID = ? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1,id);
         ResultSet rest = p.executeQuery();
@@ -97,9 +97,9 @@ public class OrdersOperations implements DAO<Order>{
 
     @Override
     public void update(Order order) throws SQLException {
-        String query = "UPDATE \"Order\" "
+        String query = "UPDATE \"ShoppingItem\" "
                 + "SET Quantity=? "
-                + "WHERE Order_ID=? ";
+                + "WHERE CartID=? AND ProductID=?";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1,order.getQuantity());
         p.setInt(2,order.getID());
@@ -108,11 +108,12 @@ public class OrdersOperations implements DAO<Order>{
     }
 
     @Override
-    public void delete(int id) throws SQLException {
-        String query = "DELETE FROM \"Order\" "
-                + "WHERE Order_ID=? ";
+    public void delete(int CartID,int ProductID) throws SQLException {
+        String query = "DELETE FROM \"ShoppingItem\" "
+                + "WHERE CartID=? AND ProductID=? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1,id);
+        p.setInt(1,CartID);
+        p.setInt(2,ProductID);
         p.executeUpdate();
         p.close();
     }

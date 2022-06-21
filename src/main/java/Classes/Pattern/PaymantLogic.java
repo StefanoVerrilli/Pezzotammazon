@@ -1,6 +1,6 @@
 package Classes.Pattern;
 
-import Classes.OrdersOperations;
+import Classes.ShoppingItem;
 import Classes.Strategy.PaymentFactory;
 import Classes.User;
 
@@ -11,7 +11,7 @@ public class PaymantLogic implements Action{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String method = request.getParameter("Option");
-        OrdersOperations ordersOperations = new OrdersOperations();
+        ShoppingItem ordersOperations = new ShoppingItem();
         User user = (User) request.getSession().getAttribute("user");
         PaymentFactory factory = new PaymentFactory();
         System.out.println(method);

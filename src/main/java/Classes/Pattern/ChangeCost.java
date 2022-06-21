@@ -1,13 +1,13 @@
 package Classes.Pattern;
 
 import Classes.Order;
-import Classes.OrdersOperations;
+import Classes.ShoppingItem;
 import Classes.User;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+
 @MultipartConfig(maxFileSize = 16177215)
 public class ChangeCost implements Action{
     @Override
@@ -15,7 +15,7 @@ public class ChangeCost implements Action{
         int quantity = Integer.parseInt(request.getParameter("orderQuantity"));
         System.out.println(quantity);
         int id = Integer.parseInt(request.getParameter("orderId"));
-        OrdersOperations ordersOperations = new OrdersOperations();
+        ShoppingItem ordersOperations = new ShoppingItem();
         Order order = ordersOperations.get(id).get();
         order.setQuantity(quantity);
         ordersOperations.update(order);
