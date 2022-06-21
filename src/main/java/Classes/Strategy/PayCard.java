@@ -1,8 +1,12 @@
 package Classes.Strategy;
 
-public class PayCard implements IPay{
+public class PayCard implements IPayMethod{
+    String key = "CreditCard";
+    public String getKey(){
+        return key;
+    }
     @Override
-    public void Pay() {
-        System.out.println("U paid with Card");
+    public Payment Create() {
+        return new PaymentCard();
     }
 }

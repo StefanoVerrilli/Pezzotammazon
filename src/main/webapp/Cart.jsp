@@ -94,12 +94,11 @@
         </div>
             <div class="column">
             <p class="has-text-centered"><span id="total">${total}</span> €</p>
-        <button onclick="" class="mx-auto block button is-primary is-medium is-responsive">Pay</button>
+            <a href="Pay.jsp" class="mx-auto block button is-primary is-medium is-responsive">Pay</a>
         </div>
         </div>
         </c:otherwise>
     </c:choose>
 </div>
-
 </body>
 </html>
