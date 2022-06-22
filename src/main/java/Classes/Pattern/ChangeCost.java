@@ -1,26 +1,30 @@
 package Classes.Pattern;
 
-import Classes.Order;
-import Classes.ShoppingItem;
-import Classes.User;
+import Classes.*;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 @MultipartConfig(maxFileSize = 16177215)
 public class ChangeCost implements Action{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int quantity = Integer.parseInt(request.getParameter("orderQuantity"));
-        System.out.println(quantity);
         int id = Integer.parseInt(request.getParameter("orderId"));
-        ShoppingItem ordersOperations = new ShoppingItem();
-        Order order = ordersOperations.get(id).get();
-        order.setQuantity(quantity);
-        ordersOperations.update(order);
         User user = (User) request.getSession().getAttribute("user");
-        request.getSession().setAttribute("ShoppingList",ordersOperations.getCart(user.getId()));
+        CartOperation cartOperation = new CartOperation();
+        Optional<Cart> cart = cartOperation.get(user.getId());
+        ShoppingItemOperations ordersOperations = new ShoppingItemOperations();
+        ProductOperations productOperations = new ProductOperations();
+        ShoppingItem item = new ShoppingItem();
+        item.setCartID(cart.get().getCart_id());
+        Optional<Product> product = productOperations.get(id);
+        item.setProduct(product.get());
+        item.setQuantity(quantity);
+        ordersOperations.update(item);
+        request.getSession().setAttribute("ShoppingList",cartOperation.getAll(cart.get().getCart_id()));
         return "Cart";
     }
 }

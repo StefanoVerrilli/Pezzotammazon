@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="Classes.Order" %>
+<%@ page import="Classes.ShoppingItem" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Classes.User" %>
@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <jsp:include page="Head.jsp">
-    <jsp:param name="page_title" value="Cart - Pezzotammazon"/>
+    <jsp:param name="page_title" value="Classes.Cart - Pezzotammazon"/>
 </jsp:include>
 
 <jsp:include page="Navbar.jsp">
@@ -20,10 +20,8 @@
       if(session.getAttribute("user") == null) {
           response.sendRedirect("/LogIn.jsp");
       }else{
-          List<Order> ShoppingList = (List<Order>) request.getSession().getAttribute("ShoppingList");
+          List<ShoppingItem> ShoppingList = (List<ShoppingItem>) request.getSession().getAttribute("ShoppingList");
       }
-        DecimalFormat df = new DecimalFormat("#.##");
-
   %>
 
 <body>
@@ -88,10 +86,10 @@
                     <div class="column">
                         <p class="is-size-3"> <c:out value="${item.getProduct().getName()}"/>  </p><div class="columns">
 
-                        <div class="column"> <input type="number" id="quantity" name="quantity" min="1" max="100" value="${item.getQuantity()}" onchange="Quantity(${item.getID()},this.value)" >
-                        <div class="is-hidden">   <input type="number" id="subtotal" value="${item.getSubTotal()}" disabled readonly></div>
+                        <div class="column"> <input type="number" id="quantity" name="quantity" min="1" max="100" value="${item.getQuantity()}" onchange="Quantity(${item.getProduct().getID()},this.value)" >
+                        <div>   <input type="number" id="subtotal" value="${item.getProduct().getCost()}" disabled readonly></div>
                         <div class="column has-text-centered">
-                            <button onclick="Delete(${item.getID()})" class="button is-danger is-outlined is-small">
+                            <button onclick="Delete(${item.getProduct().getID()})" class="button is-danger is-outlined is-small">
                                     <span class="icon is-small">
                                        <i class="fas fa-times"></i>
                                     </span>
