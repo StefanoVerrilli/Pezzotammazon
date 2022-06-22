@@ -3,7 +3,7 @@
 <html>
 <head>
     <jsp:include page="Head.jsp">
-        <jsp:param name="page_title" value="Cart - Pezzotammazon"/>
+        <jsp:param name="page_title" value="Classes.Cart - Pezzotammazon"/>
     </jsp:include>
 
     <jsp:include page="Navbar.jsp">
