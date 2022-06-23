@@ -14,7 +14,7 @@
 
 #### User
 
-- [ ] Classes.Cart
+- [ ] Classes.Models.Cart
 - [ ] Buy product page
 - [ ] Payment page
 - [ ] Main page

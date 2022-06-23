@@ -1,6 +1,9 @@
 package Classes.Pattern;
 
-import Classes.*;
+import Classes.DAO.CartOperation;
+import Classes.Models.Cart;
+import Classes.Models.ShoppingItem;
+import Classes.Models.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -3,13 +3,12 @@ package Classes.Pattern;
 import Classes.Command.DiscriminatorProducts;
 import Classes.Command.Dispatcher;
 import Classes.Command.Invoker;
-import Classes.Product;
-import Classes.ProductOperations;
-import Classes.User;
+import Classes.Models.Product;
+import Classes.DAO.ProductOperations;
+import Classes.Models.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductsPageLogic implements Action{

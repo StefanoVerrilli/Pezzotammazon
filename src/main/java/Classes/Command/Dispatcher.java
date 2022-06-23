@@ -1,6 +1,6 @@
 package Classes.Command;
 
-import Classes.User;
+import Classes.Models.User;
 
 public class Dispatcher implements Command{
 

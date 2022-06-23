@@ -1,6 +1,12 @@
 package Classes.Pattern;
 
-import Classes.*;
+import Classes.DAO.CartOperation;
+import Classes.DAO.ProductOperations;
+import Classes.DAO.ShoppingItemOperations;
+import Classes.Models.Cart;
+import Classes.Models.Product;
+import Classes.Models.ShoppingItem;
+import Classes.Models.User;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;

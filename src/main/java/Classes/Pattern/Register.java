@@ -1,7 +1,7 @@
 package Classes.Pattern;
 
-import Classes.User;
-import Classes.UsersOperations;
+import Classes.Models.User;
+import Classes.DAO.UsersOperations;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

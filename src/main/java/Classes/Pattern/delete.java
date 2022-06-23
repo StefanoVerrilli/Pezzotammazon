@@ -1,6 +1,6 @@
 package Classes.Pattern;
 
-import Classes.ProductOperations;
+import Classes.DAO.ProductOperations;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

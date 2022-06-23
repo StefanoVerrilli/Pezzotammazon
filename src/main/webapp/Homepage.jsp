@@ -1,4 +1,4 @@
-<%@ page import="Classes.User" %>
+<%@ page import="Classes.Models.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="Head.jsp">

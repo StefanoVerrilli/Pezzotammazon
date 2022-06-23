@@ -24,7 +24,7 @@ public class Context {
         Actions.putAction("POST/DeleteOrder.do",new DeleteOrder());
         Actions.putAction("GET/CartLogic.do",new CartLogic());
         Actions.putAction("GET/AddCart.do",new AddCart());
-        Actions.putAction("POST/PaymentLogic.do",new PaymantLogic());
+        Actions.putAction("POST/PaymentLogic.do",new PaymentLogic());
     }
 
     public void LoadDefaultLinks(){

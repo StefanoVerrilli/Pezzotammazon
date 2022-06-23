@@ -1,6 +1,6 @@
 package Classes.Command;
 
-import Classes.Product;
+import Classes.Models.Product;
 
 import java.util.List;
 

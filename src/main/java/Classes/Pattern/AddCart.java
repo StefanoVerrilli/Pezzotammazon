@@ -1,6 +1,12 @@
 package Classes.Pattern;
 
-import Classes.*;
+import Classes.DAO.CartOperation;
+import Classes.DAO.ProductOperations;
+import Classes.DAO.ShoppingItemOperations;
+import Classes.Models.Cart;
+import Classes.Models.Product;
+import Classes.Models.ShoppingItem;
+import Classes.Models.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,15 +19,16 @@ public class AddCart implements Action{
         if(id != null){
             ProductOperations productOperations = new ProductOperations();
             CartOperation cartOperation = new CartOperation();
+            ShoppingItemOperations shoppingItemOperations = new ShoppingItemOperations();
             User user = (User) request.getSession().getAttribute("user");
-            System.out.println("1");
+
             Optional<Cart> cart = cartOperation.get(user.getId());
             Product newProduct = productOperations.get(id).get();
             ShoppingItem newOrder = new ShoppingItem();
             newOrder.setProduct(newProduct);
             newOrder.setCartID(cart.get().getCart_id());
-            System.out.println("santo 2");
-            cartOperation.AddItem(newOrder);
+
+            shoppingItemOperations.add(newOrder);
             request.getSession().setAttribute("ShoppingList",cartOperation.getAll(cart.get().getCart_id()));
             return "Cart";
         }else{

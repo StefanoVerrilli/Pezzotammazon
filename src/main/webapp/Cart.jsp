@@ -1,14 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="Classes.ShoppingItem" %>
+<%@ page import="Classes.Models.ShoppingItem" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="Classes.User" %>
-<%@ page import="java.text.DecimalFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <jsp:include page="Head.jsp">
-    <jsp:param name="page_title" value="Classes.Cart - Pezzotammazon"/>
+    <jsp:param name="page_title" value="Classes.Models.Cart - Pezzotammazon"/>
 </jsp:include>
 
 <jsp:include page="Navbar.jsp">
@@ -79,7 +76,7 @@
                 <div class="columns">
                     <div class="is-pulled-right ">
                         <figure class="image is-128x128">
-                            <img src="https://bulma.io/images/placeholders/128x128.png">
+                            <img src="data:image/png;base64,${item.getProduct().getImage()}">
                         </figure>
                     </div>
 

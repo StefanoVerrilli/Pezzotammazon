@@ -3,9 +3,9 @@ package Classes.Pattern;
 import Classes.Command.Discriminator;
 import Classes.Command.Invoker;
 import Classes.Command.Dispatcher;
-import Classes.Product;
-import Classes.ProductOperations;
-import Classes.User;
+import Classes.Models.Product;
+import Classes.DAO.ProductOperations;
+import Classes.Models.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

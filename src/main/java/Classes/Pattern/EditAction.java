@@ -1,7 +1,7 @@
 package Classes.Pattern;
 
-import Classes.Product;
-import Classes.ProductOperations;
+import Classes.Models.Product;
+import Classes.DAO.ProductOperations;
 import org.apache.commons.io.IOUtils;
 
 import javax.servlet.annotation.MultipartConfig;
