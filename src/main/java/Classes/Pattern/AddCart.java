@@ -30,7 +30,7 @@ public class AddCart implements Action{
 
             shoppingItemOperations.add(newOrder);
             request.getSession().setAttribute("ShoppingList",cartOperation.getAll(cart.get().getCart_id()));
-            return "Cart";
+            return "/UserPages/Cart";
         }else{
             request.getSession().setAttribute("error","Invalid Product, please retry");
             return "UserProducts";

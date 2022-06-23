@@ -13,11 +13,11 @@ public class DiscriminatorProducts implements DiscriminatorInterface{
 
     @Override
     public String UserPages() {
-        return products != null ? "UserProducts" : "Homepage";
+        return products != null ? "/UserPages/UserProducts" : "/Homepage";
     }
 
     @Override
     public String AdminPages() {
-        return products != null ? "ProductsTable" : "Homepage";
+        return products != null ? "/AdminPages/ProductsTable" : "/Homepage";
     }
 }

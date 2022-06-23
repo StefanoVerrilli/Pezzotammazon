@@ -53,6 +53,8 @@ public class CartOperation implements DAO<Cart> {
     }
 
 
+
+    //Basta l' id del prodotto per ottenerlo
     public List<ShoppingItem> getAll(int Cart_id) throws SQLException{
         String query = "SELECT Quantity,Name,Cost,Image,ID,Cart.CartID "
                 + "FROM Cart join ShoppingItem i on Cart.CartID = i.CartID "

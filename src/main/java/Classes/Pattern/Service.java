@@ -12,9 +12,11 @@ public class Service extends HttpServlet {
     protected void Service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+
             Action action = ActionFactory.getAction(request);
             String View = action.execute(request,response);
-            response.sendRedirect(View + ".jsp");
+            request.getRequestDispatcher(View + ".jsp").forward(request,response);
+            //response.sendRedirect(View + ".jsp");
         } catch (Exception e) {
             throw new ServletException("Executing action failed",e);
         }

@@ -24,7 +24,6 @@ public class FetchProduct implements Action{
             return "/";
         }
         request.getSession().setAttribute("Product",product.get());
-        System.out.println(product.get().getCost());
         Discriminator discriminator = new Discriminator(id);
         Invoker dispatcher = new Invoker(new Dispatcher(discriminator,user));
         return dispatcher.executeOperation();

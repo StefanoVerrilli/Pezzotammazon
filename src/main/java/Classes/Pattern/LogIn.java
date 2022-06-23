@@ -23,7 +23,7 @@ public class LogIn implements Action{
             Invoker invoker = new Invoker(new Dispatcher(discriminatorLinks,user));
             return invoker.executeOperation();
         }else{
-            request.setAttribute("error","Failed Login");
+            request.setAttribute("error","Username or Password are invalid");
             return "LogIn";
         }
     }

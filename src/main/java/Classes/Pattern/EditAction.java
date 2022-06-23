@@ -31,5 +31,5 @@ public class EditAction implements Action {
             productToAdd.get().setImage(Base64.getEncoder().encodeToString(bytesArray));
         }
         productOperations.update(productToAdd.get());
-        return "ProductsTable";
+        return "/AdminPages/ProductsTable";
 }}

@@ -13,7 +13,7 @@ public class delete implements Action{
             ProductOperations productOperations = new ProductOperations();
             productOperations.delete(Integer.parseInt(id));
             request.getSession().setAttribute("data",productOperations.getAll());
-            return "ProductsTable";
+            return "/AdminPages/ProductsTable";
         }else{
             return "";
         }

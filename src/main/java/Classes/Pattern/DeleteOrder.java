@@ -21,6 +21,6 @@ public class DeleteOrder implements Action{
             ShoppingItemOperations ordersOperations = new ShoppingItemOperations();
             ordersOperations.delete(cart.get().getCart_id(),id);
             request.getSession().setAttribute("ShoppingList", cartOperation.getAll(cart.get().getCart_id()));
-            return "Cart";
+            return "/UserPages/Cart";
     }
 }

@@ -9,9 +9,9 @@ public class Discriminator implements DiscriminatorInterface{
     }
 
     @Override
-    public String UserPages(){return (id != null) ? "ProductPage" : "UserProducts";}
+    public String UserPages(){return (id != null) ? "/UserPages/ProductPage" : "/UserPages/UserProducts";}
     @Override
     public String AdminPages(){
-        return (id != null) ? "Edit" : "ProductsTable";
+        return (id != null) ? "/AdminPages/Edit" : "/AdminPages/ProductsTable";
     }
 }

@@ -1,7 +1,7 @@
 package Classes.Strategy;
 
 public class PayBancomat implements IPayMethod{
-    String key = "Bancomat";
+    String key = "bancomat";
 
     @Override
     public String getKey() {

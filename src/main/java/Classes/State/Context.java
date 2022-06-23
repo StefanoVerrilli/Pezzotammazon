@@ -17,6 +17,7 @@ public class Context {
         Actions.putAction("GET/delete.do",new delete());
         Actions.putAction("POST/EditAction.do",new EditAction());
         Actions.putAction("POST/Insert.do",new Insert());
+        Actions.putAction("GET/InsertLogic.do",new InsertLogic());
     }
 
     public void LoadUserLinks(){

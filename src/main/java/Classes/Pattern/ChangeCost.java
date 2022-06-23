@@ -31,6 +31,6 @@ public class ChangeCost implements Action{
         item.setQuantity(quantity);
         ordersOperations.update(item);
         request.getSession().setAttribute("ShoppingList",cartOperation.getAll(cart.get().getCart_id()));
-        return "Cart";
+        return "/UserPages/Cart";
     }
 }

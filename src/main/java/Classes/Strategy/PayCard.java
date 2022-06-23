@@ -1,7 +1,7 @@
 package Classes.Strategy;
 
 public class PayCard implements IPayMethod{
-    String key = "CreditCard";
+    String key = "creditcard";
     public String getKey(){
         return key;
     }

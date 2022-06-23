@@ -16,14 +16,16 @@ public class OrderCollectionOperations implements DAO<OrderCollection>{
     public Optional<OrderCollection> get(int id) throws SQLException {
         String query = "SELECT OrderID,Timestamp "
                 + "FROM \"Order\" "
-                + "WHERE UserID = ? ";
+                + "WHERE UserID = ? "
+                + "ORDER BY OrderID DESC LIMIT 1 ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1,id);
         ResultSet rest = p.executeQuery();
         Optional<OrderCollection> Collection = Optional.empty();
-        if(rest.next()){
+        if(rest.next()) {
             Collection = Optional.of(new OrderCollection());
             Collection.get().setCollectionID(rest.getInt(1));
+            System.out.println(Collection.get().getCollectionID());
             Collection.get().setTimestamp(rest.getDate(2));
         }
         p.close();

@@ -18,6 +18,6 @@ public class CartLogic implements Action{
         Optional<Cart> Cart = cartOperation.get(user.getId());
         List<ShoppingItem> shoppingList = cartOperation.getAll(Cart.get().getCart_id());
         request.getSession().setAttribute("ShoppingList",shoppingList);
-        return "Cart";
+        return "/UserPages/Cart";
     }
 }

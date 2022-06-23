@@ -17,7 +17,7 @@ import java.util.Optional;
 public class PaymentLogic implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String method = request.getParameter("Option");
+        String method = request.getParameter("payment_type");
         User user = (User) request.getSession().getAttribute("user");
         PaymentFactory factory = new PaymentFactory();
         factory.PaymentMethod(method).Pay();
@@ -25,7 +25,7 @@ public class PaymentLogic implements Action {
         orderCollectionOperations.add(user.getId());
         orderCollectionOperations.AddSingleOrders(user.getId());
         EmptyCartWrapper(user.getId());
-        return "Homepage";
+        return "/Homepage";
     }
 
 
