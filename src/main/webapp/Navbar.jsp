@@ -9,7 +9,7 @@
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="/">
+        <a class="navbar-item" href="/Homepage.jsp">
             <img src="/static/logo.png" width="150" height="80" style="max-height: initial">
         </a>
 

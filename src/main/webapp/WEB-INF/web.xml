@@ -4,6 +4,28 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
         version="4.0">
+
+    <servlet>
+        <servlet-name>Homepage</servlet-name>
+        <jsp-file>/Homepage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Homepage</servlet-name>
+        <url-pattern>/Homepage</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>LogIn</servlet-name>
+        <jsp-file>/LogIn.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogIn</servlet-name>
+        <url-pattern>/LogIn</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name></servlet-name>
+    </servlet>
     <servlet>
         <servlet-name>Service</servlet-name>
         <servlet-class>Classes.Pattern.Service</servlet-class>

@@ -21,6 +21,7 @@ public class Context {
     }
 
     public void LoadUserLinks(){
+        Actions.putAction("GET/PaymentPageLoad.do",new PaymentPageLoad());
         Actions.putAction("POST/ChangeCost.do",new ChangeCost());
         Actions.putAction("POST/DeleteOrder.do",new DeleteOrder());
         Actions.putAction("GET/CartLogic.do",new CartLogic());

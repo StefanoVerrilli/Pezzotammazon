@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: stefanoverrilli
-  Date: 18/06/22
-  Time: 15:16
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
   <jsp:include page="/Head.jsp">
     <jsp:param name="page_title" value="Classes.Models.Cart - Pezzotammazon"/>
