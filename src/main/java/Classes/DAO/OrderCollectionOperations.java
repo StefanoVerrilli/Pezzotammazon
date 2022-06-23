@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,11 +37,8 @@ public class OrderCollectionOperations implements DAO<OrderCollection>{
     public boolean add(int User_id) throws SQLException {
         String query = "INSERT INTO \"Order\" (UserID, Timestamp) "
                 + "VALUES (?,?) ";
-        System.out.println("so qua");
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        System.out.println("ririprovo");
         p.setInt(1,User_id);
-        System.out.println("riproviamo");
         p.setDate(2, Date.valueOf(java.time.LocalDate.now()));
         p.executeUpdate();
         p.close();
@@ -49,7 +47,6 @@ public class OrderCollectionOperations implements DAO<OrderCollection>{
 
     public boolean AddSingleOrders(int User_id) throws SQLException {
         CartOperation cartOperation = new CartOperation();
-        System.out.println("santo dio");
         Optional<Cart> cart = cartOperation.get(User_id);
         Optional<OrderCollection> collection = get(User_id);
         OrderOperations orderOperations = new OrderOperations();
@@ -59,6 +56,29 @@ public class OrderCollectionOperations implements DAO<OrderCollection>{
         }
         return true;
     }
+
+    public List<Order> getAll(int CollectionID) throws SQLException{
+        List<Order> orderList = new ArrayList<>();
+        String query = "SELECT Quantity,ProductID "
+                + "FROM \"Order\" join ItemOrder I on `Order`.OrderID = I.OrderID "
+                + "join products p on p.ID = i.ProductID "
+                + "WHERE OrderID = ? ";
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
+        p.setInt(1,CollectionID);
+        ResultSet resultSet = p.executeQuery();
+        while (resultSet.next()){
+            ProductOperations productOperations = new ProductOperations();
+            Optional<Product> product = productOperations.get(resultSet.getInt(2));
+            Order order = null;
+            if(product.isPresent()){
+                int quantity = resultSet.getInt(1);
+                order = new Order(quantity,product.get(),CollectionID);
+            }
+            orderList.add(order);
+        }
+        return orderList;
+    }
+
 
     @Override
     public void update(OrderCollection orderCollection) throws SQLException {

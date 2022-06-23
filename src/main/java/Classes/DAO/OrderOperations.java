@@ -5,6 +5,7 @@ import Classes.Models.ShoppingItem;
 import Classes.Strategy.Payment;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -30,12 +31,6 @@ public class OrderOperations implements DAO<Order>{
         p.close();
         return true;
     }
-  /*  public List<Order> getAll(int CollectionID) throws SQLException{
-        String query = "SELECT * "
-                + "FROM ItemOrder join products p on p.ID = ItemOrder.ProductID "
-                + "WHERE OrderID = ? ";
-        PreparedStatement p = myDb.getConnection().prepareStatement(query);
-    }*/
 
     @Override
     public void update(Order order) throws SQLException {
