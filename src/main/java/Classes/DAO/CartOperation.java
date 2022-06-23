@@ -55,11 +55,10 @@ public class CartOperation implements DAO<Cart> {
 
 
     //Basta l' id del prodotto per ottenerlo
-    public List<ShoppingItem> getAll(int Cart_id) throws SQLException{
-        String query = "SELECT Quantity,Name,Cost,Image,ID,Cart.CartID "
-                + "FROM Cart join ShoppingItem i on Cart.CartID = i.CartID "
-                + "join products p on p.ID = i.ProductID "
-                + "WHERE Cart.CartID = ? ";
+   public List<ShoppingItem> getAll(int Cart_id) throws SQLException{
+        String query = "SELECT Quantity,Name,Cost,Image,ID "
+                + "FROM ShoppingItem join products p on p.ID = ShoppingItem.ProductID "
+                + "WHERE CartID = ? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1,Cart_id);
         ResultSet rest = p.executeQuery();
@@ -67,7 +66,7 @@ public class CartOperation implements DAO<Cart> {
         while (rest.next()){
             ShoppingItem item = new ShoppingItem();
             item.setQuantity(rest.getInt("Quantity"));
-            item.setCartID(rest.getInt("CartID"));
+            item.setCartID(Cart_id);
             Product product = new Product();
             product.setImage(rest.getString("Image"));
             product.setCost(rest.getFloat("Cost"));
