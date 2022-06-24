@@ -12,7 +12,7 @@ import java.util.Optional;
 public class ProductOperations implements DAO<Product> {
 
     @Override
-    public Optional<Product> get(int id) throws SQLException {
+    public Optional<Product> get(Integer id) throws SQLException {
         String query = "SELECT * "
                 + "FROM products "
                 + "WHERE ID = ? ";
@@ -38,7 +38,6 @@ public class ProductOperations implements DAO<Product> {
                 + "FROM products ";
         Statement stat = (Statement) DAO.myDb.getConnection().createStatement();
         ResultSet rest = stat.executeQuery(query);
-        ResultSetMetaData metaData = rest.getMetaData();
         while(rest.next()){
             Product CurrProduct = new Product();
             CurrProduct.setID(Integer.parseInt(rest.getString("ID")));
@@ -89,7 +88,7 @@ public class ProductOperations implements DAO<Product> {
 
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(Integer id) throws SQLException {
         String query = "DELETE FROM products "
                 + "WHERE ID=? ";
         PreparedStatement p = DAO.myDb.getConnection().prepareStatement(query);

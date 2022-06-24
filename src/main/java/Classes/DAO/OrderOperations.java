@@ -13,34 +13,34 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrderOperations implements DAO<Order>{
+    private Integer collectionID;
+    public OrderOperations(Integer collectionID){
+        this.collectionID = collectionID;
+    }
     @Override
-    public Optional<Order> get(int id) throws SQLException {
+    public Optional<Order> get(Integer id) throws SQLException {
         return Optional.empty();
     }
 
-    @Override
-    public boolean add(Order order) throws SQLException {
-        return false;
-    }
-    public boolean add(int CollectionID,ShoppingItem item) throws SQLException{
+    public boolean add(Order order) throws SQLException{
         String query ="INSERT INTO ItemOrder(Quantity, OrderID, ProductID) "
                 + "VALUES(?,?,?) ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1,item.getQuantity());
-        p.setInt(2,CollectionID);
-        p.setInt(3,item.getProduct().getID());
+        p.setInt(1,order.getQuantity());
+        p.setInt(2,collectionID);
+        p.setInt(3,order.getItem().getID());
         p.executeUpdate();
         p.close();
         return true;
     }
 
-    public List<Order> getAll(int CollectionID) throws SQLException{
+    public List<Order> getAll() throws SQLException{
         List<Order> result = new ArrayList<>();
         String query = "SELECT Quantity,Name,Image,Description,ID,Amount,Cost,Category "
                 + "FROM ItemOrder join products p on p.ID = ItemOrder.ProductID "
                 + "WHERE OrderID = ? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1,CollectionID);
+        p.setInt(1,this.collectionID);
         ResultSet rest = p.executeQuery();
         while (rest.next()){
             Product newProduct = new Product();
@@ -51,7 +51,7 @@ public class OrderOperations implements DAO<Order>{
             newProduct.setAmount(rest.getInt(6));
             newProduct.setCost(rest.getFloat(7));
             newProduct.setCategory(rest.getString(8));
-            Order order = new Order(rest.getInt(1),newProduct,CollectionID);
+            Order order = new Order(rest.getInt(1),newProduct,collectionID);
             result.add(order);
         }
         return result;
@@ -63,7 +63,7 @@ public class OrderOperations implements DAO<Order>{
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(Integer id) throws SQLException {
 
     }
 }

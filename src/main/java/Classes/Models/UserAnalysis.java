@@ -19,16 +19,16 @@ public class UserAnalysis {
     }
 
     public Map<String,Integer> getPurchasePerCategory() throws SQLException {
-        OrderOperations orderOperations = new OrderOperations();
         for(OrderCollection collection : Orders){
-            List<Order> Items = orderOperations.getAll(collection.getCollectionID());
+            OrderOperations orderOperations = new OrderOperations(collection.getCollectionID());
+            List<Order> Items = orderOperations.getAll();
             for(Order order : Items){
                 String orderCategory = order.getItem().getCategory();
-                if(PurchasePerCategory.get(orderCategory) == null)
-                    PurchasePerCategory.put(orderCategory,1);
-                else{
-                    Integer currentPurchases = PurchasePerCategory.get(orderCategory);
-                    PurchasePerCategory.put(orderCategory,currentPurchases+1);
+                Integer currentPurchases = PurchasePerCategory.get(orderCategory);
+                if (currentPurchases == null) {
+                    PurchasePerCategory.put(orderCategory, 1);
+                } else {
+                    PurchasePerCategory.put(orderCategory, currentPurchases + 1);
                 }
             }
     }

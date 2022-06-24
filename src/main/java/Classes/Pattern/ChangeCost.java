@@ -22,7 +22,7 @@ public class ChangeCost implements Action{
         User user = (User) request.getSession().getAttribute("user");
         CartOperation cartOperation = new CartOperation();
         Optional<Cart> cart = cartOperation.get(user.getId());
-        ShoppingItemOperations ordersOperations = new ShoppingItemOperations();
+        ShoppingItemOperations ordersOperations = new ShoppingItemOperations(cart.get().getCart_id());
         ProductOperations productOperations = new ProductOperations();
         ShoppingItem item = new ShoppingItem();
         item.setCartID(cart.get().getCart_id());

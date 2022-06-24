@@ -19,10 +19,9 @@ public class AddCart implements Action{
         if(id != null){
             ProductOperations productOperations = new ProductOperations();
             CartOperation cartOperation = new CartOperation();
-            ShoppingItemOperations shoppingItemOperations = new ShoppingItemOperations();
             User user = (User) request.getSession().getAttribute("user");
-
             Optional<Cart> cart = cartOperation.get(user.getId());
+            ShoppingItemOperations shoppingItemOperations = new ShoppingItemOperations(cart.get().getCart_id());
             Product newProduct = productOperations.get(id).get();
             ShoppingItem newOrder = new ShoppingItem();
             newOrder.setProduct(newProduct);

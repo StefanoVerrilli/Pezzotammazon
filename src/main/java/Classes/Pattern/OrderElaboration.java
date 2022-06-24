@@ -18,7 +18,6 @@ public class OrderElaboration implements Action{
         UsersOperations usersOperations = new UsersOperations();
         Integer User_ID = 1;
         OrderCollectionOperations orderCollectionOperations = new OrderCollectionOperations();
-        OrderOperations orderOperations = new OrderOperations();
         List<OrderCollection> collection = orderCollectionOperations.getAll(User_ID);
         UserAnalysis analysis = new UserAnalysis(User_ID,collection);
         Map<String,Integer> result = analysis.getPurchasePerCategory();

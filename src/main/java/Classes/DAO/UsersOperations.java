@@ -58,7 +58,7 @@ public class UsersOperations implements DAO<User> {
 
     }
     @Override
-    public Optional<User> get(int id) throws SQLException {
+    public Optional<User> get(Integer id) throws SQLException {
 
         String cc = null;
         String query = "SELECT * "
@@ -124,7 +124,7 @@ public class UsersOperations implements DAO<User> {
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(Integer id) throws SQLException {
 
     }
 }

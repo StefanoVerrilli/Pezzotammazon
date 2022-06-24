@@ -20,8 +20,8 @@ public class CartOperation implements DAO<Cart> {
         p.executeUpdate();
         p.close();
     }
-
-    public Optional<Cart> get(int User_id) throws SQLException{
+    @Override
+    public Optional<Cart> get(Integer User_id) throws SQLException{
         String query = "SELECT CartID "
                 + "FROM  Cart "
                 + "WHERE UserID = ? ";
@@ -53,8 +53,6 @@ public class CartOperation implements DAO<Cart> {
     }
 
 
-
-    //Basta l' id del prodotto per ottenerlo
    public List<ShoppingItem> getAll(int Cart_id) throws SQLException{
         String query = "SELECT Quantity,Name,Cost,Image,ID "
                 + "FROM ShoppingItem join products p on p.ID = ShoppingItem.ProductID "
@@ -86,7 +84,7 @@ public class CartOperation implements DAO<Cart> {
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(Integer id) throws SQLException {
 
     }
 }

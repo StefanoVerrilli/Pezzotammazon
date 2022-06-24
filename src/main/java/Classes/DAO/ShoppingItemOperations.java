@@ -9,44 +9,35 @@ import java.util.Optional;
 
 public class ShoppingItemOperations implements DAO<ShoppingItem> {
 
-    public void EmptyOrders(int Cart_id) throws SQLException{
-        String query = "DELETE FROM \"ShoppingItem\" "
-                + "WHERE CartID = ? ";
-        PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1,Cart_id);
-        p.executeUpdate();
-        p.close();
+    Integer cartId;
+    public ShoppingItemOperations(Integer cartId){
+        this.cartId = cartId;
     }
-
-    public Optional<ShoppingItem> get(int CartID,int otherID) throws SQLException {
+    @Override
+    public Optional<ShoppingItem> get(Integer productId) throws SQLException {
         String query = "SELECT * "
                 + "FROM \"ShoppingItem\" "
                 + "WHERE CartID = ? AND ProductID = ?";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1,CartID);
-        p.setInt(2, otherID);
+        p.setInt(1, this.cartId);
+        p.setInt(2, productId);
         ResultSet rest = p.executeQuery();
         Optional<ShoppingItem> shoppingItem = Optional.empty();
-        if(rest.next()){
+        if (rest.next()) {
             shoppingItem = Optional.of(new ShoppingItem());
-        shoppingItem.get().setQuantity(rest.getInt("Quantity"));
-        shoppingItem.get().setCartID(rest.getInt("CartID"));
-        ProductOperations productOperations = new ProductOperations();
-        shoppingItem.get().setProduct(productOperations.get(rest.getInt("ProductID")).get());}
+            shoppingItem.get().setQuantity(rest.getInt("Quantity"));
+            shoppingItem.get().setCartID(rest.getInt("CartID"));
+            ProductOperations productOperations = new ProductOperations();
+            shoppingItem.get().setProduct(productOperations.get(rest.getInt("ProductID")).get());
+        }
         p.close();
         return shoppingItem;
     }
 
 
     @Override
-    public Optional<ShoppingItem> get(int id) throws SQLException {
-        return Optional.empty();
-    }
-
-
-    @Override
     public boolean add(ShoppingItem item) throws SQLException {
-        Optional<ShoppingItem> ResultItem = get(item.getCartID(),item.getProduct().getID());
+        Optional<ShoppingItem> ResultItem = get(item.getProduct().getID());
         if(ResultItem.isPresent()){
             int newQuantity = ResultItem.get().getQuantity()+1;
             ResultItem.get().setQuantity(newQuantity);
@@ -83,16 +74,12 @@ public class ShoppingItemOperations implements DAO<ShoppingItem> {
         p.close();
     }
 
-    @Override
-    public void delete(int id) throws SQLException {
 
-    }
-
-    public void delete(int CartID,int ProductID) throws SQLException {
+    public void delete(Integer ProductID) throws SQLException {
         String query = "DELETE FROM \"ShoppingItem\" "
                 + "WHERE CartID=? AND ProductID=? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1,CartID);
+        p.setInt(1,cartId);
         p.setInt(2,ProductID);
         p.executeUpdate();
         p.close();

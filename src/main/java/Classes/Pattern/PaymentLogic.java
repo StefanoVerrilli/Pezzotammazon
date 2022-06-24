@@ -11,6 +11,7 @@ import Classes.Strategy.PaymentFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -22,7 +23,10 @@ public class PaymentLogic implements Action {
         PaymentFactory factory = new PaymentFactory();
         factory.PaymentMethod(method).Pay();
         OrderCollectionOperations orderCollectionOperations = new OrderCollectionOperations();
-        orderCollectionOperations.add(user.getId());
+        OrderCollection orderCollection = new OrderCollection();
+        orderCollection.setUser_ID(user.getId());
+        orderCollection.setTimestamp(Date.valueOf(java.time.LocalDate.now()));
+        orderCollectionOperations.add(orderCollection);
         orderCollectionOperations.AddSingleOrders(user.getId());
         EmptyCartWrapper(user.getId());
         return "/Homepage";
@@ -31,10 +35,8 @@ public class PaymentLogic implements Action {
 
     private void EmptyCartWrapper(int User_id) throws SQLException{
         CartOperation cartOperation = new CartOperation();
-        ShoppingItemOperations ItemsOperations = new ShoppingItemOperations();
         Optional<Cart> cart = cartOperation.get(User_id);
         if(cart.isPresent())
-            ItemsOperations.EmptyOrders(cart.get().getCart_id());
-
+            cartOperation.EmptyOrders(cart.get().getCart_id());
     }
 }

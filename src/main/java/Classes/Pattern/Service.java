@@ -30,7 +30,7 @@ public class Service extends HttpServlet {
             Action action = ActionFactory.getAction(request);
             String View = action.execute(request,response);
             //request.getRequestDispatcher(View + ".jsp").forward(request,response);
-            response.sendRedirect(View);
+            response.sendRedirect(View + ".jsp");
         } catch (Exception e) {
             throw new ServletException("Executing action failed",e);
         }
