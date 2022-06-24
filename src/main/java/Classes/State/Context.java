@@ -18,6 +18,7 @@ public class Context {
         Actions.putAction("POST/EditAction.do",new EditAction());
         Actions.putAction("POST/Insert.do",new Insert());
         Actions.putAction("GET/InsertLogic.do",new InsertLogic());
+        Actions.putAction("GET/OrderElaboration.do",new OrderElaboration());
     }
 
     public void LoadUserLinks(){

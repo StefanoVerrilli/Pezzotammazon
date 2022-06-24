@@ -22,10 +22,7 @@
         <servlet-name>LogIn</servlet-name>
         <url-pattern>/LogIn</url-pattern>
     </servlet-mapping>
-    
-    <servlet>
-        <servlet-name></servlet-name>
-    </servlet>
+
     <servlet>
         <servlet-name>Service</servlet-name>
         <servlet-class>Classes.Pattern.Service</servlet-class>

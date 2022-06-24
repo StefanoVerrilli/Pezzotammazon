@@ -25,7 +25,7 @@ public class Service extends HttpServlet {
      * @throws IOException
      */
     protected void Service(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException{
         try {
             Action action = ActionFactory.getAction(request);
             String View = action.execute(request,response);

@@ -59,7 +59,26 @@ public class OrderCollectionOperations implements DAO<OrderCollection>{
         return true;
     }
 
-    public List<Order> getAll(int CollectionID) throws SQLException{
+
+    public List<OrderCollection> getAll(int User_id) throws SQLException{
+        List<OrderCollection> orderCollectionList = new ArrayList<>();
+        String query = "SELECT OrderID,TimeStamp "
+                + "FROM \"Order\" "
+                + "WHERE UserID = ? ";
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
+        p.setInt(1,User_id);
+        ResultSet resultSet = p.executeQuery();
+        while (resultSet.next()){
+            OrderCollection orderCollection = new OrderCollection();
+            orderCollection.setUser_ID(User_id);
+            orderCollection.setCollectionID(resultSet.getInt(1));
+            orderCollection.setTimestamp(resultSet.getDate(2));
+            orderCollectionList.add(orderCollection);
+        }
+        return orderCollectionList;
+    }
+
+    /*public List<Order> getAll(int CollectionID) throws SQLException{
         List<Order> orderList = new ArrayList<>();
         String query = "SELECT Quantity,ProductID "
                 + "FROM \"Order\" join ItemOrder I on `Order`.OrderID = I.OrderID "
@@ -79,7 +98,7 @@ public class OrderCollectionOperations implements DAO<OrderCollection>{
             orderList.add(order);
         }
         return orderList;
-    }
+    }*/
 
 
     @Override

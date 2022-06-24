@@ -6,7 +6,7 @@ public class Order {
 
     private int quantity;
 
-    Product item;
+    private Product item;
 
 
     public Order(int OrderID,ShoppingItem item){
@@ -28,4 +28,6 @@ public class Order {
     public int getContainerID() {
         return ContainerID;
     }
+
+    public Product getItem(){return item;}
 }
