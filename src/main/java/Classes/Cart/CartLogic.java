@@ -1,7 +1,6 @@
 package Classes.Cart;
 
-import Classes.Cart.CartOperation;
-import Classes.Pattern.Action;
+import Classes.FrontController.Action;
 import Classes.ShoppingItem.ShoppingItemModel;
 import Classes.User.UserModel;
 

@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ProductOperations implements IGetDAO<ProductModel>, IAddDAO<ProductModel>, IUpdateDAO<ProductModel>,
-        IDeleteDAO {
+public class ProductOperations implements IProductDAO<ProductModel> {
 
     public Optional<ProductModel> get(Integer id) throws SQLException {
         String query = "SELECT * "
@@ -93,5 +92,28 @@ public class ProductOperations implements IGetDAO<ProductModel>, IAddDAO<Product
         p.setInt(1,id);
         p.executeUpdate();
         p.close();
+    }
+
+    @Override
+    public List<ProductModel> getAllByCategory(String Category) throws SQLException {
+        String query = "SELECT * "
+                + "FROM products "
+                + "WHERE Category = ? ";
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
+        p.setString(1,Category);
+        ResultSet rest = p.executeQuery();
+        List<ProductModel> elements = new ArrayList<>();
+        while (rest.next()){
+            ProductModel product = new ProductModel.Builder(rest.getString("Name"))
+                                           .setImage(rest.getString("Image"))
+                                           .setCost(rest.getFloat("Cost"))
+                                           .setId(rest.getInt("ID"))
+                                           .setAmount(rest.getInt("Amount"))
+                                           .setDesc(rest.getString("Description"))
+                                           .setCategory("Category")
+                                           .build();
+            elements.add(product);
+        }
+        return elements;
     }
 }

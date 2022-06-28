@@ -3,9 +3,7 @@ package Classes.Product;
 import Classes.Command.DiscriminatorProducts;
 import Classes.Command.Dispatcher;
 import Classes.Command.Invoker;
-import Classes.Pattern.Action;
-import Classes.Product.ProductModel;
-import Classes.Product.ProductOperations;
+import Classes.FrontController.Action;
 import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;

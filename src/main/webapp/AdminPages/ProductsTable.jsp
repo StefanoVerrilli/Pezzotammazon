@@ -16,15 +16,8 @@
 
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-        UserModel user = null;
-        List<ProductModel> data = new ArrayList<>();
-        int access_type;
         if(session.getAttribute("user") == null) {
             response.sendRedirect("/LogIn.jsp");
-        }else{
-            user = (UserModel) session.getAttribute("user");
-            data = (List<ProductModel>) session.getAttribute("data");
-        }
     %>
 </head>
 <body>

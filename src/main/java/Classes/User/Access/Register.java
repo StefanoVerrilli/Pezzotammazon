@@ -1,6 +1,6 @@
 package Classes.User.Access;
 
-import Classes.Pattern.Action;
+import Classes.FrontController.Action;
 import Classes.User.UserModel;
 import Classes.User.UsersOperations;
 

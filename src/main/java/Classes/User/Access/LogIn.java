@@ -3,8 +3,8 @@ package Classes.User.Access;
 import Classes.Command.DiscriminatorLinks;
 import Classes.Command.Dispatcher;
 import Classes.Command.Invoker;
-import Classes.Pattern.Action;
-import Classes.Pattern.BuildNavbar;
+import Classes.FrontController.Action;
+import Classes.Navbar.BuildNavbar;
 import Classes.User.UserModel;
 import Classes.User.UsersOperations;
 

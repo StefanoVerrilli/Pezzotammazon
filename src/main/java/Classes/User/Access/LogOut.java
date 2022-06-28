@@ -1,6 +1,6 @@
 package Classes.User.Access;
 
-import Classes.Pattern.Action;
+import Classes.FrontController.Action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,7 +1,6 @@
 package Classes.Product;
 
-import Classes.Pattern.Action;
-import Classes.Product.ProductOperations;
+import Classes.FrontController.Action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

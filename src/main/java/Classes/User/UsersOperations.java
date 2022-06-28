@@ -58,7 +58,7 @@ public class UsersOperations implements IUserOperation {
         }
 
     }
-
+    @Override
     public List<UserModel> getAll() throws SQLException {
         List result = new ArrayList();
         String query = "SELECT * "
@@ -94,5 +94,23 @@ public class UsersOperations implements IUserOperation {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Optional<UserModel> get(Integer Id) throws SQLException {
+        String query = "SELECT * "
+                    + "FROM users "
+                    + "WHERE id = ? ";
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
+        p.setInt(1,Id);
+        ResultSet rest = p.executeQuery();
+         UserModel newUser = new UserModel.Builder(rest.getString(3))
+                                        .setMail(rest.getString(1))
+                                        .setPassword(rest.getString(2))
+                                        .setID(rest.getInt(5))
+                                        .setAccessType(rest.getInt(4))
+                                        .build();
+        return Optional.of(newUser);
+
     }
 }
