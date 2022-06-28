@@ -2,8 +2,6 @@ package Classes.DAO;
 
 import Classes.Models.Order;
 import Classes.Models.Product;
-import Classes.Models.ShoppingItem;
-import Classes.Strategy.Payment;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

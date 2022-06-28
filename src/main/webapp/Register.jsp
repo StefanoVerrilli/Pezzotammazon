@@ -27,17 +27,17 @@
 
                     <label class="label" for="username">Username</label>
                     <div class="control">
-                        <input class="input" id="username" name="username" type="text" spellcheck="false" placeholder="username@example.org" required>
+                        <input class="input" id="username" name="username" type="text" spellcheck="false" placeholder="username" required>
                     </div>
 
                     <label class="label mt-3" for="email">Email</label>
                     <div class="control">
-                        <input class="input" id="email" name="mail" type="email" placeholder="username@example.org" required>
+                        <input class="input" id="email" name="mail" type="email" placeholder="username@example.org" required autocomplete="email">
                     </div>
 
                     <label for="password" class="label mt-3">Password</label>
                     <div class="control">
-                        <input class="input" id="password" name="password" type="password" placeholder="password" required>
+                        <input class="input" id="password" name="password" type="password" placeholder="password" required autocomplete="new-password">
                     </div>
 
                     <input type="submit" class="button is-primary is-half mt-3 block" value="Sign up">

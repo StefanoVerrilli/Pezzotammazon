@@ -27,7 +27,7 @@
                 <div class="column is-vcentered">
                     <label class="label" for="email">Email</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input" id="email" name="mail" type="email" placeholder="username@example.org" required="">
+                        <input class="input" id="email" name="mail" type="email" placeholder="username@example.org" required autocomplete="email">
                         <span class="icon is-left">
                             <i class="fas fa-envelope"></i>
                         </span>
@@ -35,7 +35,7 @@
 
                     <label for="password" class="label mt-3">Password</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input" id="password" name="password" type="password" placeholder="password" required="">
+                        <input class="input" id="password" name="password" type="password" placeholder="password" required autocomplete="current-password">
                         <span class="icon is-left">
                             <i class="fas fa-lock"></i>
                         </span>
@@ -43,7 +43,7 @@
 
                     <input type="submit" class="button is-primary is-half mt-3 block" value="Login">
                 </div>
-                Don't have an account yet? <a href="register.jsp">Sign up now</a>.
+                Don't have an account yet? <a href="Register.jsp">Sign up now</a>.
             </form>
         </div>
     </div>
