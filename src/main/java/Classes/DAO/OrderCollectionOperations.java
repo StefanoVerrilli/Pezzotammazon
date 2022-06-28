@@ -1,6 +1,8 @@
 package Classes.DAO;
 
+import Classes.Cart.CartModel;
 import Classes.Cart.CartOperation;
+import Classes.Cart.ICartOperation;
 import Classes.Models.*;
 import Classes.ShoppingItem.ShoppingItemModel;
 
@@ -13,8 +15,8 @@ import java.util.Optional;
 
 public class OrderCollectionOperations implements IGetDAO<OrderCollection>,IAddDAO<OrderCollection>
 {
-    private CartOperation cartOperation;
-    public OrderCollectionOperations(CartOperation cartOperation){
+    private final ICartOperation cartOperation;
+    public OrderCollectionOperations(ICartOperation cartOperation){
         this.cartOperation = cartOperation;
     }
 @Override
@@ -36,6 +38,7 @@ public class OrderCollectionOperations implements IGetDAO<OrderCollection>,IAddD
         return Collection;
     }
 
+    @Override
     public boolean add(OrderCollection collection) throws SQLException {
         String query = "INSERT INTO \"Order\" (UserID, Timestamp) "
                 + "VALUES (?,?) ";
@@ -49,10 +52,11 @@ public class OrderCollectionOperations implements IGetDAO<OrderCollection>,IAddD
 
     public boolean AddSingleOrders(int User_id) throws SQLException {
         Optional<OrderCollection> collection = get(User_id);
-        OrderOperations orderOperations = new OrderOperations(cartOperation.getCart().get().getCart_id());
-        List<ShoppingItemModel> shoppingItems = cartOperation.getAll();
+        CartModel Cart = (CartModel) cartOperation.getCart().get();
+        OrderOperations orderOperations = new OrderOperations(Cart.getCart_id());
+        List<ShoppingItemModel> shoppingItems = (List<ShoppingItemModel>) cartOperation.getAll();
         for(ShoppingItemModel item: shoppingItems){
-            Order order = new Order(cartOperation.getCart().get().getCart_id(),item);
+            Order order = new Order(Cart.getCart_id(),item);
             orderOperations.add(order);
         }
         return true;

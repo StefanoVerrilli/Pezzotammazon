@@ -1,7 +1,7 @@
 package Classes.DAO;
 
 import Classes.Models.Order;
-import Classes.Models.Product;
+import Classes.Product.ProductModel;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,15 +36,15 @@ public class OrderOperations implements IAddDAO<Order>{
         p.setInt(1,this.collectionID);
         ResultSet rest = p.executeQuery();
         while (rest.next()){
-            Product newProduct = new Product();
-            newProduct.setName(rest.getString(2));
-            newProduct.setImage(rest.getString(3));
-            newProduct.setDesc(rest.getString(4));
-            newProduct.setID(rest.getInt(5));
-            newProduct.setAmount(rest.getInt(6));
-            newProduct.setCost(rest.getFloat(7));
-            newProduct.setCategory(rest.getString(8));
-            Order order = new Order(rest.getInt(1),newProduct,collectionID);
+            ProductModel product = new ProductModel.Builder(rest.getString("Name"))
+                                           .setImage(rest.getString("Image"))
+                                           .setCost(rest.getFloat("Cost"))
+                                           .setId(rest.getInt("ID"))
+                                           .setAmount(rest.getInt("Amount"))
+                                           .setDesc(rest.getString("Description"))
+                                           .setCategory("Category")
+                                           .build();
+            Order order = new Order(rest.getInt(1),product,collectionID);
             result.add(order);
         }
         return result;

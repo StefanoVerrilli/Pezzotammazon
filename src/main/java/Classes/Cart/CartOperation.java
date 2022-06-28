@@ -1,7 +1,6 @@
 package Classes.Cart;
-import Classes.DAO.DAO;
 import Classes.DAO.IAddDAO;
-import Classes.Models.Product;
+import Classes.Product.ProductModel;
 import Classes.ShoppingItem.ShoppingItemModel;
 
 import java.sql.PreparedStatement;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CartOperation implements IAddDAO<CartModel>,ICartOperation {
+public class CartOperation implements ICartOperation<CartModel,ShoppingItemModel>{
 
     private Integer userId;
     public CartOperation(Integer User_id){
@@ -69,11 +68,11 @@ public class CartOperation implements IAddDAO<CartModel>,ICartOperation {
         ResultSet rest = p.executeQuery();
         List<ShoppingItemModel> shoppingItems = new ArrayList<>();
         while (rest.next()){
-            Product product = new Product();
-            product.setImage(rest.getString("Image"));
-            product.setCost(rest.getFloat("Cost"));
-            product.setID(rest.getInt("ID"));
-            product.setName(rest.getString("Name"));
+            ProductModel product = new ProductModel.Builder(rest.getString("Name"))
+                    .setImage(rest.getString("Image"))
+                    .setCost(rest.getFloat("Cost"))
+                    .setId(rest.getInt("ID"))
+                    .build();
             ShoppingItemModel item = new ShoppingItemModel(product,Cart_id);
             item.setQuantity(rest.getInt(1));
             shoppingItems.add(item);

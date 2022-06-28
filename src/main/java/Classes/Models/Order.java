@@ -1,5 +1,6 @@
 package Classes.Models;
 
+import Classes.Product.ProductModel;
 import Classes.ShoppingItem.ShoppingItemModel;
 
 public class Order {
@@ -8,7 +9,7 @@ public class Order {
 
     private int quantity;
 
-    private Product item;
+    private ProductModel item;
 
 
     public Order(int OrderID, ShoppingItemModel item){
@@ -17,7 +18,7 @@ public class Order {
         this.item = item.getProduct();
     }
 
-    public Order(int quantity,Product product,int OrderID){
+    public Order(int quantity, ProductModel product, int OrderID){
         this.quantity = quantity;
         this.item = product;
         this.ContainerID = OrderID;
@@ -31,5 +32,5 @@ public class Order {
         return ContainerID;
     }
 
-    public Product getItem(){return item;}
+    public ProductModel getItem(){return item;}
 }

@@ -2,7 +2,9 @@ package Classes.ShoppingItem;
 
 import Classes.Cart.CartModel;
 import Classes.Cart.CartOperation;
+import Classes.Cart.ICartOperation;
 import Classes.DAO.*;
+import Classes.Product.ProductOperations;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +14,8 @@ import java.util.Optional;
 public class ShoppingItemOperations implements IAddDAO<ShoppingItemModel>, IDeleteDAO,
 IGetDAO<ShoppingItemModel>, IUpdateDAO<ShoppingItemModel>{
 
-    CartOperation cartOperation;
-    public ShoppingItemOperations(CartOperation cartOperation){
+    ICartOperation cartOperation;
+    public ShoppingItemOperations(ICartOperation cartOperation){
         this.cartOperation = cartOperation;
     }
     @Override
@@ -22,7 +24,8 @@ IGetDAO<ShoppingItemModel>, IUpdateDAO<ShoppingItemModel>{
                 + "FROM \"ShoppingItem\" "
                 + "WHERE CartID = ? AND ProductID = ?";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        Integer cartId = cartOperation.getCart().get().getCart_id();
+        CartModel cart = (CartModel) cartOperation.getCart().get();
+        Integer cartId = cart.getCart_id();
         p.setInt(1,cartId);
         p.setInt(2, productId);
         ResultSet rest = p.executeQuery();

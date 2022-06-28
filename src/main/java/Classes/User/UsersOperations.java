@@ -26,12 +26,12 @@ public class UsersOperations implements IUserOperation {
         if(!rest.next()){
             return Optional.empty();
         }
-        UserModel newUser = new UserModel();
-        newUser.setEmail(rest.getString(1));
-        newUser.setPassword(rest.getString(2));
-        newUser.setUsername(rest.getString(3));
-        newUser.setAccessType(rest.getInt(4));
-        newUser.setId(rest.getInt("id"));
+        UserModel newUser = new UserModel.Builder(rest.getString(3))
+                .setMail(rest.getString(1))
+                .setPassword(rest.getString(2))
+                .setID(rest.getInt(5))
+                .setAccessType(rest.getInt(4))
+                .build();
         p.close();
         rest.close();
 
@@ -67,10 +67,12 @@ public class UsersOperations implements IUserOperation {
         ResultSet rest = stat.executeQuery(query);
         while(rest.next()){
             if(rest.getInt("User_type") != 1) {
-                UserModel currentUser = new UserModel();
-                currentUser.setEmail(rest.getString("email"));
-                currentUser.setUsername(rest.getString("username"));
-                currentUser.setId(rest.getInt("id"));
+                UserModel currentUser = new UserModel.Builder(rest.getString("username"))
+                        .setMail(rest.getString("email"))
+                        .setID(rest.getInt("id"))
+                        .setPassword(rest.getString("password"))
+                        .setAccessType(rest.getInt("User_type"))
+                        .build();
                 result.add(currentUser);
             }
         }

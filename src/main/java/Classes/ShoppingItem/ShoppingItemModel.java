@@ -1,16 +1,16 @@
 package Classes.ShoppingItem;
 
 
-import Classes.Models.Product;
+import Classes.Product.ProductModel;
 
 public class ShoppingItemModel {
 
-    private Product product;
+    private ProductModel product;
 
     private Integer CartID;
     private int quantity = 1;
 
-    public ShoppingItemModel(Product product, Integer CartID){
+    public ShoppingItemModel(ProductModel product, Integer CartID){
         this.product = product;
         this.CartID = CartID;
     }
@@ -38,7 +38,7 @@ public class ShoppingItemModel {
         return (Math.round(subtotal*100.0)/100.0);
     }
 
-    public void setProduct(Product product){this.product = product;}
-    public Product getProduct(){return this.product;}
+    public void setProduct(ProductModel product){this.product = product;}
+    public ProductModel getProduct(){return this.product;}
 
 }

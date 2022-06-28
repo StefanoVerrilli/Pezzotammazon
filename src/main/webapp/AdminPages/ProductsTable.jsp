@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="Classes.Models.Product" %>
+<%@ page import="Classes.Product.ProductModel" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Classes.User.UserModel" %>
@@ -17,13 +17,13 @@
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
         UserModel user = null;
-        List<Product> data = new ArrayList<>();
+        List<ProductModel> data = new ArrayList<>();
         int access_type;
         if(session.getAttribute("user") == null) {
             response.sendRedirect("/LogIn.jsp");
         }else{
             user = (UserModel) session.getAttribute("user");
-            data = (List<Product>) session.getAttribute("data");
+            data = (List<ProductModel>) session.getAttribute("data");
         }
     %>
 </head>

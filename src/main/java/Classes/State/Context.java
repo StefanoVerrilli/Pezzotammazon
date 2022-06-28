@@ -1,6 +1,13 @@
 package Classes.State;
 
+import Classes.Cart.AddCart;
+import Classes.Cart.CartLogic;
+import Classes.Cart.ChangeCost;
 import Classes.Pattern.*;
+import Classes.Product.*;
+import Classes.User.Access.LogIn;
+import Classes.User.Access.LogOut;
+import Classes.User.Access.Register;
 
 public class Context {
 
@@ -14,9 +21,9 @@ public class Context {
         this.state = state;
     }
     public void LoadAdminLinks(){
-        Actions.putAction("GET/delete.do",new delete());
-        Actions.putAction("POST/EditAction.do",new EditAction());
-        Actions.putAction("POST/Insert.do",new Insert());
+        Actions.putAction("GET/delete.do",new ProductDelete());
+        Actions.putAction("POST/EditAction.do",new EditProduct());
+        Actions.putAction("POST/Insert.do",new InsertProduct());
         Actions.putAction("GET/InsertLogic.do",new InsertLogic());
         Actions.putAction("GET/OrderElaboration.do",new OrderElaboration());
     }
