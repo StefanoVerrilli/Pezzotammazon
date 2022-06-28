@@ -2,12 +2,10 @@ package Classes.Pattern;
 
 import Classes.DAO.CartOperation;
 import Classes.DAO.OrderCollectionOperations;
-import Classes.DAO.ShoppingItemOperations;
 import Classes.Models.Cart;
 import Classes.Models.OrderCollection;
 import Classes.Models.User;
-import Classes.Pattern.Action;
-import Classes.Strategy.PaymentFactory;
+import Classes.Payment.Strategy.PaymentFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +18,11 @@ public class PaymentLogic implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String method = request.getParameter("payment_type");
         User user = (User) request.getSession().getAttribute("user");
-        PaymentFactory factory = new PaymentFactory();
-        factory.PaymentMethod(method).Pay();
+        PaymentFactory factory = new PaymentFactory(request);
+        if(!factory.PaymentMethod(method).Pay()) {
+            request.setAttribute("invalid_payment", "Invalid payment information.");
+            return "/UserPages/Pay";
+        }
         OrderCollectionOperations orderCollectionOperations = new OrderCollectionOperations();
         OrderCollection orderCollection = new OrderCollection();
         orderCollection.setUser_ID(user.getId());
