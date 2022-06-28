@@ -1,8 +1,8 @@
 package Classes.Command;
 
-import Classes.State.AdminState;
-import Classes.State.Context;
-import Classes.State.UserState;
+import Classes.ServletRegulation.AdminState;
+import Classes.ServletRegulation.Context;
+import Classes.ServletRegulation.UserState;
 
 public class DiscriminatorLinks implements DiscriminatorInterface{
     @Override

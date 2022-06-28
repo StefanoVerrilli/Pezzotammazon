@@ -1,13 +1,13 @@
 package Classes.Command;
 
-import Classes.Models.Product;
+import Classes.Product.ProductModel;
 
 import java.util.List;
 
 public class DiscriminatorProducts implements DiscriminatorInterface{
 
-    private List<Product> products;
-    public DiscriminatorProducts(List<Product> list){
+    private List<ProductModel> products;
+    public DiscriminatorProducts(List<ProductModel> list){
         this.products = list;
     }
 

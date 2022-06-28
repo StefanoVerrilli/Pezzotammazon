@@ -1,13 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="Classes.Models.Product" %>
+<%@ page import="Classes.Product.ProductModel" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Classes.Models.User" %>
+<%@ page import="Classes.User.UserModel" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
     <jsp:include page="/Head.jsp">
-        <jsp:param name="page_title" value="Classes.Models.Cart - Pezzotammazon"/>
+        <jsp:param name="page_title" value="Classes.Cart.CartModel - Pezzotammazon"/>
     </jsp:include>
 
     <jsp:include page="/Navbar.jsp">
@@ -16,15 +16,8 @@
 
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-        User user = null;
-        List<Product> data = new ArrayList<>();
-        int access_type;
         if(session.getAttribute("user") == null) {
             response.sendRedirect("/LogIn.jsp");
-        }else{
-            user = (User) session.getAttribute("user");
-            data = (List<Product>) session.getAttribute("data");
-        }
     %>
 </head>
 <body>
