@@ -12,6 +12,10 @@ import java.util.Optional;
 
 public class CartOperation implements DAO<Cart> {
 
+    private Integer userId;
+    public CartOperation(Integer User_id){
+        this.userId = User_id;
+    }
     public void EmptyOrders(int Cart_id) throws SQLException{
         String query = "DELETE FROM ShoppingItem "
                 + "WHERE CartID = ? ";
@@ -20,22 +24,27 @@ public class CartOperation implements DAO<Cart> {
         p.executeUpdate();
         p.close();
     }
-    @Override
-    public Optional<Cart> get(Integer User_id) throws SQLException{
+
+    public Optional<Cart> getNow() throws SQLException{
         String query = "SELECT CartID "
                 + "FROM  Cart "
                 + "WHERE UserID = ? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1,User_id);
+        p.setInt(1,userId);
         ResultSet rest = p.executeQuery();
         Optional<Cart> cart = Optional.empty();
         if(rest.next()){
             cart = Optional.of(new Cart());
-        cart.get().setUser_id(User_id);
+        cart.get().setUser_id(userId);
         cart.get().setCart_id(rest.getInt(1));
             }
         p.close();
         return cart;
+    }
+
+    @Override
+    public Optional<Cart> get(Integer id) throws SQLException {
+        return Optional.empty();
     }
 
     @Override
@@ -53,7 +62,8 @@ public class CartOperation implements DAO<Cart> {
     }
 
 
-   public List<ShoppingItem> getAll(int Cart_id) throws SQLException{
+   public List<ShoppingItem> getAll() throws SQLException{
+        Integer Cart_id = this.getNow().get().getCart_id();
         String query = "SELECT Quantity,Name,Cost,Image,ID "
                 + "FROM ShoppingItem join products p on p.ID = ShoppingItem.ProductID "
                 + "WHERE CartID = ? ";
@@ -62,15 +72,13 @@ public class CartOperation implements DAO<Cart> {
         ResultSet rest = p.executeQuery();
         List<ShoppingItem> shoppingItems = new ArrayList<>();
         while (rest.next()){
-            ShoppingItem item = new ShoppingItem();
-            item.setQuantity(rest.getInt("Quantity"));
-            item.setCartID(Cart_id);
             Product product = new Product();
             product.setImage(rest.getString("Image"));
             product.setCost(rest.getFloat("Cost"));
             product.setID(rest.getInt("ID"));
             product.setName(rest.getString("Name"));
-            item.setProduct(product);
+            ShoppingItem item = new ShoppingItem(product,Cart_id);
+            item.setQuantity(rest.getInt(1));
             shoppingItems.add(item);
         }
         p.close();

@@ -17,7 +17,8 @@ public class EditAction implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ProductOperations productOperations = new ProductOperations();
-        Optional<Product> productToAdd = productOperations.get(Integer.parseInt(request.getParameter("productID")));
+        Optional<Product> productToAdd = productOperations.
+                get(Integer.parseInt(request.getParameter("productID")));
         productToAdd.get().setName(request.getParameter("productName"));
         productToAdd.get().setDesc(request.getParameter("productDesc"));
         productToAdd.get().setCost(Float.parseFloat(request.getParameter("productCost")));

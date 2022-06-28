@@ -16,11 +16,10 @@ public class DeleteOrder implements Action{
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
             int id = Integer.parseInt(request.getParameter("id"));
             User user = (User) request.getSession().getAttribute("user");
-            CartOperation cartOperation = new CartOperation();
-            Optional<Cart> cart = cartOperation.get(user.getId());
-            ShoppingItemOperations itemOperations = new ShoppingItemOperations(cart.get().getCart_id());
+            CartOperation cartOperation = new CartOperation(user.getId());
+            ShoppingItemOperations itemOperations = new ShoppingItemOperations(cartOperation);
             itemOperations.delete(id);
-            request.getSession().setAttribute("ShoppingList", cartOperation.getAll(cart.get().getCart_id()));
+            request.getSession().setAttribute("ShoppingList", cartOperation.getAll());
             return "/UserPages/Cart";
     }
 }

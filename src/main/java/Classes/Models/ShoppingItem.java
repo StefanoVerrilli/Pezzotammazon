@@ -7,11 +7,15 @@ public class ShoppingItem {
 
     private Product product;
 
-    private int CartID;
+    private Integer CartID;
     private int quantity = 1;
 
-    public ShoppingItem(){
+    public ShoppingItem(Product product,Integer CartID){
+        this.product = product;
+        this.CartID = CartID;
     }
+
+    public ShoppingItem(){}
 
     public int getQuantity() {
         return quantity;

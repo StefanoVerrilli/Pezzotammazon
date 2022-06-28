@@ -16,7 +16,6 @@ public class LogIn implements Action{
         String password = request.getParameter("password");
         User user = UsersOperations.checkUser(mail,password);
         if(user != null){
-            request.getSession().setAttribute("access_type",user.getAccessType());
             request.getSession().setAttribute("user",user);
             BuildNavbar.GetNavbar(request);
             DiscriminatorLinks discriminatorLinks = new DiscriminatorLinks();

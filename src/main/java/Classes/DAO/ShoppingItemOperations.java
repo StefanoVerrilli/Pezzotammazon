@@ -1,5 +1,6 @@
 package Classes.DAO;
 
+import Classes.Models.Cart;
 import Classes.Models.ShoppingItem;
 
 import java.sql.PreparedStatement;
@@ -9,9 +10,9 @@ import java.util.Optional;
 
 public class ShoppingItemOperations implements DAO<ShoppingItem> {
 
-    Integer cartId;
-    public ShoppingItemOperations(Integer cartId){
-        this.cartId = cartId;
+    CartOperation cartOperation;
+    public ShoppingItemOperations(CartOperation cartOperation){
+        this.cartOperation = cartOperation;
     }
     @Override
     public Optional<ShoppingItem> get(Integer productId) throws SQLException {
@@ -19,16 +20,17 @@ public class ShoppingItemOperations implements DAO<ShoppingItem> {
                 + "FROM \"ShoppingItem\" "
                 + "WHERE CartID = ? AND ProductID = ?";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1, this.cartId);
+        Integer cartId = cartOperation.getNow().get().getCart_id();
+        p.setInt(1,cartId);
         p.setInt(2, productId);
         ResultSet rest = p.executeQuery();
         Optional<ShoppingItem> shoppingItem = Optional.empty();
         if (rest.next()) {
+            ProductOperations productOperations = new ProductOperations();
             shoppingItem = Optional.of(new ShoppingItem());
             shoppingItem.get().setQuantity(rest.getInt("Quantity"));
-            shoppingItem.get().setCartID(rest.getInt("CartID"));
-            ProductOperations productOperations = new ProductOperations();
-            shoppingItem.get().setProduct(productOperations.get(rest.getInt("ProductID")).get());
+            shoppingItem.get().setCartID(cartId);
+            shoppingItem.get().setProduct(productOperations.get(productId).get());
         }
         p.close();
         return shoppingItem;
@@ -38,13 +40,11 @@ public class ShoppingItemOperations implements DAO<ShoppingItem> {
     @Override
     public boolean add(ShoppingItem item) throws SQLException {
         Optional<ShoppingItem> ResultItem = get(item.getProduct().getID());
-        if(ResultItem.isPresent()){
-            int newQuantity = ResultItem.get().getQuantity()+1;
-            ResultItem.get().setQuantity(newQuantity);
-            update(ResultItem.get());
-        }else{
+        if(!ResultItem.isPresent())
             InsertQuery(item);
-        }
+        Integer newQuantity = ResultItem.get().getQuantity()+1;
+        ResultItem.get().setQuantity(newQuantity);
+        update(ResultItem.get());
         return true;
     }
 
@@ -79,6 +79,9 @@ public class ShoppingItemOperations implements DAO<ShoppingItem> {
         String query = "DELETE FROM \"ShoppingItem\" "
                 + "WHERE CartID=? AND ProductID=? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
+        if(!cartOperation.getNow().isPresent())
+            throw new SQLException("Product is not present");
+        Integer cartId = cartOperation.getNow().get().getCart_id();
         p.setInt(1,cartId);
         p.setInt(2,ProductID);
         p.executeUpdate();

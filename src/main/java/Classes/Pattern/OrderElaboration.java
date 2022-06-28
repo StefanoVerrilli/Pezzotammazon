@@ -1,5 +1,6 @@
 package Classes.Pattern;
 
+import Classes.DAO.CartOperation;
 import Classes.DAO.OrderCollectionOperations;
 import Classes.DAO.OrderOperations;
 import Classes.DAO.UsersOperations;
@@ -17,7 +18,7 @@ public class OrderElaboration implements Action{
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UsersOperations usersOperations = new UsersOperations();
         Integer User_ID = 1;
-        OrderCollectionOperations orderCollectionOperations = new OrderCollectionOperations();
+        OrderCollectionOperations orderCollectionOperations = new OrderCollectionOperations(new CartOperation(User_ID));
         List<OrderCollection> collection = orderCollectionOperations.getAll(User_ID);
         UserAnalysis analysis = new UserAnalysis(User_ID,collection);
         Map<String,Integer> result = analysis.getPurchasePerCategory();

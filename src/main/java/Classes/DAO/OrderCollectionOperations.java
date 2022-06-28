@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrderCollectionOperations implements DAO<OrderCollection>{
+    private CartOperation cartOperation;
+    public OrderCollectionOperations(CartOperation cartOperation){
+        this.cartOperation = cartOperation;
+    }
 
     @Override
     public Optional<OrderCollection> get(Integer userId) throws SQLException {
@@ -43,13 +47,11 @@ public class OrderCollectionOperations implements DAO<OrderCollection>{
         }
 
     public boolean AddSingleOrders(int User_id) throws SQLException {
-        CartOperation cartOperation = new CartOperation();
-        Optional<Cart> cart = cartOperation.get(User_id);
         Optional<OrderCollection> collection = get(User_id);
-        OrderOperations orderOperations = new OrderOperations(cart.get().getCart_id());
-        List<ShoppingItem> shoppingItems = cartOperation.getAll(cart.get().getCart_id());
+        OrderOperations orderOperations = new OrderOperations(cartOperation.getNow().get().getCart_id());
+        List<ShoppingItem> shoppingItems = cartOperation.getAll();
         for(ShoppingItem item: shoppingItems){
-            Order order = new Order(cart.get().getCart_id(),item);
+            Order order = new Order(cartOperation.getNow().get().getCart_id(),item);
             orderOperations.add(order);
         }
         return true;

@@ -22,7 +22,8 @@ public class PaymentLogic implements Action {
         User user = (User) request.getSession().getAttribute("user");
         PaymentFactory factory = new PaymentFactory();
         factory.PaymentMethod(method).Pay();
-        OrderCollectionOperations orderCollectionOperations = new OrderCollectionOperations();
+        OrderCollectionOperations orderCollectionOperations =
+                new OrderCollectionOperations(new CartOperation(user.getId()));
         OrderCollection orderCollection = new OrderCollection();
         orderCollection.setUser_ID(user.getId());
         orderCollection.setTimestamp(Date.valueOf(java.time.LocalDate.now()));
@@ -34,7 +35,7 @@ public class PaymentLogic implements Action {
 
 
     private void EmptyCartWrapper(int User_id) throws SQLException{
-        CartOperation cartOperation = new CartOperation();
+        CartOperation cartOperation = new CartOperation(User_id);
         Optional<Cart> cart = cartOperation.get(User_id);
         if(cart.isPresent())
             cartOperation.EmptyOrders(cart.get().getCart_id());

@@ -9,17 +9,15 @@
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
   User user = null;
-  String email = null;
-  int access_type;
   if(session.getAttribute("user") == null) {
       response.sendRedirect("/LogIn.jsp");
   }else{
-      user = (User) session.getAttribute("user");
-      session.setAttribute("access_type",user.getAccessType());
+      user = (User) request.getSession().getAttribute("user");
+      System.out.println(user.getAccessType());
   }
 %>
 <jsp:include page="Navbar.jsp">
-    <jsp:param name="access_type" value="${access_type}"/>
+    <jsp:param name="access_type" value="${user.getAccessType()}"/>
 </jsp:include>
 <h1>HI ${user.getUsername()}</h1>
 </body>

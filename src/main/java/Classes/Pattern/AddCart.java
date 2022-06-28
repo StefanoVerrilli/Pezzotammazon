@@ -16,23 +16,19 @@ public class AddCart implements Action{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Integer id = Integer.parseInt(request.getParameter("id"));
-        if(id != null){
-            ProductOperations productOperations = new ProductOperations();
-            CartOperation cartOperation = new CartOperation();
-            User user = (User) request.getSession().getAttribute("user");
-            Optional<Cart> cart = cartOperation.get(user.getId());
-            ShoppingItemOperations shoppingItemOperations = new ShoppingItemOperations(cart.get().getCart_id());
-            Product newProduct = productOperations.get(id).get();
-            ShoppingItem newOrder = new ShoppingItem();
-            newOrder.setProduct(newProduct);
-            newOrder.setCartID(cart.get().getCart_id());
-
-            shoppingItemOperations.add(newOrder);
-            request.getSession().setAttribute("ShoppingList",cartOperation.getAll(cart.get().getCart_id()));
-            return "/UserPages/Cart";
-        }else{
-            request.getSession().setAttribute("error","Invalid Product, please retry");
+        if(id == null) {
+            request.getSession().setAttribute("error", "Invalid Product, please retry");
             return "UserProducts";
         }
+        User user = (User) request.getSession().getAttribute("user");
+        ProductOperations productOperations = new ProductOperations();
+        CartOperation cartOperation = new CartOperation(user.getId());
+
+        ShoppingItemOperations shoppingItemOperations = new ShoppingItemOperations(cartOperation);
+        Product newProduct = productOperations.get(id).get();
+        ShoppingItem newOrder = new ShoppingItem(newProduct,cartOperation.getNow().get().getCart_id());
+        shoppingItemOperations.add(newOrder);
+        request.getSession().setAttribute("ShoppingList",cartOperation.getAll());
+        return "/UserPages/Cart";
     }
 }

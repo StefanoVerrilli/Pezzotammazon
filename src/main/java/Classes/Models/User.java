@@ -5,27 +5,15 @@ public class User {
     private String email;
     private String password;
     private String username;
-    private int accessType;
+    private Integer accessType;
 
-    private int id;
+    private Integer id;
 
-    public User(User passedUser){
-        this.accessType = passedUser.getAccessType();
-        this.password = passedUser.getPassword();
-        this.email = passedUser.getEmail();
-        this.username = passedUser.getUsername();
-        this.id = passedUser.getId();
-    }
-
-    public User() {
-
-    }
-
-    public int getAccessType() {
+    public Integer getAccessType() {
         return accessType;
     }
 
-    public void setAccessType(int accessType) {
+    public void setAccessType(Integer accessType) {
         this.accessType = accessType;
     }
 
@@ -57,7 +45,7 @@ public class User {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

@@ -7,7 +7,7 @@
     </jsp:include>
 
     <jsp:include page="/Navbar.jsp">
-        <jsp:param name="access_type" value="${access_type}"/>
+        <jsp:param name="access_type" value="${user.getAccessType()}"/>
     </jsp:include>
 
     <script>
@@ -39,14 +39,8 @@
 </head>
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-    User user = null;
-    int access_type;
     if(session.getAttribute("user") == null)
         response.sendRedirect("/LogIn.jsp");
-    else{
-        user = (User) session.getAttribute("user");
-        access_type = (int) session.getAttribute("access_type");
-    }
 %>
 <body>
 <form id="productForm" enctype="multipart/form-data">

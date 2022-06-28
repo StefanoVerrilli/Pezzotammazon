@@ -21,7 +21,7 @@ public class FetchProduct implements Action{
         product = productOperations.get(id);
         if(!product.isPresent()){
             request.getSession().setAttribute("error","Error during fetching of the product");
-            return "/";
+            return "/Homepage.jsp";
         }
         request.getSession().setAttribute("Product",product.get());
         Discriminator discriminator = new Discriminator(id);
