@@ -3,7 +3,7 @@ package Classes.Pattern;
 import Classes.BuilderNavBar.AdminNavBuilder;
 import Classes.BuilderNavBar.Director;
 import Classes.BuilderNavBar.Navbar;
-import Classes.Models.User;
+import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +13,7 @@ public class BuildNavbar{
         Director director = new Director();
         Navbar myNavbar = new Navbar();
         AdminNavBuilder adminNavBar = new AdminNavBuilder();
-        User user = (User) request.getSession().getAttribute("user");
+        UserModel user = (UserModel) request.getSession().getAttribute("user");
         if(user.getAccessType() != null){
         if(user.getAccessType() == 0) {
             director.constructUserNavBar(adminNavBar);

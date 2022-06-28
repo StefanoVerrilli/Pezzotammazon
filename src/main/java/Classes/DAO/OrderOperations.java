@@ -2,26 +2,19 @@ package Classes.DAO;
 
 import Classes.Models.Order;
 import Classes.Models.Product;
-import Classes.Models.ShoppingItem;
-import Classes.Strategy.Payment;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-public class OrderOperations implements DAO<Order>{
+public class OrderOperations implements IAddDAO<Order>{
     private Integer collectionID;
     public OrderOperations(Integer collectionID){
         this.collectionID = collectionID;
     }
     @Override
-    public Optional<Order> get(Integer id) throws SQLException {
-        return Optional.empty();
-    }
-
     public boolean add(Order order) throws SQLException{
         String query ="INSERT INTO ItemOrder(Quantity, OrderID, ProductID) "
                 + "VALUES(?,?,?) ";
@@ -57,13 +50,4 @@ public class OrderOperations implements DAO<Order>{
         return result;
     }
 
-    @Override
-    public void update(Order order) throws SQLException {
-
-    }
-
-    @Override
-    public void delete(Integer id) throws SQLException {
-
-    }
 }

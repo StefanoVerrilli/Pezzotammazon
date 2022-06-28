@@ -5,7 +5,7 @@ import Classes.Command.Invoker;
 import Classes.Command.Dispatcher;
 import Classes.Models.Product;
 import Classes.DAO.ProductOperations;
-import Classes.Models.User;
+import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class FetchProduct implements Action{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        User user = (User) request.getSession().getAttribute("user");
+        UserModel user = (UserModel) request.getSession().getAttribute("user");
         Optional<Product> product;
         ProductOperations productOperations = new ProductOperations();
         Integer id = Integer.parseInt(request.getParameter("id"));

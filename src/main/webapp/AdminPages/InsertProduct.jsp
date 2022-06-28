@@ -1,9 +1,9 @@
-<%@ page import="Classes.Models.User" %>
+<%@ page import="Classes.User.UserModel" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <html>
 <head>
     <jsp:include page="/Head.jsp">
-        <jsp:param name="page_title" value="Classes.Models.Cart - Pezzotammazon"/>
+        <jsp:param name="page_title" value="Classes.Cart.CartModel - Pezzotammazon"/>
     </jsp:include>
 
     <jsp:include page="/Navbar.jsp">

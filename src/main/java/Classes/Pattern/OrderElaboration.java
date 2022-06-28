@@ -1,10 +1,8 @@
 package Classes.Pattern;
 
-import Classes.DAO.CartOperation;
+import Classes.Cart.CartOperation;
 import Classes.DAO.OrderCollectionOperations;
-import Classes.DAO.OrderOperations;
-import Classes.DAO.UsersOperations;
-import Classes.Models.Order;
+import Classes.User.UsersOperations;
 import Classes.Models.OrderCollection;
 import Classes.Models.UserAnalysis;
 

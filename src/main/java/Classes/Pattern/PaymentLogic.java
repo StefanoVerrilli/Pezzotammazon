@@ -1,12 +1,10 @@
 package Classes.Pattern;
 
-import Classes.DAO.CartOperation;
+import Classes.Cart.CartOperation;
 import Classes.DAO.OrderCollectionOperations;
-import Classes.DAO.ShoppingItemOperations;
-import Classes.Models.Cart;
+import Classes.Cart.CartModel;
 import Classes.Models.OrderCollection;
-import Classes.Models.User;
-import Classes.Pattern.Action;
+import Classes.User.UserModel;
 import Classes.Strategy.PaymentFactory;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +17,7 @@ public class PaymentLogic implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String method = request.getParameter("payment_type");
-        User user = (User) request.getSession().getAttribute("user");
+        UserModel user = (UserModel) request.getSession().getAttribute("user");
         PaymentFactory factory = new PaymentFactory();
         factory.PaymentMethod(method).Pay();
         OrderCollectionOperations orderCollectionOperations =
@@ -36,8 +34,8 @@ public class PaymentLogic implements Action {
 
     private void EmptyCartWrapper(int User_id) throws SQLException{
         CartOperation cartOperation = new CartOperation(User_id);
-        Optional<Cart> cart = cartOperation.get(User_id);
+        Optional<CartModel> cart = cartOperation.getCart();
         if(cart.isPresent())
-            cartOperation.EmptyOrders(cart.get().getCart_id());
+            cartOperation.EmptyCart();
     }
 }

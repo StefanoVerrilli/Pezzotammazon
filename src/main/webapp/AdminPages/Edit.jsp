@@ -1,12 +1,12 @@
 <%@ page import="Classes.Models.Product" %>
-<%@ page import="Classes.Models.User" %>
+<%@ page import="Classes.User.UserModel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <html>
 <head>
     <jsp:include page="/Head.jsp">
-        <jsp:param name="page_title" value="Classes.Models.Cart - Pezzotammazon"/>
+        <jsp:param name="page_title" value="Classes.Cart.CartModel - Pezzotammazon"/>
     </jsp:include>
 
     <jsp:include page="/Navbar.jsp">
@@ -43,14 +43,14 @@
     <title>EditProduct</title>
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-        User user = null;
+        UserModel user = null;
         int access_type;
         int id;
         Product oldProduct = new Product();
         if(session.getAttribute("user") == null) {
             response.sendRedirect("/LogIn.jsp");
         }else{
-            user = (User) session.getAttribute("user");
+            user = (UserModel) session.getAttribute("user");
             access_type = user.getAccessType();
             oldProduct = (Product) session.getAttribute("Product");
             id = oldProduct.getID();

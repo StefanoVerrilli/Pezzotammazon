@@ -1,4 +1,4 @@
-<%@ page import="Classes.Models.User" %>
+<%@ page import="Classes.User.UserModel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:include page="Head.jsp">
@@ -8,11 +8,11 @@
 <body>
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-  User user = null;
+  UserModel user = null;
   if(session.getAttribute("user") == null) {
       response.sendRedirect("/LogIn.jsp");
   }else{
-      user = (User) request.getSession().getAttribute("user");
+      user = (UserModel) request.getSession().getAttribute("user");
       System.out.println(user.getAccessType());
   }
 %>

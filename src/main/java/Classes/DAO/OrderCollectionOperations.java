@@ -1,6 +1,8 @@
 package Classes.DAO;
 
+import Classes.Cart.CartOperation;
 import Classes.Models.*;
+import Classes.ShoppingItem.ShoppingItemModel;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class OrderCollectionOperations implements DAO<OrderCollection>{
+public class OrderCollectionOperations implements IGetDAO<OrderCollection>,IAddDAO<OrderCollection>
+{
     private CartOperation cartOperation;
     public OrderCollectionOperations(CartOperation cartOperation){
         this.cartOperation = cartOperation;
     }
-
-    @Override
+@Override
     public Optional<OrderCollection> get(Integer userId) throws SQLException {
         String query = "SELECT OrderID,Timestamp "
                 + "FROM \"Order\" "
@@ -34,7 +36,6 @@ public class OrderCollectionOperations implements DAO<OrderCollection>{
         return Collection;
     }
 
-    @Override
     public boolean add(OrderCollection collection) throws SQLException {
         String query = "INSERT INTO \"Order\" (UserID, Timestamp) "
                 + "VALUES (?,?) ";
@@ -48,25 +49,25 @@ public class OrderCollectionOperations implements DAO<OrderCollection>{
 
     public boolean AddSingleOrders(int User_id) throws SQLException {
         Optional<OrderCollection> collection = get(User_id);
-        OrderOperations orderOperations = new OrderOperations(cartOperation.getNow().get().getCart_id());
-        List<ShoppingItem> shoppingItems = cartOperation.getAll();
-        for(ShoppingItem item: shoppingItems){
-            Order order = new Order(cartOperation.getNow().get().getCart_id(),item);
+        OrderOperations orderOperations = new OrderOperations(cartOperation.getCart().get().getCart_id());
+        List<ShoppingItemModel> shoppingItems = cartOperation.getAll();
+        for(ShoppingItemModel item: shoppingItems){
+            Order order = new Order(cartOperation.getCart().get().getCart_id(),item);
             orderOperations.add(order);
         }
         return true;
     }
 
 
-    public List<OrderCollection> getAll(int User_id) throws SQLException{
+    public List<OrderCollection> getAll(int User_id) throws SQLException {
         List<OrderCollection> orderCollectionList = new ArrayList<>();
         String query = "SELECT OrderID,TimeStamp "
                 + "FROM \"Order\" "
                 + "WHERE UserID = ? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1,User_id);
+        p.setInt(1, User_id);
         ResultSet resultSet = p.executeQuery();
-        while (resultSet.next()){
+        while (resultSet.next()) {
             OrderCollection orderCollection = new OrderCollection();
             orderCollection.setUser_ID(User_id);
             orderCollection.setCollectionID(resultSet.getInt(1));
@@ -74,14 +75,5 @@ public class OrderCollectionOperations implements DAO<OrderCollection>{
             orderCollectionList.add(orderCollection);
         }
         return orderCollectionList;
-    }
-    @Override
-    public void update(OrderCollection orderCollection) throws SQLException {
-
-    }
-
-    @Override
-    public void delete(Integer id) throws SQLException {
-
     }
 }

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ProductOperations implements DAO<Product> {
+public class ProductOperations implements IGetDAO<Product>,IAddDAO<Product>,IUpdateDAO<Product>,
+IDeleteDAO{
 
-    @Override
     public Optional<Product> get(Integer id) throws SQLException {
         String query = "SELECT * "
                 + "FROM products "
@@ -52,7 +52,6 @@ public class ProductOperations implements DAO<Product> {
         return result;
     }
 
-    @Override
     public boolean add(Product product) throws SQLException {
         int result;
         String query = "INSERT INTO products (Name,Description,Amount,Cost,Category,Image) "
@@ -69,7 +68,6 @@ public class ProductOperations implements DAO<Product> {
         return true;
     }
 
-    @Override
     public void update(Product product) throws SQLException {
         String query = "UPDATE products "
                 + "SET Name = ?, Description=?,Amount=?,Cost=?,Category=? ,Image=? "
@@ -87,7 +85,6 @@ public class ProductOperations implements DAO<Product> {
     }
 
 
-    @Override
     public void delete(Integer id) throws SQLException {
         String query = "DELETE FROM products "
                 + "WHERE ID=? ";

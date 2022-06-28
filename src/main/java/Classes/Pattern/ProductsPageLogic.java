@@ -5,11 +5,12 @@ import Classes.Command.Dispatcher;
 import Classes.Command.Invoker;
 import Classes.Models.Product;
 import Classes.DAO.ProductOperations;
-import Classes.Models.User;
+import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductsPageLogic implements Action{
     @Override
@@ -17,7 +18,7 @@ public class ProductsPageLogic implements Action{
         ProductOperations productOperations = new ProductOperations();
         List<Product> data = productOperations.getAll();
         request.getSession().setAttribute("data",data);
-        User user = (User) request.getSession().getAttribute("user");
+        UserModel user = (UserModel) request.getSession().getAttribute("user");
         DiscriminatorProducts discriminator = new DiscriminatorProducts(data);
         Invoker invoker = new Invoker(new Dispatcher(discriminator,user));
         return  invoker.executeOperation();
