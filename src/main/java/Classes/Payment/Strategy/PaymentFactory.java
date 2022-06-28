@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/Classes/Payment/Strategy/PaymentFactory.java
 package Classes.Payment.Strategy;
-=======
-package Classes.Payment;
->>>>>>> d1941a206d8c10ad35c924fdeadfe841875a3561:src/main/java/Classes/Payment/PaymentFactory.java
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
