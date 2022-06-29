@@ -15,6 +15,6 @@ public class ConcreteHashAlg implements HashInterface{
         }catch (NoSuchAlgorithmException e){
 
         }
-        return "";
+        return null;
     }
 }

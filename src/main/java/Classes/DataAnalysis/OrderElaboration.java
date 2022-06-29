@@ -1,13 +1,13 @@
 package Classes.DataAnalysis;
 
 import Classes.Cart.CartOperation;
+import Classes.ConcreteHashAlg;
 import Classes.FrontController.Action;
 import Classes.OrderCollection.OrderCollectionOperations;
 import Classes.Product.ProductModel;
 import Classes.User.UserModel;
 import Classes.User.UsersOperations;
 import Classes.OrderCollection.OrderCollection;
-import Classes.DataAnalysis.UserAnalysis;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +18,7 @@ import java.util.Optional;
 public class OrderElaboration implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        UsersOperations usersOperations = new UsersOperations();
+        UsersOperations usersOperations = new UsersOperations(new ConcreteHashAlg());
         Integer inputID = Integer.valueOf(request.getParameter("id"));
         System.out.println(inputID);
         OrderCollectionOperations orderCollectionOperations =

@@ -1,8 +1,6 @@
 package Classes.User;
-import Classes.ConcreteHashAlg;
 import Classes.DAO.DAO;
 import Classes.HashInterface;
-import Classes.User.UserModel;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,11 +9,15 @@ import java.util.Optional;
 
 public class UsersOperations implements IUserOperation {
 
-    private static HashInterface MyHashfunction = new ConcreteHashAlg();
+    private final HashInterface hashFunction;
+
+    public UsersOperations(HashInterface hashFunction) {
+        this.hashFunction = hashFunction;
+    }
 
     public Optional<UserModel> CheckUser(String mail, String password) throws SQLException {
         String cc = null;
-        String HashValue = MyHashfunction.HashValue(password);
+        String HashValue = hashFunction.HashValue(password);
         String query = "SELECT * "
                 + "FROM users "
                 + "WHERE email= ? AND password= ?";
@@ -62,11 +64,11 @@ public class UsersOperations implements IUserOperation {
     public List<UserModel> getAll() throws SQLException {
         List result = new ArrayList();
         String query = "SELECT * "
-                + "FROM users ";
+                + "FROM users "
+                + "WHERE User_type = 0 ";
         Statement stat = (Statement) DAO.myDb.getConnection().createStatement();
         ResultSet rest = stat.executeQuery(query);
         while(rest.next()){
-            if(rest.getInt("User_type") != 1) {
                 UserModel currentUser = new UserModel.Builder(rest.getString("username"))
                         .setMail(rest.getString("email"))
                         .setID(rest.getInt("id"))
@@ -74,7 +76,6 @@ public class UsersOperations implements IUserOperation {
                         .setAccessType(rest.getInt("User_type"))
                         .build();
                 result.add(currentUser);
-            }
         }
         return result;
     }
@@ -85,7 +86,7 @@ public class UsersOperations implements IUserOperation {
             String Registration = "INSERT INTO users (email,password,username) "
                     + "VALUES(?,?,?)";
             PreparedStatement p = myDb.getConnection().prepareStatement(Registration);
-            String MyHash = MyHashfunction.HashValue(user.getPassword());
+            String MyHash = hashFunction.HashValue(user.getPassword());
             p.setString(1,user.getEmail());
             p.setString(2,MyHash);
             p.setString(3,user.getUsername());

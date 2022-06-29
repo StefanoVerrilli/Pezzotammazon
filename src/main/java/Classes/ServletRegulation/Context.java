@@ -29,7 +29,6 @@ public class Context {
         Actions.putAction("GET/delete.do",new ProductDelete());
         Actions.putAction("POST/EditAction.do",new ProductEdit());
         Actions.putAction("POST/Insert.do",new ProductInsert());
-        Actions.putAction("GET/InsertLogic.do",new InsertLogic());
         Actions.putAction("GET/UsersPageLogic.do",new UsersPageLogic());
         Actions.putAction("GET/orderElaboration.do",new OrderElaboration());
     }
