@@ -39,5 +39,5 @@ build/
 .DS_Store
 
 ### Settings ###
-src/main/java/Classes/DatabaseSettings.java
+src/main/java/Classes/DAO/DatabaseSettings.java
 out/

@@ -16,7 +16,6 @@ public class UsersOperations implements IUserOperation {
     }
 
     public Optional<UserModel> CheckUser(String mail, String password) throws SQLException {
-        String cc = null;
         String HashValue = hashFunction.HashValue(password);
         String query = "SELECT * "
                 + "FROM users "
@@ -41,32 +40,24 @@ public class UsersOperations implements IUserOperation {
     }
 
     private boolean checkMailExists(String mail) throws SQLException{
-        String cc = null;
         String query = "SELECT COUNT(*) "
                 + "FROM users "
                 + "WHERE email= ?";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setString(1,mail);
         ResultSet rest = p.executeQuery();
-        while (rest.next()) {
-            cc = rest.getString(1);
-        }
+        int cc = Integer.parseInt(rest.getString(1));
         p.close();
         rest.close();
-        if(Integer.parseInt(cc) != 0){
-            return true;
-        }else{
-            return false;
-        }
-
+        return cc != 0;
     }
     @Override
     public List<UserModel> getAll() throws SQLException {
-        List result = new ArrayList();
+        List<UserModel> result = new ArrayList<>();
         String query = "SELECT * "
                 + "FROM users "
                 + "WHERE User_type = 0 ";
-        Statement stat = (Statement) DAO.myDb.getConnection().createStatement();
+        Statement stat = DAO.myDb.getConnection().createStatement();
         ResultSet rest = stat.executeQuery(query);
         while(rest.next()){
                 UserModel currentUser = new UserModel.Builder(rest.getString("username"))

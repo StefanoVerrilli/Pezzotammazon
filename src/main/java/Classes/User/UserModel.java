@@ -5,7 +5,7 @@ public class UserModel {
     private String email;
     private String password;
     private String username;
-    private Integer accessType;
+    private AccessLevels AccessType;
     private Integer id;
 
 
@@ -14,7 +14,7 @@ public class UserModel {
         private String mail;
         private String password;
         private String username;
-        private Integer AccessType;
+        private AccessLevels access;
         private Integer id;
 
         public Builder(String Username){
@@ -36,15 +36,16 @@ public class UserModel {
             return this;
         }
 
-        public Builder setAccessType(Integer accessType) {
-            AccessType = accessType;
+        public Builder setAccessType(int level) {
+            access = AccessLevels.values()[level];
+            System.out.println(access);
             return this;
         }
 
         public UserModel build(){
             UserModel userModel = new UserModel();
             userModel.id = this.id;
-            userModel.accessType = this.AccessType;
+            userModel.AccessType = this.access;
             userModel.email = this.mail;
             userModel.password = this.password;
             userModel.username = this.username;
@@ -52,8 +53,8 @@ public class UserModel {
         }
     }
 
-    public Integer getAccessType() {
-        return accessType;
+    public AccessLevels getAccessType() {
+        return AccessType;
     }
 
     public String getUsername() {

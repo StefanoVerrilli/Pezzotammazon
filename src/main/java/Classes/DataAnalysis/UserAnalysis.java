@@ -8,8 +8,10 @@ import Classes.OrderCollection.OrderCollection;
 import Classes.Product.ProductModel;
 import Classes.Product.ProductOperations;
 
+import javax.swing.*;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class UserAnalysis {
     Map<String,Integer> PurchasePerCategory = new HashMap<>();
@@ -50,16 +52,23 @@ public class UserAnalysis {
     public List<ProductModel> getSuggestions(String category) throws SQLException {
         ProductOperations productOperations = new ProductOperations();
         List<ProductModel> productModelList = productOperations.getAllByCategory(category);
-        OrderCollectionOperations orderCollectionOperations = new OrderCollectionOperations(new CartOperation(User_id));
-        List<OrderCollection> orders = orderCollectionOperations.getAll(User_id);
-        for(OrderCollection order : orders){
+        List<Order> ordersList = getBoughtItems();
+        ordersList.stream().forEach(order -> System.out.println(order.getItem().getID()));
+        for(Order order : ordersList)
+            productModelList.removeIf(productModel -> productModel.getID() == order.getItem().getID());
+        return productModelList;
+    }
+
+    public List<Order> getBoughtItems() throws SQLException {
+        Collection<Order> SingleOrders = new ArrayList<>();
+        for(OrderCollection order : Orders){
             OrderOperations orderOperations = new OrderOperations(order.getCollectionID());
             List<Order> orderList = orderOperations.getAll();
-            for(Order item : orderList){
-                    productModelList.removeIf(element -> element.getID() == item.getItem().getID());
+            for (Order item : orderList) {
+                SingleOrders.add(item);
             }
         }
-        return productModelList;
+        return SingleOrders.stream().distinct().collect(Collectors.toList());
     }
 }
 

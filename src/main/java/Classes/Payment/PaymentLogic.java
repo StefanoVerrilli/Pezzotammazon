@@ -20,11 +20,13 @@ public class PaymentLogic implements Action {
         UserModel user = (UserModel) request.getSession().getAttribute("user");
         PaymentFactory factory = new PaymentFactory(request);
         if(!factory.PaymentMethod(method).Pay()) {
+        System.out.println("scossa");
             request.setAttribute("invalid_payment", "Invalid payment information.");
             return "/UserPages/Pay";
         }
         OrderCollectionOperations orderCollectionOperations =
-        new OrderCollectionOperations(new CartOperation(user.getId()));OrderCollection orderCollection = new OrderCollection();
+        new OrderCollectionOperations(new CartOperation(user.getId()));
+        OrderCollection orderCollection = new OrderCollection();
         orderCollection.setUser_ID(user.getId());
         orderCollection.setTimestamp(Date.valueOf(java.time.LocalDate.now()));
         orderCollectionOperations.add(orderCollection);
