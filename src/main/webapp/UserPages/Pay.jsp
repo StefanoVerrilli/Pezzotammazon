@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
   <jsp:include page="/Head.jsp">
     <jsp:param name="page_title" value="Classes.Cart.CartModel - Pezzotammazon"/>
@@ -9,10 +10,18 @@
 <body>
 <div class="container">
 <form method="post" action="PaymentLogic.do">
+
+  <div class="field">
+    <label class="label" for="address">Recipient name</label>
+    <div class="control">
+      <input class="input" type="text" name="recipient_name" id="recipient-name" placeholder="John Smith" required autocomplete="name">
+    </div>
+  </div>
+
   <div class="field">
     <label class="label" for="address">Street</label>
     <div class="control">
-      <input class="input" type="text" name="address" id="address" placeholder="Main Street">
+      <input class="input" type="text" name="address" id="address" placeholder="Main Street" required autocomplete="street-address">
     </div>
   </div>
 
@@ -21,7 +30,7 @@
       <div class="field">
         <label class="label" for="postal">Postal Code</label>
         <div class="control">
-          <input class="input" min="0" max="9999" type="number" name="postal" id="postal" placeholder="05487">
+          <input class="input" min="0" max="99999" type="number" name="postal" id="postal" placeholder="05487"  required autocomplete="postal-code">
         </div>
       </div>
     </div>
@@ -30,7 +39,7 @@
     <div class="field">
     <label class="label" for="city">City</label>
     <div class="control">
-      <input class="input" type="text" name="city" id="city" placeholder="New York">
+      <input class="input" type="text" name="city" id="city" required placeholder="New York">
     </div>
   </div>
   </div>
@@ -51,14 +60,14 @@
     <div class="field">
       <label class="label" for="card-owner">Card Owner</label>
       <div class="control">
-        <input class="input" type="text" name="card_owner" id="card-owner" placeholder="John Smith">
+        <input class="input" type="text" name="card_owner" id="card-owner" placeholder="John Smith" autocomplete="cc-family-name">
       </div>
     </div>
 
     <div class="field">
       <label class="label" for="card-number">Card Number</label>
       <div class="control">
-        <input class="input" type="number" min="1111111111111111" max="9999999999999999" name="card_number" id="card-number" placeholder="0000 0000 0000 0000">
+        <input class="input" type="number" min="1111111111111111" max="9999999999999999" name="card_number" id="card-number" placeholder="0000 0000 0000 0000" autocomplete="cc-number">
       </div>
     </div>
 
@@ -69,7 +78,7 @@
         <div class="field">
           <label class="label" for="card-month">Month</label>
           <div class="control">
-            <input class="input" min="0" max="12" type="number" name="card_month" id="card-month" placeholder="12">
+            <input class="input" min="0" max="12" type="number" name="card_month" id="card-month" placeholder="12" autocomplete="cc-exp-month">
           </div>
         </div>
       </div>
@@ -78,7 +87,7 @@
             <div class="field">
               <label class="label" for="card-year">Year</label>
               <div class="control">
-                <input class="input" min="0" max="99" type="number" name="card_year" id="card-year" placeholder="22">
+                <input class="input" min="2021" max="9999" type="number" name="card_year" id="card-year" placeholder="2022" autocomplete="cc-exp-year">
               </div>
             </div>
           </div>
@@ -90,7 +99,7 @@
         <div class="field">
           <label class="label" for="cvc">CVC</label>
           <div class="control">
-            <input class="input" min="111" max="999" type="number" name="cvc" id="cvc" placeholder="000">
+            <input class="input" min="0" max="999" type="number" name="cvc" id="cvc" placeholder="000">
           </div>
         </div>
       </div>
@@ -116,6 +125,10 @@
 
   <input type="submit" class="button is-warning is-fullwidth mt-3 is-large" value="Pay and continue">
 </form>
+
+  <c:if test="${invalid_payment !=null}">
+    <p class="help is-danger"><c:out value="${invalid_payment}"></c:out></p>
+  </c:if>
 
 </div>
 

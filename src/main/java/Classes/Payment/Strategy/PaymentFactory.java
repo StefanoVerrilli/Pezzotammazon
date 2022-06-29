@@ -1,13 +1,17 @@
-package Classes.Payment;
+package Classes.Payment.Strategy;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class PaymentFactory {
     private List<IPayMethod> Payment = new ArrayList<>();
+    private HttpServletRequest request;
 
-    public PaymentFactory(){
+
+    public PaymentFactory(HttpServletRequest request){
+        this.request = request;
         Payment.add(new PayBancomat());
         Payment.add(new PayCard());
     }
@@ -17,6 +21,6 @@ public class PaymentFactory {
         if(!payment.isPresent()){
             throw new IllegalArgumentException();
         }
-        return payment.get().Create();
+        return payment.get().Create(request);
     }
 }

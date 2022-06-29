@@ -20,7 +20,7 @@ public class Register implements Action {
             return "LogIn";
         }else{
             request.getSession().setAttribute("error","Mail already exists");
-            return "register";
+            return "Register";
         }
     }
 }
