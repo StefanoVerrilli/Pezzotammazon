@@ -1,10 +1,14 @@
 package Classes.DataAnalysis;
 
 import Classes.Cart.CartOperation;
+import Classes.Clustering.Record;
 import Classes.ConcreteHashAlg;
+import Classes.DataAnalysis.DatasetPreparation.DataSetElaboration;
 import Classes.FrontController.Action;
+import Classes.Order.OrderOperations;
 import Classes.OrderCollection.OrderCollectionOperations;
 import Classes.Product.ProductModel;
+import Classes.Product.ProductOperations;
 import Classes.User.UserModel;
 import Classes.User.UsersOperations;
 import Classes.OrderCollection.OrderCollection;
@@ -20,22 +24,15 @@ public class OrderElaboration implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UsersOperations usersOperations = new UsersOperations(new ConcreteHashAlg());
         Integer inputID = Integer.valueOf(request.getParameter("id"));
-        System.out.println(inputID);
         OrderCollectionOperations orderCollectionOperations =
         new OrderCollectionOperations(new CartOperation(inputID));
         List<OrderCollection> collection = orderCollectionOperations.getAll(inputID);
-        UserAnalysis analysis = new UserAnalysis(inputID,collection);
-        Map<String,Integer> result = analysis.getPurchasePerCategory();
-        for(String Name : result.keySet()){
-            System.out.println("Category Name" + Name);
-            System.out.println(result.get(Name));
-        }
-        Map.Entry<String,Integer> maxEntry = analysis.getMaxMap(result);
         Optional<UserModel> user = usersOperations.get(inputID);
-        if(maxEntry != null){
-            List<ProductModel> entry = analysis.getSuggestions(maxEntry.getKey());
-            request.getSession().setAttribute("suggestions", analysis.getSuggestions(maxEntry.getKey()));
-            }
+        DataSetElaboration dataSetElaboration = new DataSetElaboration();
+
+        Record result = dataSetElaboration.getData(user.get(),collection);
+        String Category = dataSetElaboration.MaxPurchaseCategory(result);
+        request.getSession().setAttribute("suggestions",dataSetElaboration.getSuggestions(Category,collection));
         return "/AdminPages/UserSuggestion";
     }
 }
