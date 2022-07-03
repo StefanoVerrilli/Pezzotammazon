@@ -19,7 +19,7 @@
 
 <div class="block m-5">
     <!-- TITOLO SEZIONE -->
-    <h2 class="title">Section title</h2>
+    <h2 class="title">Products</h2>
 
     <div class="block is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap">
 <c:forEach var="product" items="${data}">

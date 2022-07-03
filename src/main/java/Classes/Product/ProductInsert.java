@@ -17,15 +17,18 @@ public class ProductInsert implements Action {
         Part filePart = request.getPart("productImage");
         InputStream is = filePart.getInputStream();
         byte[] bytesArray = IOUtils.toByteArray(is);
+
+        ProductCategoryModel category = new ProductCategoriesOperations().get(Integer.parseInt(request.getParameter("productCategory"))).get();
+
         ProductModel productToAdd  = new ProductModel.Builder(request.getParameter("productName"))
                                     .setCost(Float.parseFloat(request.getParameter("productCost")))
                                     .setAmount(Integer.valueOf(request.getParameter("productAmount")))
                                     .setDesc(request.getParameter("productDesc"))
-                                    .setCategory(request.getParameter("productCategory"))
+                                    .setCategory(category)
                                     .setImage(Base64.getEncoder().encodeToString(bytesArray))
                                     .build();
         try {
-            ProductOperations productOperations = new ProductOperations();
+            ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
             productOperations.add(productToAdd);
             return "";
         } catch (SQLException e) {

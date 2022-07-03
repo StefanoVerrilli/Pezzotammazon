@@ -126,7 +126,7 @@
   <input type="submit" class="button is-warning is-fullwidth mt-3 is-large" value="Pay and continue">
 </form>
 
-  <c:if test="${invalid_payment !=null}">
+  <c:if test="${invalid_payment != null}">
     <p class="help is-danger"><c:out value="${invalid_payment}"></c:out></p>
   </c:if>
 

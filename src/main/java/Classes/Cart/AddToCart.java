@@ -1,5 +1,6 @@
 package Classes.Cart;
 
+import Classes.Product.ProductCategoriesOperations;
 import Classes.Product.ProductOperations;
 import Classes.FrontController.Action;
 import Classes.ShoppingItem.ShoppingItemOperations;
@@ -19,7 +20,7 @@ public class AddToCart implements Action {
             return "UserProducts";
         }
         UserModel user = (UserModel) request.getSession().getAttribute("user");
-        ProductOperations productOperations = new ProductOperations();
+        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
         CartOperation cartOperation = new CartOperation(user.getId());
 
         ShoppingItemOperations shoppingItemOperations = new ShoppingItemOperations(cartOperation);

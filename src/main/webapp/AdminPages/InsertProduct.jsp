@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="Classes.User.UserModel" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <html>
@@ -49,9 +50,9 @@
     <input type="number" id="productCost" placeholder="Cost" name="productCost" step="0.01" required>
     <input type="number" id="productAmount" placeholder="Amount" name="productAmount" required>
     <select id="productCategory" name="productCategory">
-        <option value="videogiochi">videogiochi</option>
-        <option value="giochi">giochi</option>
-        <option value="casa">casa</option>
+        <c:forEach var="category" items="${categories}">
+            <option value="${category.getCategoryID()}"><c:out value="${category.getCategoryDescription()}"></c:out></option>
+        </c:forEach>
     </select>
     <input type="file" id="productImage" name="productImage">
     <input type="button" value="submit" onclick="submitForm()">

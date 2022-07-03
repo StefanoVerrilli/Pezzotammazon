@@ -29,7 +29,7 @@ public class ProductModel {
         this.cost = cost;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ProductCategoryModel category) {
         this.category = category;
     }
 
@@ -37,7 +37,7 @@ public class ProductModel {
         this.image = image;
     }
 
-    private String category;
+    private ProductCategoryModel category;
 
     private String image;
 
@@ -52,7 +52,7 @@ public class ProductModel {
         private Float cost = 0.0f;
         private String image;
         private Integer id = 0;
-        private String category;
+        private ProductCategoryModel category;
         public Builder(String name){
         this.name = name;
         }
@@ -72,7 +72,7 @@ public class ProductModel {
             this.cost = cost;
             return this;
         }
-        public Builder setCategory(String Category){
+        public Builder setCategory(ProductCategoryModel Category){
             this.category = Category;
             return this;
         }
@@ -100,7 +100,7 @@ public class ProductModel {
         }
     }
 
-    public String getCategory() {
+    public ProductCategoryModel getCategory() {
         return category;
     }
 

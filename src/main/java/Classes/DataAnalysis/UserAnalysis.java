@@ -5,6 +5,7 @@ import Classes.OrderCollection.OrderCollectionOperations;
 import Classes.Order.OrderOperations;
 import Classes.Order.Order;
 import Classes.OrderCollection.OrderCollection;
+import Classes.Product.ProductCategoriesOperations;
 import Classes.Product.ProductModel;
 import Classes.Product.ProductOperations;
 
@@ -12,7 +13,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class UserAnalysis {
-    Map<String,Integer> PurchasePerCategory = new HashMap<>();
+    Map<Integer,Integer> PurchasePerCategory = new HashMap<>();
     Integer User_id;
     List<OrderCollection> Orders;
 
@@ -21,12 +22,12 @@ public class UserAnalysis {
         this.Orders = orders;
     }
 
-    public Map<String,Integer> getPurchasePerCategory() throws SQLException {
+    public Map<Integer,Integer> getPurchasePerCategory() throws SQLException {
         for(OrderCollection collection : Orders){
             OrderOperations orderOperations = new OrderOperations(collection.getCollectionID());
             List<Order> Items = orderOperations.getAll();
             for(Order order : Items){
-                String orderCategory = order.getItem().getCategory();
+                Integer orderCategory = order.getItem().getCategory().getCategoryID();
                 Integer currentPurchases = PurchasePerCategory.get(orderCategory);
                 if (currentPurchases == null) {
                     PurchasePerCategory.put(orderCategory, 1);
@@ -38,17 +39,17 @@ public class UserAnalysis {
         return PurchasePerCategory;
     }
 
-    public Map.Entry<String,Integer> getMaxMap(Map<String,Integer> map){
-        Map.Entry<String,Integer> maxEntry = null;
-        for(Map.Entry<String,Integer> entry : map.entrySet()){
+    public Map.Entry<Integer,Integer> getMaxMap(Map<Integer,Integer> map){
+        Map.Entry<Integer,Integer> maxEntry = null;
+        for(Map.Entry<Integer,Integer> entry : map.entrySet()){
             if(maxEntry == null || entry.getValue() > maxEntry.getValue())
                 maxEntry = entry;
         }
         return maxEntry;
     }
 
-    public List<ProductModel> getSuggestions(String category) throws SQLException {
-        ProductOperations productOperations = new ProductOperations();
+    public List<ProductModel> getSuggestions(Integer category) throws SQLException {
+        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
         List<ProductModel> productModelList = productOperations.getAllByCategory(category);
         OrderCollectionOperations orderCollectionOperations = new OrderCollectionOperations(new CartOperation(User_id));
         List<OrderCollection> orders = orderCollectionOperations.getAll(User_id);

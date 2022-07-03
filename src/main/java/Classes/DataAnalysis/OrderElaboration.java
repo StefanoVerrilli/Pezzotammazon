@@ -25,12 +25,12 @@ public class OrderElaboration implements Action {
         new OrderCollectionOperations(new CartOperation(inputID));
         List<OrderCollection> collection = orderCollectionOperations.getAll(inputID);
         UserAnalysis analysis = new UserAnalysis(inputID,collection);
-        Map<String,Integer> result = analysis.getPurchasePerCategory();
-        for(String Name : result.keySet()){
-            System.out.println("Category Name" + Name);
-            System.out.println(result.get(Name));
+        Map<Integer,Integer> result = analysis.getPurchasePerCategory();
+        for(Integer CatID : result.keySet()){
+            System.out.println("Category ID" + CatID);
+            System.out.println(result.get(CatID));
         }
-        Map.Entry<String,Integer> maxEntry = analysis.getMaxMap(result);
+        Map.Entry<Integer,Integer> maxEntry = analysis.getMaxMap(result);
         Optional<UserModel> user = usersOperations.get(inputID);
         if(maxEntry != null){
             List<ProductModel> entry = analysis.getSuggestions(maxEntry.getKey());

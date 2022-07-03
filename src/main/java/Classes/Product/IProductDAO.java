@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface IProductDAO<T> extends IAddDAO<T>, IDeleteDAO, IUpdateDAO<T>, IGetDAO<T> {
 
-public List<T> getAllByCategory(String Category) throws SQLException;
+public List<T> getAllByCategory(Integer Category) throws SQLException;
 
 }

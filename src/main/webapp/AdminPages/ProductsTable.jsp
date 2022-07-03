@@ -16,7 +16,7 @@
 
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-        if(session.getAttribute("user") == null) {
+        if(session.getAttribute("user") == null)
             response.sendRedirect("/LogIn.jsp");
     %>
 </head>
@@ -38,7 +38,7 @@
             <td><c:out value="${product.getName()}"/> </td>
             <td><fmt:formatNumber value="${product.getAmount()}" groupingUsed="false" type="number" /> </td>
             <td><fmt:formatNumber value="${product.getCost()}" type="currency" maxFractionDigits="2" currencyCode="EUR" /></td>
-            <td><c:out value="${product.getCategory()}" /> </td>
+            <td><c:out value="${product.getCategory().getCategoryDescription()}" /> </td>
             <td><c:out value="${product.getDesc()}" /> </td>
             <td><img src="data:image/png;base64,${product.getImage()}" width="100" height="100"></td>
             <td><a href="${pageContext.request.contextPath}/FetchProduct.do?id=${product.getID()}">modifica</a> </td>

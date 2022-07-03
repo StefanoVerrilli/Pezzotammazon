@@ -45,6 +45,7 @@ public class Context {
 
     public void LoadDefaultLinks(){
         Actions.putAction("GET/FetchProduct.do",new ProductFetch());
+       // Actions.putAction("GET/FetchCategories.do",new CategoryFetch());
         Actions.putAction("POST/Register.do",new Register());
         Actions.putAction("POST/LogIn.do", new LogIn());
         Actions.putAction("GET/LogOut.do",new LogOut());

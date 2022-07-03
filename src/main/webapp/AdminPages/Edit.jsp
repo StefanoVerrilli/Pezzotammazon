@@ -1,5 +1,8 @@
 <%@ page import="Classes.Product.ProductModel" %>
 <%@ page import="Classes.User.UserModel" %>
+<%@ page import="Classes.Product.ProductCategoriesOperations" %>
+<%@ page import="Classes.Product.ProductCategoryModel" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -36,16 +39,15 @@
                     window.location = "ProductsTable.do"
             },
         });
-            form.reset();
             return false;
         }
     </script>
     <title>EditProduct</title>
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
+
         if(session.getAttribute("user") == null) {
             response.sendRedirect("/LogIn.jsp");
-        }else{
         }
     %>
 </head>
@@ -55,10 +57,10 @@
     <input type="text" id="productDesc" name="productDesc" value="${Product.getDesc()}">
     <input type="number" id="productCost" value="${Product.getCost()}" name="productCost" step="0.01" required>
     <input type="number" id="productAmount" value="${Product.getAmount()}" name="productAmount" required>
-    <select selected="${Product.getCategory()}" id="productCategory" name="productCategory">
-        <option value="videogiochi">videogiochi</option>
-        <option value="giochi">giochi</option>
-        <option value="casa">casa</option>
+    <select id="productCategory" name="productCategory">
+        <c:forEach var="category" items="${categories}">
+            <option <c:if test="${category.getCategoryID() == Product.getCategory().getCategoryID()}">selected</c:if> value="${category.getCategoryID()}"><c:out value="${category.getCategoryDescription()}"></c:out></option>
+        </c:forEach>
     </select>
     <input type="hidden" id="productID" name="productID" value="${Product.getID()}">
     <input type="file" id="productImage" name="productImage">

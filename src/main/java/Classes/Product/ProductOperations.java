@@ -1,7 +1,6 @@
 package Classes.Product;
 
 import Classes.DAO.*;
-import Classes.Product.ProductModel;
 
 import java.sql.*;
 import java.sql.ResultSet;
@@ -12,20 +11,30 @@ import java.util.Optional;
 
 public class ProductOperations implements IProductDAO<ProductModel> {
 
+    private final ProductCategoriesOperations categoriesOperation;
+
+    public ProductOperations(ProductCategoriesOperations categoriesOperation) {
+        this.categoriesOperation = categoriesOperation;
+    }
+
     public Optional<ProductModel> get(Integer id) throws SQLException {
         String query = "SELECT * "
-                + "FROM products "
+                + "FROM products join ProductCategories on products.Category = ProductCategories.CategoryID "
                 + "WHERE ID = ? ";
         PreparedStatement p = DAO.myDb.getConnection().prepareStatement(query);
         p.setInt(1,id);
         ResultSet rest = p.executeQuery();
+
+        ProductCategoryModel category = new ProductCategoryModel(rest.getInt("Category"),
+                rest.getString("CategoryDescription"));
+
         ProductModel product = new ProductModel.Builder(rest.getString("Name"))
                                        .setImage(rest.getString("Image"))
                                        .setCost(rest.getFloat("Cost"))
                                        .setId(rest.getInt("ID"))
                                        .setAmount(rest.getInt("Amount"))
                                        .setDesc(rest.getString("Description"))
-                                       .setCategory(rest.getString("Category"))
+                                       .setCategory(category)
                                        .build();
         p.close();
         return Optional.of(product);
@@ -34,18 +43,21 @@ public class ProductOperations implements IProductDAO<ProductModel> {
     public List<ProductModel> getAll() throws SQLException {
         List result = new ArrayList();
         String query = "SELECT * "
-                + "FROM products ";
+                + "FROM products join ProductCategories on products.Category = ProductCategories.CategoryID ";
         Statement stat = (Statement) DAO.myDb.getConnection().createStatement();
         ResultSet rest = stat.executeQuery(query);
         while(rest.next()){
-            System.out.println(rest.getString("Name"));
+
+            ProductCategoryModel category = new ProductCategoryModel(rest.getInt("Category"),
+                                            rest.getString("CategoryDescription"));
+
             ProductModel product = new ProductModel.Builder(rest.getString("Name"))
                                            .setImage(rest.getString("Image"))
                                            .setCost(rest.getFloat("Cost"))
                                            .setId(rest.getInt("ID"))
                                            .setAmount(rest.getInt("Amount"))
                                            .setDesc(rest.getString("Description"))
-                                           .setCategory("Category")
+                                           .setCategory(category)
                                            .build();
             result.add(product);
         }
@@ -61,7 +73,7 @@ public class ProductOperations implements IProductDAO<ProductModel> {
         p.setString(2,product.getDesc());
         p.setInt(3,product.getAmount());
         p.setFloat(4,product.getCost());
-        p.setString(5,product.getCategory());
+        p.setInt(5,product.getCategory().getCategoryID());
         p.setString(6,product.getImage());
         result = p.executeUpdate();
         p.close();
@@ -77,7 +89,7 @@ public class ProductOperations implements IProductDAO<ProductModel> {
         p.setString(2,product.getDesc());
         p.setInt(3,product.getAmount());
         p.setFloat(4,product.getCost());
-        p.setString(5,product.getCategory());
+        p.setInt(5,product.getCategory().getCategoryID());
         p.setString(6,product.getImage());
         p.setInt(7,product.getID());
         p.executeUpdate();
@@ -95,14 +107,17 @@ public class ProductOperations implements IProductDAO<ProductModel> {
     }
 
     @Override
-    public List<ProductModel> getAllByCategory(String Category) throws SQLException {
+    public List<ProductModel> getAllByCategory(Integer Category) throws SQLException {
         String query = "SELECT * "
                 + "FROM products "
                 + "WHERE Category = ? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setString(1,Category);
+        p.setInt(1,Category);
         ResultSet rest = p.executeQuery();
         List<ProductModel> elements = new ArrayList<>();
+
+        ProductCategoryModel category = categoriesOperation.get(Category).get();
+
         while (rest.next()){
             ProductModel product = new ProductModel.Builder(rest.getString("Name"))
                                            .setImage(rest.getString("Image"))
@@ -110,7 +125,7 @@ public class ProductOperations implements IProductDAO<ProductModel> {
                                            .setId(rest.getInt("ID"))
                                            .setAmount(rest.getInt("Amount"))
                                            .setDesc(rest.getString("Description"))
-                                           .setCategory("Category")
+                                           .setCategory(category)
                                            .build();
             elements.add(product);
         }

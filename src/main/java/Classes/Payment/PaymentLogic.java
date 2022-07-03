@@ -20,7 +20,7 @@ public class PaymentLogic implements Action {
         UserModel user = (UserModel) request.getSession().getAttribute("user");
         PaymentFactory factory = new PaymentFactory(request);
         if(!factory.PaymentMethod(method).Pay()) {
-            request.setAttribute("invalid_payment", "Invalid payment information.");
+            request.getSession().setAttribute("invalid_payment", "Invalid payment information.");
             return "/UserPages/Pay";
         }
         OrderCollectionOperations orderCollectionOperations =

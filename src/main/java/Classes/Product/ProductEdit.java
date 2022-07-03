@@ -15,14 +15,18 @@ import java.util.Optional;
 public class ProductEdit implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ProductOperations productOperations = new ProductOperations();
+        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
+
+        ProductCategoriesOperations categoryOperations = new ProductCategoriesOperations();
+        Optional<ProductCategoryModel> category = categoryOperations.get(Integer.parseInt(request.getParameter("productCategory")));
+
         Optional<ProductModel> productToAdd = productOperations.
                 get(Integer.parseInt(request.getParameter("productID")));
         productToAdd.get().setName(request.getParameter("productName"));
         productToAdd.get().setDesc(request.getParameter("productDesc"));
         productToAdd.get().setCost(Float.parseFloat(request.getParameter("productCost")));
         productToAdd.get().setAmount(Integer.parseInt(request.getParameter("productAmount")));
-        productToAdd.get().setCategory(request.getParameter("productCategory"));
+        productToAdd.get().setCategory(category.get());
         productToAdd.get().setID(Integer.parseInt(request.getParameter("productID")));
         if (request.getPart("productImage") != null) {
             Part filePart = request.getPart("productImage");

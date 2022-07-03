@@ -13,7 +13,7 @@ import java.util.List;
 public class ProductsPageLogic implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ProductOperations productOperations = new ProductOperations();
+        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
         List<ProductModel> data = productOperations.getAll();
         request.getSession().setAttribute("data",data);
         UserModel user = (UserModel) request.getSession().getAttribute("user");

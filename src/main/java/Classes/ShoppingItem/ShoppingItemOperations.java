@@ -1,9 +1,9 @@
 package Classes.ShoppingItem;
 
 import Classes.Cart.CartModel;
-import Classes.Cart.CartOperation;
 import Classes.Cart.ICartOperation;
 import Classes.DAO.*;
+import Classes.Product.ProductCategoriesOperations;
 import Classes.Product.ProductOperations;
 
 import java.sql.PreparedStatement;
@@ -31,7 +31,7 @@ IGetDAO<ShoppingItemModel>, IUpdateDAO<ShoppingItemModel>{
         ResultSet rest = p.executeQuery();
         Optional<ShoppingItemModel> shoppingItem = Optional.empty();
         if (rest.next()) {
-            ProductOperations productOperations = new ProductOperations();
+            ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
             shoppingItem = Optional.of(new ShoppingItemModel());
             shoppingItem.get().setQuantity(rest.getInt("Quantity"));
             shoppingItem.get().setCartID(cartId);
