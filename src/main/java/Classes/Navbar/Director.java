@@ -12,7 +12,7 @@ public class Director {
     }
 
     public void constructAdminNavBar(){
-        Builder.addLink(new Pair<String,String>("Inserisci prodotto","/AdminPages/InsertProduct.jsp"));
+        Builder.addLink(new Pair<String,String>("Inserisci prodotto","InsertLogic.do"));
         Builder.addLink(new Pair<String,String>("Visualizza prodotti","ProductsTable.do"));
         Builder.addLink(new Pair<String,String>("Logout","LogOut.do"));
         Builder.addLink(new Pair<String,String>("Go Back","/Homepage.jsp"));
