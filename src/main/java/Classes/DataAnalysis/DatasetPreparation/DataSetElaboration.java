@@ -4,6 +4,7 @@ import Classes.Clustering.Record;
 import Classes.Order.Order;
 import Classes.Order.OrderOperations;
 import Classes.OrderCollection.OrderCollection;
+import Classes.Product.ProductCategoriesOperations;
 import Classes.Product.ProductModel;
 import Classes.Product.ProductOperations;
 import Classes.User.UserModel;
@@ -25,7 +26,7 @@ public class DataSetElaboration {
             OrderOperations orderOperations = new OrderOperations(collection.getCollectionID());
             List<Order> items = orderOperations.getAll();
             for(Order order : items){
-                data.compute(order.getItem().getCategory(),(key,value) -> {
+                data.compute(order.getItem().getCategory().getCategoryDescription(),(key,value) -> {
                     if(value == null)
                         value = 0;
                     value += 1;
@@ -54,7 +55,7 @@ public class DataSetElaboration {
     }
 
     public List<ProductModel> getSuggestions(String Category,List<OrderCollection> orderCollectionList) throws SQLException {
-        ProductOperations productOperations = new ProductOperations();
+        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
         List<ProductModel> products = productOperations.getAllByCategory(Category);
         Set<Order> orderSet = new HashSet<>();
         for(OrderCollection collection : orderCollectionList){

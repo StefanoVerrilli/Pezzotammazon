@@ -13,71 +13,105 @@ import java.util.List;
 
 public class OrderOperations implements IAddDAO<Order> {
     private Integer collectionID;
-    public OrderOperations(Integer collectionID){
+
+    public OrderOperations(Integer collectionID) {
         this.collectionID = collectionID;
     }
+
     @Override
-    public boolean add(Order order) throws SQLException{
-        String query ="INSERT INTO ItemOrder(Quantity, OrderID, ProductID) "
+    public boolean add(Order order) throws SQLException {
+        String query = "INSERT INTO ItemOrder(Quantity, OrderID, ProductID) "
                 + "VALUES(?,?,?) ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1,order.getQuantity());
-        p.setInt(2,collectionID);
-        p.setInt(3,order.getItem().getID());
+        p.setInt(1, order.getQuantity());
+        p.setInt(2, collectionID);
+        p.setInt(3, order.getItem().getID());
         p.executeUpdate();
         p.close();
         return true;
     }
 
-    public List<Order> getAllByCategory(String Category) throws SQLException{
+    public List<Order> getAllByCategory(Integer Category) throws SQLException {
         List<Order> result = new ArrayList<>();
-        String query = "SELECT Quantity,Name,Image,Description,ID,Amount,Cost "
-                               + "FROM ItemOrder join products p on p.ID = ItemOrder.ProductID "
-                               + "WHERE OrderID = ? AND Category = ?";
+        String query = "SELECT Quantity,Name,Image,Description,ID,Amount,Cost,Category,CategoryDescription "
+                + "FROM ItemOrder join products p on p.ID = ItemOrder.ProductID join ProductCategories on p.Category = ProductCategories.CategoryID "
+                + "WHERE OrderID = ? AND Category = ?";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1,this.collectionID);
-        p.setString(2,Category);
+        p.setInt(1, this.collectionID);
+        p.setInt(2, Category);
         ResultSet rest = p.executeQuery();
+
+        result = getAllByCategoryResults(rest);
+
+        return result;
+    }
+
+
+    public List<Order> getAllByCategory(String Category) throws SQLException {
+        List<Order> result = new ArrayList<>();
+        String query = "SELECT Quantity,Name,Image,Description,ID,Amount,Cost,Category,CategoryDescription "
+                + "FROM ItemOrder join products p on p.ID = ItemOrder.ProductID join ProductCategories on p.Category = ProductCategories.CategoryID "
+                + "WHERE OrderID = ? AND CategoryDescription = ?";
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
+        p.setInt(1, this.collectionID);
+        p.setString(2, Category);
+        ResultSet rest = p.executeQuery();
+
+        result = getAllByCategoryResults(rest);
+
+        return result;
+    }
+
+
+    private List<Order> getAllByCategoryResults(ResultSet rest) throws SQLException {
+
+        List<Order> result = new ArrayList<>();
+
+        ProductCategoryModel category = new ProductCategoryModel(rest.getInt("Category"), rest.getString("CategoryDescription"));
+
+
         while (rest.next()) {
             ProductModel product = new ProductModel.Builder(rest.getString("Name"))
-                                           .setImage(rest.getString("Image"))
-                                           .setCost(rest.getFloat("Cost"))
-                                           .setId(rest.getInt("ID"))
-                                           .setAmount(rest.getInt("Amount"))
-                                           .setDesc(rest.getString("Description"))
-                                           .setCategory(Category)
-                                           .build();
+                    .setImage(rest.getString("Image"))
+                    .setCost(rest.getFloat("Cost"))
+                    .setId(rest.getInt("ID"))
+                    .setAmount(rest.getInt("Amount"))
+                    .setDesc(rest.getString("Description"))
+                    .setCategory(category)
+                    .build();
             Order order = new Order(rest.getInt(1), product, collectionID);
             result.add(order);
         }
-        return result;
 
+        return result;
     }
 
-    public List<Order> getAll() throws SQLException{
-        List<Order> result = new ArrayList<>();
-        String query = "SELECT Quantity,Name,Image,Description,ID,Amount,Cost,Category, CategoryDescription "
-                + "FROM ItemOrder join products p on p.ID = ItemOrder.ProductID join p.Category = ProductCategories.CategoryID "
-                + "WHERE OrderID = ? ";
-        PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1,this.collectionID);
-        ResultSet rest = p.executeQuery();
-        while (rest.next()){
+        public List<Order> getAll () throws SQLException {
+            List<Order> result = new ArrayList<>();
+            String query = "SELECT Quantity,Name,Image,Description,ID,Amount,Cost,Category, CategoryDescription "
+                    + "FROM ItemOrder join products p on p.ID = ItemOrder.ProductID join ProductCategories on p.Category = ProductCategories.CategoryID "
+                    + "WHERE OrderID = ? ";
+            PreparedStatement p = myDb.getConnection().prepareStatement(query);
+            p.setInt(1, this.collectionID);
+            ResultSet rest = p.executeQuery();
+            while (rest.next()) {
 
-            ProductCategoryModel category = new ProductCategoryModel(rest.getInt("Category"), rest.getString("CategoryDescription"));
+                ProductCategoryModel category = new ProductCategoryModel(rest.getInt("Category"), rest.getString("CategoryDescription"));
 
-            ProductModel product = new ProductModel.Builder(rest.getString("Name"))
-                                           .setImage(rest.getString("Image"))
-                                           .setCost(rest.getFloat("Cost"))
-                                           .setId(rest.getInt("ID"))
-                                           .setAmount(rest.getInt("Amount"))
-                                           .setDesc(rest.getString("Description"))
-                                           .setCategory(category)
-                                           .build();
-            Order order = new Order(rest.getInt(1),product,collectionID);
-            result.add(order);
+                ProductModel product = new ProductModel.Builder(rest.getString("Name"))
+                        .setImage(rest.getString("Image"))
+                        .setCost(rest.getFloat("Cost"))
+                        .setId(rest.getInt("ID"))
+                        .setAmount(rest.getInt("Amount"))
+                        .setDesc(rest.getString("Description"))
+                        .setCategory(category)
+                        .build();
+                Order order = new Order(rest.getInt(1), product, collectionID);
+                result.add(order);
+            }
+            return result;
         }
-        return result;
+
     }
 
-}
+

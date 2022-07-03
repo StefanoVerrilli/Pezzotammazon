@@ -26,4 +26,9 @@ public class ProductCategoryModel {
         this.categoryID = categoryID;
         this.categoryDescription = categoryDescription;
     }
+
+    public ProductCategoryModel(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
+    }
+
 }

@@ -131,4 +131,35 @@ public class ProductOperations implements IProductDAO<ProductModel> {
         }
         return elements;
     }
+
+
+    public List<ProductModel> getAllByCategory(String CategoryDescription) throws SQLException {
+        String query = "SELECT Name,Image,Cost,ID,Amount,Description,Category "
+                + "FROM products join ProductCategories on products.Category = ProductCategories.CategoryID "
+                + "WHERE CategoryDescription = ? ";
+
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
+        p.setString(1,CategoryDescription);
+        ResultSet rest = p.executeQuery();
+        List<ProductModel> elements = new ArrayList<>();
+        ProductCategoryModel categoryObject = new ProductCategoryModel(rest.getInt("Category"), CategoryDescription);
+        ProductCategoryModel category = categoriesOperation.get(categoryObject.getCategoryID()).get();
+
+        while (rest.next()){
+            ProductModel product = new ProductModel.Builder(rest.getString("Name"))
+                    .setImage(rest.getString("Image"))
+                    .setCost(rest.getFloat("Cost"))
+                    .setId(rest.getInt("ID"))
+                    .setAmount(rest.getInt("Amount"))
+                    .setDesc(rest.getString("Description"))
+                    .setCategory(category)
+                    .build();
+            elements.add(product);
+        }
+        return elements;
+
+    }
+
 }
+
+
