@@ -1,5 +1,6 @@
 package Classes.Navbar;
 
+import Classes.User.AccessLevels;
 import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ public class BuildNavbar{
         AdminNavBuilder adminNavBar = new AdminNavBuilder();
         UserModel user = (UserModel) request.getSession().getAttribute("user");
         if(user.getAccessType() != null){
-        if(user.getAccessType() == 0) {
+        if(user.getAccessType() == AccessLevels.User) {
             director.constructUserNavBar(adminNavBar);
             myNavbar = adminNavBar.getProduct();
         }else{

@@ -43,7 +43,7 @@ IGetDAO<ShoppingItemModel>, IUpdateDAO<ShoppingItemModel>{
     @Override
     public boolean add(ShoppingItemModel item) throws SQLException {
         Optional<ShoppingItemModel> ResultItem = get(item.getProduct().getID());
-        if(!ResultItem.isPresent())
+        if(ResultItem.isEmpty())
             InsertQuery(item);
         else{
         Integer newQuantity = ResultItem.get().getQuantity()+1;
@@ -52,7 +52,7 @@ IGetDAO<ShoppingItemModel>, IUpdateDAO<ShoppingItemModel>{
         return true;
     }
 
-    private boolean InsertQuery(ShoppingItemModel order) throws SQLException {
+    private void InsertQuery(ShoppingItemModel order) throws SQLException {
         String query = "INSERT INTO \"ShoppingItem\" (quantity,CartID,ProductID) "
                 + "VALUES (?,?,?)";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
@@ -61,7 +61,6 @@ IGetDAO<ShoppingItemModel>, IUpdateDAO<ShoppingItemModel>{
         p.setInt(3,order.getProduct().getID());
         p.executeUpdate();
         p.close();
-        return true;
     }
 
     @Override
@@ -83,8 +82,8 @@ IGetDAO<ShoppingItemModel>, IUpdateDAO<ShoppingItemModel>{
                 + "WHERE CartID=? AND ProductID=? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         Optional<CartModel> cart = cartOperation.getCart();
-        if(!cart.isPresent())
-            throw new SQLException("Product is not present");
+        if(cart.isEmpty())
+            throw new SQLException("Cart is not present");
         Integer cartId = cart.get().getCart_id();
         p.setInt(1,cartId);
         p.setInt(2,ProductID);

@@ -1,4 +1,4 @@
-package Classes.ServletRegulation;
+package Classes.ServletsRegulation;
 
 public class AdminState extends State{
     public AdminState(Context context) {

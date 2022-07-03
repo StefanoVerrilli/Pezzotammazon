@@ -1,5 +1,6 @@
 package Classes.DataAnalysis;
 
+import Classes.ConcreteHashAlg;
 import Classes.FrontController.Action;
 import Classes.User.UserModel;
 import Classes.User.UsersOperations;
@@ -11,7 +12,7 @@ import java.util.List;
 public class UsersPageLogic implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        UsersOperations usersOperations  = new UsersOperations();
+        UsersOperations usersOperations  = new UsersOperations(new ConcreteHashAlg());
         List<UserModel> userModelList = usersOperations.getAll();
         request.getSession().setAttribute("UsersList",userModelList);
         return "/AdminPages/UsersPage";

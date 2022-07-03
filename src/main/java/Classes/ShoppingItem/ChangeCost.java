@@ -1,5 +1,6 @@
 package Classes.ShoppingItem;
 
+import Classes.Cart.CartModel;
 import Classes.Cart.CartOperation;
 import Classes.Product.ProductCategoriesOperations;
 import Classes.Product.ProductOperations;
@@ -22,8 +23,15 @@ public class ChangeCost implements Action {
         CartOperation cartOperation = new CartOperation(user.getId());
         ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
         ShoppingItemOperations ordersOperations = new ShoppingItemOperations(cartOperation);
+
         Optional<ProductModel> product = productOperations.get(id);
-        ShoppingItemModel item = new ShoppingItemModel(product.get(),cartOperation.getCart().get().getCart_id());
+        if(!product.isPresent())
+            throw new RuntimeException("No such item exist");
+        Optional<CartModel> cart = cartOperation.getCart();
+        if(!cart.isPresent())
+            throw new RuntimeException("No such cart");
+
+        ShoppingItemModel item = new ShoppingItemModel(product.get(),cart.get().getCart_id());
         item.setQuantity(quantity);
         ordersOperations.update(item);
         request.getSession().setAttribute("ShoppingList",cartOperation.getAll());

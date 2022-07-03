@@ -1,4 +1,4 @@
-package Classes.ServletRegulation;
+package Classes.ServletsRegulation;
 
 import Classes.FrontController.Actions;
 

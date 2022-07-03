@@ -57,10 +57,10 @@
     <input type="text" id="productDesc" name="productDesc" value="${Product.getDesc()}">
     <input type="number" id="productCost" value="${Product.getCost()}" name="productCost" step="0.01" required>
     <input type="number" id="productAmount" value="${Product.getAmount()}" name="productAmount" required>
-    <select id="productCategory" name="productCategory">
-        <c:forEach var="category" items="${categories}">
-            <option <c:if test="${category.getCategoryID() == Product.getCategory().getCategoryID()}">selected</c:if> value="${category.getCategoryID()}"><c:out value="${category.getCategoryDescription()}"></c:out></option>
-        </c:forEach>
+    <select selected="${Product.getCategory()}" id="productCategory" name="productCategory">
+        <option value="videogiochi">videogiochi</option>
+        <option value="giochi">giochi</option>
+        <option value="casa">casa</option>
     </select>
     <input type="hidden" id="productID" name="productID" value="${Product.getID()}">
     <input type="file" id="productImage" name="productImage">

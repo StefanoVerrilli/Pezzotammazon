@@ -1,4 +1,4 @@
-package Classes.ServletRegulation;
+package Classes.ServletsRegulation;
 
 public abstract class State {
     protected Context context;

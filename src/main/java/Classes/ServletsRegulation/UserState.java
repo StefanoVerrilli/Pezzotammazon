@@ -1,4 +1,4 @@
-package Classes.ServletRegulation;
+package Classes.ServletsRegulation;
 
 public class UserState extends State{
     public UserState(Context context) {

@@ -3,11 +3,13 @@ package Classes.Order;
 import Classes.Product.ProductModel;
 import Classes.ShoppingItem.ShoppingItemModel;
 
+import java.util.Objects;
+
 public class Order {
 
-    private int ContainerID;
+    private Integer ContainerID;
 
-    private int quantity;
+    private Integer quantity;
 
     private ProductModel item;
 
@@ -28,9 +30,25 @@ public class Order {
         return quantity;
     }
 
-    public int getContainerID() {
+    public Integer getContainerID() {
         return ContainerID;
     }
 
     public ProductModel getItem(){return item;}
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj){
+            return true;}
+        if (obj == null){
+            return false;}
+        Order otherProduct = (Order) obj;
+        return Objects.equals(item.getID(), otherProduct.item.getID());
+    }
+
+    @Override
+    public int hashCode(){
+    return item.getID();
+    }
+
 }

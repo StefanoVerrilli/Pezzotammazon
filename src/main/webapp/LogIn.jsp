@@ -1,5 +1,5 @@
-<%@ page import="Classes.ServletRegulation.Context" %>
-<%@ page import="Classes.ServletRegulation.DefaultState" %>
+<%@ page import="Classes.ServletsRegulation.Context" %>
+<%@ page import="Classes.ServletsRegulation.DefaultState" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
     <%
