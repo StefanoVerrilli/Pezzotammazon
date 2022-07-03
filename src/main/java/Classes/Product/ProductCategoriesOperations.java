@@ -21,7 +21,7 @@ public class ProductCategoriesOperations implements IAddDAO<ProductCategoryModel
         PreparedStatement p = DAO.myDb.getConnection().prepareStatement(query);
         p.setInt(1, category.getCategoryID());
         p.setString(2, category.getCategoryDescription());
-        result = p.executeUpdate();
+        p.executeUpdate();
         p.close();
         return true;
     }
@@ -44,22 +44,25 @@ public class ProductCategoriesOperations implements IAddDAO<ProductCategoryModel
         PreparedStatement p = DAO.myDb.getConnection().prepareStatement(query);
         p.setInt(1,Id);
         ResultSet results = p.executeQuery();
-        ProductCategoryModel category = new ProductCategoryModel(results.getInt("CategoryID"), results.getString("CategoryDescription"));
+        ProductCategoryModel category = new ProductCategoryModel(results.getInt("CategoryID"),
+        results.getString("CategoryDescription"));
         p.close();
         return Optional.of(category);
     }
 
     @Override
     public List<ProductCategoryModel> getAll() throws SQLException {
-        List catList = new ArrayList(0);
+        List<ProductCategoryModel> catList = new ArrayList<>();
         String query = "SELECT * "
                 + "FROM ProductCategories ";
         Statement stat = (Statement) DAO.myDb.getConnection().createStatement();
         ResultSet result = stat.executeQuery(query);
         while(result.next()){
-            ProductCategoryModel category = new ProductCategoryModel(result.getInt("CategoryID"), result.getString("CategoryDescription"));
+            ProductCategoryModel category = new ProductCategoryModel(result.getInt("CategoryID"),
+            result.getString("CategoryDescription"));
             catList.add(category);
         }
+        stat.close();
         return catList;
     }
 

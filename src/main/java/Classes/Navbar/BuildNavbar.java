@@ -8,18 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 public class BuildNavbar{
 
     public static void GetNavbar(HttpServletRequest request) throws Exception {
-        Director director = new Director();
         Navbar myNavbar = new Navbar();
-        AdminNavBuilder adminNavBar = new AdminNavBuilder();
+        NavBarBuilder builder = new NavBarBuilder();
+        Director director = new Director(builder);
         UserModel user = (UserModel) request.getSession().getAttribute("user");
-        if(user.getAccessType() != null){
         if(user.getAccessType() == AccessLevels.User) {
-            director.constructUserNavBar(adminNavBar);
-            myNavbar = adminNavBar.getProduct();
-        }else{
-            director.constructAdminNavBar(adminNavBar);
-            myNavbar = adminNavBar.getProduct();
-        }}
+            director.constructUserNavBar();
+            myNavbar = builder.getProduct();
+        }else if(user.getAccessType() == AccessLevels.Admin){
+            director.constructAdminNavBar();
+            myNavbar = builder.getProduct();
+        }
         request.getSession().setAttribute("myNavbar",myNavbar);
     }
 }

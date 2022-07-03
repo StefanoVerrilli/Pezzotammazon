@@ -1,9 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="Classes.Product.ProductModel" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="Classes.User.UserModel" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
     <jsp:include page="/Head.jsp">

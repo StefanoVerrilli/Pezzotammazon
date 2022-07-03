@@ -5,10 +5,7 @@ import Classes.Clustering.Record;
 import Classes.ConcreteHashAlg;
 import Classes.DataAnalysis.DatasetPreparation.DataSetElaboration;
 import Classes.FrontController.Action;
-import Classes.Order.OrderOperations;
 import Classes.OrderCollection.OrderCollectionOperations;
-import Classes.Product.ProductModel;
-import Classes.Product.ProductOperations;
 import Classes.User.UserModel;
 import Classes.User.UsersOperations;
 import Classes.OrderCollection.OrderCollection;
@@ -16,7 +13,6 @@ import Classes.OrderCollection.OrderCollection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public class OrderElaboration implements Action {

@@ -1,7 +1,5 @@
 package Classes.Product;
 
-import java.util.Objects;
-
 public class ProductModel {
 
 

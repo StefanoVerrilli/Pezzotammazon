@@ -14,7 +14,7 @@ public class InsertLogic implements Action{
         ProductCategoriesOperations operation = new ProductCategoriesOperations();
         List<ProductCategoryModel> categories = operation.getAll();
         request.getSession().setAttribute("categories", categories);
-
+        System.out.println(categories.size());
         return "/AdminPages/InsertProduct";
     }
 }

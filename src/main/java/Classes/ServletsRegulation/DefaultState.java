@@ -2,7 +2,7 @@ package Classes.ServletsRegulation;
 
 import Classes.FrontController.Actions;
 
-public class DefaultState extends State{
+public class DefaultState extends State {
     public DefaultState(Context context) {
         super(context);
     }
