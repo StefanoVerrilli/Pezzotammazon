@@ -79,11 +79,44 @@
                     </div>
 
                     <div class="column">
-                        <p class="is-size-3"> <c:out value="${item.getProduct().getName()}"/>  </p><div class="columns">
+                        <p class="is-size-3"> <c:out value="${item.getProduct().getName()}"/>  </p>
 
-                        <div class="column"> <input type="number" id="quantity" name="quantity" min="1" max="100" value="${item.getQuantity()}" onchange="Quantity(${item.getProduct().getID()},this.value)" >
-                        <div>   <input type="number" id="subtotal" value="${item.getProduct().getCost()}" disabled readonly></div>
-                        <div class="column has-text-centered">
+                        <div class="columns">
+
+                            <div class="column">
+
+                            <div class="control has-icons-left">
+                                <div class="select">
+                                    <select onchange="Quantity(${item.getProduct().getID()},this.value)">
+
+                                        <c:choose>
+                                        <c:when test="${item.getProduct().getAmount() < 10}">
+                                            <c:set var="max_amount" value="${item.getProduct().getAmount()}"></c:set>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:set var="max_amount" value="10"></c:set>
+                                        </c:otherwise>
+                                        </c:choose>
+
+                                         <c:forEach begin="1" end="${max_amount}" step="1" varStatus="quantity">
+                                             <option <c:if test="${quantity.count == item.getQuantity()}">selected</c:if>><c:out value="${quantity.count}"/></option>
+                                         </c:forEach>
+                                    </select>
+                                </div>
+                                <span class="icon is-left">
+                                    <i class="fas fa-layer-group"></i>
+                                </span>
+                            </div>
+                            </div>
+
+
+                        <div class="column">
+                            <p class="is-size-6 has-text-weight-bold has-text-info"><fmt:formatNumber value="${item.getProduct().getCost()}" type="currency" maxFractionDigits="2" currencyCode="EUR"  /></p>
+                        </div>
+
+                        <div>
+
+                            <div class="column has-text-centered">
                             <button onclick="Delete(${item.getProduct().getID()})" class="button is-danger is-outlined is-small">
                                     <span class="icon is-small">
                                        <i class="fas fa-times"></i>
@@ -91,9 +124,10 @@
                                 <span>Remove</span>
                             </button>
                         </div>
+
+                        </div>
                     </div>
 
-                    </div>
 
                 </div>
                     <div></div></div></div>

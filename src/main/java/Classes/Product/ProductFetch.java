@@ -24,7 +24,6 @@ public class ProductFetch implements Action {
             return "/Homepage.jsp";
         }
 
-
         ProductCategoriesOperations operation = new ProductCategoriesOperations();
         List<ProductCategoryModel> categories = operation.getAll();
         request.getSession().setAttribute("categories", categories);

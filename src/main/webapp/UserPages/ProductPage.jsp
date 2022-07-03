@@ -17,7 +17,7 @@
     <div class="column is-flex-grow-3 is-flex-shrink-1 container is-max-desktop" style="min-width:300px">
         <div class="block">
             <figure class="image is-fullwidth mx-auto">
-                <img src="data:image/png;base64,${Product.getImage()}">
+                <img src="data:image/png;base64,${Product.getImage()}" alt="Image depicting ${Product.getName()}">
             </figure>
         </div>
     </div>

@@ -5,6 +5,8 @@ import Classes.OrderCollection.OrderCollectionOperations;
 import Classes.Cart.CartModel;
 import Classes.OrderCollection.OrderCollection;
 import Classes.Payment.Strategy.PaymentFactory;
+import Classes.Product.ProductCategoriesOperations;
+import Classes.Product.ProductOperations;
 import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +32,9 @@ public class PaymentLogic implements Action {
         orderCollection.setTimestamp(Date.valueOf(java.time.LocalDate.now()));
         orderCollectionOperations.add(orderCollection);
         orderCollectionOperations.AddSingleOrders(user.getId());
+
+       // TODO: Aggiungere decremento amount
+
         EmptyCartWrapper(user.getId());
         return "/Homepage";
     }

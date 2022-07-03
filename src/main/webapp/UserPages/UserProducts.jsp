@@ -27,7 +27,7 @@
         <a href="FetchProduct.do?id=${product.getID()}" class="mx-5 my-3 box is-inline-block">
             <div class="block is-clipped" style="height: 200px; width:300px">
                 <figure class="image has-ratio 16by9" style="max-width:300px">
-                    <img src="data:image/png;base64,${product.getImage()}">
+                    <img src="data:image/png;base64,${product.getImage()}" alt="Image depicting ${product.getName()}">
                 </figure>
             </div>
             <p class="title is-5 mt-3"><c:out value="${product.getName()}"/> </p>

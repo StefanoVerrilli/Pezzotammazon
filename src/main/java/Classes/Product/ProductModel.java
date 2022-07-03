@@ -112,9 +112,7 @@ public class ProductModel {
     }
 
 
-    public int getAmount() {
-        return amount;
-    }
+    public int getAmount() { return amount; }
 
 
     public String getDesc() {
