@@ -1,5 +1,6 @@
 package Classes.Command;
 
+import Classes.User.AccessLevels;
 import Classes.User.UserModel;
 import Classes.User.UsersOperations;
 
@@ -16,6 +17,6 @@ public class Dispatcher implements Command{
     }
     @Override
     public String Execute() {
-        return user.getAccessType() == 1 ? this.discriminator.AdminPages() : this.discriminator.UserPages();
+        return user.getAccessType() == AccessLevels.Admin ? this.discriminator.AdminPages() : this.discriminator.UserPages();
     }
 }

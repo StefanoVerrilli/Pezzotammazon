@@ -28,6 +28,31 @@ public class OrderOperations implements IAddDAO<Order> {
         return true;
     }
 
+    public List<Order> getAllByCategory(String Category) throws SQLException{
+        List<Order> result = new ArrayList<>();
+        String query = "SELECT Quantity,Name,Image,Description,ID,Amount,Cost "
+                               + "FROM ItemOrder join products p on p.ID = ItemOrder.ProductID "
+                               + "WHERE OrderID = ? AND Category = ?";
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
+        p.setInt(1,this.collectionID);
+        p.setString(2,Category);
+        ResultSet rest = p.executeQuery();
+        while (rest.next()) {
+            ProductModel product = new ProductModel.Builder(rest.getString("Name"))
+                                           .setImage(rest.getString("Image"))
+                                           .setCost(rest.getFloat("Cost"))
+                                           .setId(rest.getInt("ID"))
+                                           .setAmount(rest.getInt("Amount"))
+                                           .setDesc(rest.getString("Description"))
+                                           .setCategory(Category)
+                                           .build();
+            Order order = new Order(rest.getInt(1), product, collectionID);
+            result.add(order);
+        }
+        return result;
+
+    }
+
     public List<Order> getAll() throws SQLException{
         List<Order> result = new ArrayList<>();
         String query = "SELECT Quantity,Name,Image,Description,ID,Amount,Cost,Category "
