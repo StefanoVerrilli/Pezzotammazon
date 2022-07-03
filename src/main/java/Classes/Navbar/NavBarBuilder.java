@@ -5,7 +5,7 @@ import Classes.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminNavBuilder implements BuilderInterface{
+public class NavBarBuilder implements BuilderInterface{
     private Navbar myNavbar = new Navbar();
     private List<Pair<String,String>> elements = new ArrayList<>();
     @Override

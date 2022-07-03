@@ -60,7 +60,7 @@ public class CartOperation implements ICartOperation<CartModel,ShoppingItemModel
 
    public List<ShoppingItemModel> getAll() throws SQLException{
         Integer Cart_id = getCart().get().getCart_id();
-        String query = "SELECT Quantity,Name,Cost,Image,ID "
+        String query = "SELECT Quantity,Name,Cost,Image,ID,Amount "
                 + "FROM ShoppingItem join products p on p.ID = ShoppingItem.ProductID "
                 + "WHERE CartID = ? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
@@ -72,6 +72,7 @@ public class CartOperation implements ICartOperation<CartModel,ShoppingItemModel
                     .setImage(rest.getString("Image"))
                     .setCost(rest.getFloat("Cost"))
                     .setId(rest.getInt("ID"))
+                    .setAmount(rest.getInt("Amount"))
                     .build();
             ShoppingItemModel item = new ShoppingItemModel(product,Cart_id);
             item.setQuantity(rest.getInt(1));
