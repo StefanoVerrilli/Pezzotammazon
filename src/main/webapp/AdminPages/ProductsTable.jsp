@@ -17,29 +17,50 @@
     %>
 </head>
 <body>
-<table>
-    <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Amount</th>
-    <th>Cost</th>
-    <th>Category</th>
-    <th>Description</th>
-        <th>Image</th>
-        <th>Modify</th>
-    </tr>
-    <c:forEach items="${data}" var="product">
-        <tr>
-            <td><fmt:formatNumber value="${product.getID()}" type="number"/> </td>
-            <td><c:out value="${product.getName()}"/> </td>
-            <td><fmt:formatNumber value="${product.getAmount()}" groupingUsed="false" type="number" /> </td>
-            <td><fmt:formatNumber value="${product.getCost()}" type="currency" maxFractionDigits="2" currencyCode="EUR" /></td>
-            <td><c:out value="${product.getCategory().getCategoryDescription()}" /> </td>
-            <td><c:out value="${product.getDesc()}" /> </td>
-            <td><img src="data:image/png;base64,${product.getImage()}" width="100" height="100"></td>
-            <td><a href="${pageContext.request.contextPath}/FetchProduct.do?id=${product.getID()}">modifica</a> </td>
-        </tr>
-    </c:forEach>
-</table>
+
+<div class="container">
+    <div class="box mt-4">
+        <c:forEach items="${data}" var="product">
+            <div class="block">
+        <div class="columns is-align-items-center">
+            <div class="column is-1">
+            <p class="has-text-grey-light"><span class="is-size-5">#</span>
+                <fmt:formatNumber value="${product.getID()}" type="number"/>
+            </p>
+        </div>
+
+            <div class="column">
+                <img src="data:image/png;base64,${product.getImage()}" width="100" height="100">
+            </div>
+
+            <div class="column"><p class="has-text-primary">
+                <c:out value="${product.getName()}"/>
+            </p></div>
+            <div class="column"><i></i>
+                <c:out value="${product.getCategory().getCategoryDescription()}" />
+            </div>
+            <div class="column"><i class="fa-solid fa-boxes-stacked"></i>
+                <fmt:formatNumber value="${product.getAmount()}" groupingUsed="false" type="number" />
+            </div>
+            <div class="column"><p class="has-text-danger has-text-weight-bold">
+                <fmt:formatNumber value="${product.getCost()}" type="currency" maxFractionDigits="2" currencyCode="EUR" />
+            </p></div>
+            <div class="column">
+                <a class="button is-small" href="${pageContext.request.contextPath}/FetchProduct.do?id=${product.getID()}">
+    <span class="icon is-small">
+      <i class="fa-solid fa-pen-to-square"></i>
+    </span>
+                    <span>Edit</span>
+                </a>
+            </div>
+
+            <hr>
+        </div>
+            </c:forEach>
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>
