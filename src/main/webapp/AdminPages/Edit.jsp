@@ -52,20 +52,72 @@
     %>
 </head>
 <body>
-<form id="productForm" enctype="multipart/form-data">
-    <input type="text" id="productName" name="productName" value="${Product.getName()}" required>
-    <input type="text" id="productDesc" name="productDesc" value="${Product.getDesc()}">
-    <input type="number" id="productCost" value="${Product.getCost()}" name="productCost" step="0.01" required>
-    <input type="number" id="productAmount" value="${Product.getAmount()}" name="productAmount" required>
-    <select selected="${Product.getCategory()}" id="productCategory" name="productCategory">
-        <option value="videogiochi">videogiochi</option>
-        <option value="giochi">giochi</option>
-        <option value="casa">casa</option>
-    </select>
-    <input type="hidden" id="productID" name="productID" value="${Product.getID()}">
-    <input type="file" id="productImage" name="productImage">
-    <input type="button" value="submit" onclick="submitForm()">
-</form>
+<div class="container my-3">
+    <form id="productForm" enctype="multipart/form-data">
+        <input type="hidden" id="productID" name="productID" value="${Product.getID()}">
+        <div class="field">
+            <label class="label" for="productName">Product name</label>
+            <div class="control">
+                <input class="input" type="text" id="productName" name="productName" value="${Product.getName()}" required>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="productDesc">Product short description</label>
+            <div class="control">
+                <input class="input" type="text" id="productDesc" name="productDesc" value="${Product.getDesc()}">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="productCost">Product price</label>
+            <p class="control">
+                <input class="input" type="number" id="productCost" value="${Product.getCost()}" name="productCost" step="0.01" required>
+            </p>
+        </div>
+        <div class="field">
+            <label class="label" for="productAmount">Product stock</label>
+            <div class="control">
+                <input class="input" type="number" id="productAmount" value="${Product.getAmount()}" name="productAmount" required>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" for="productCategory">Product category</label>
+            <div class="select is-medium">
+                <select id="productCategory" name="productCategory">
+                    <c:forEach var="category" items="${categories}">
+                        <option <c:if test="${category.getCategoryID() == Product.getCategory().getCategoryID()}">selected</c:if> value="${category.getCategoryID()}"><c:out value="${category.getCategoryDescription()}"></c:out></option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+
+        <div class="file is-large is-boxed has-name">
+            <label class="file-label">
+                <input class="file-input" type="file" id="productImage" name="productImage" accept=".jpg, .jpeg, .png">
+                <span>
+      <span class="file-icon">
+      </span>
+      <span class="button is-success is-outlined">
+        Edit product image
+      </span>
+    </span>
+                <div class="has-background-light" style="text-align:center">
+                    <img class="my-4" src="data:image/jpeg;base64,${Product.getImage()}" id="preview" style="max-width:400px">
+                </div>
+            </label>
+        </div>
+
+        <input class="button is-primary is-large is-fullwidth mt-5" type="submit" value="Save changes" onclick="submitForm()"/>
+
+    </form>
+
+    <a href="delete.do?id=${Product.getID()}"class="button is-danger is-outlined is-fullwidth">
+     <span class="icon is-small">
+      <i class="fa-solid fa-trash-can"></i>
+    </span>
+        <span>Delete product</span>
+    </a>
+</div>
 <script>
     const inputElement = document.getElementById('productImage');
     inputElement.addEventListener("change",function (){
@@ -76,9 +128,7 @@
         result = this.files;
     })
 </script>
-<img src="data:image/jpeg;base64,${Product.getImage()}" id="preview">
 
-<a href="delete.do?id=${Product.getID()}">Delete</a>
 
 </body>
 </html>
