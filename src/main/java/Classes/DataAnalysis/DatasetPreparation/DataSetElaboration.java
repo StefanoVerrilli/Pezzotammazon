@@ -11,8 +11,11 @@ import Classes.Product.ProductOperations;
 import Classes.User.UserModel;
 
 import java.sql.SQLException;
-import java.util.*;
-import java.util.function.Function;
+import java.util.AbstractMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class DataSetElaboration {
@@ -39,7 +42,7 @@ public class DataSetElaboration {
         return new Record(user,data);
     }
 
-    private String MaxPurchaseCategory(Record userRecord){
+    public String MaxPurchaseCategory(Record userRecord){
         Map<String,Integer> features = userRecord.getFeatures();
         Integer Max = 0;
         String Category ="";
@@ -56,7 +59,7 @@ public class DataSetElaboration {
     return Category;
     }
 
-    private List<ProductModel> getSuggestions(String Category,List<OrderCollection> orderCollectionList) throws SQLException {
+    public List<ProductModel> getSuggestions(String Category,List<OrderCollection> orderCollectionList) throws SQLException {
         ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
         List<ProductModel> products = productOperations.getAllByCategory(Category);
         Set<Order> orderSet = new HashSet<>();

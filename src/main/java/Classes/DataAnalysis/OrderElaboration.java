@@ -30,6 +30,10 @@ public class OrderElaboration implements Action {
         DataSetElaboration dataSetElaboration = new DataSetElaboration();
         request.getSession().setAttribute("suggestions",dataSetElaboration.Suggestor(collection,user.get()));
 
+        Record result = dataSetElaboration.getData(user.get(),collection);
+        String Category = dataSetElaboration.MaxPurchaseCategory(result);
+        request.getSession().setAttribute("user_purchases_by_category", result.getFeatures());
+        request.getSession().setAttribute("suggestions",dataSetElaboration.getSuggestions(Category,collection));
         return "/AdminPages/UserSuggestion";
     }
 }
