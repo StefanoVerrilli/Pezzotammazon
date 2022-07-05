@@ -53,7 +53,7 @@
 </head>
 <body>
 <div class="container my-3">
-    <form id="productForm" enctype="multipart/form-data">
+    <form id="productForm" enctype="multipart/form-data" action="EditAction.do" method="POST" onsubmit="event.preventDefault();submitForm()">
         <input type="hidden" id="productID" name="productID" value="${Product.getID()}">
         <div class="field">
             <label class="label" for="productName">Product name</label>
@@ -107,7 +107,7 @@
             </label>
         </div>
 
-        <input class="button is-primary is-large is-fullwidth mt-5" type="submit" value="Save changes" onclick="submitForm()"/>
+        <input class="button is-primary is-large is-fullwidth mt-5" type="submit" value="Save changes" />
 
     </form>
 

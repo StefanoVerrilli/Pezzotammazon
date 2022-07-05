@@ -28,6 +28,7 @@ public class OrderElaboration implements Action {
 
         Record result = dataSetElaboration.getData(user.get(),collection);
         String Category = dataSetElaboration.MaxPurchaseCategory(result);
+        request.getSession().setAttribute("user_purchases_by_category", result.getFeatures());
         request.getSession().setAttribute("suggestions",dataSetElaboration.getSuggestions(Category,collection));
         return "/AdminPages/UserSuggestion";
     }
