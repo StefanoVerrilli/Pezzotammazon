@@ -43,7 +43,7 @@
 %>
 <body>
 <div class="container">
-<form id="productForm" enctype="multipart/form-data">
+<form id="productForm" enctype="multipart/form-data" method="post" action="Insert.do" onclick="event.preventDefault();submitForm()">
     <div class="field">
         <label class="label" for="productName">Product name</label>
         <div class="control">
@@ -97,7 +97,7 @@
         </label>
     </div>
 
-    <input class="button is-primary is-outlined is-large is-fullwidth mt-5" type="submit" value="Add product" onclick="submitForm()"/>
+    <input class="button is-primary is-outlined is-large is-fullwidth mt-5" type="submit" value="Add product" />
 
 </form>
 <script>
