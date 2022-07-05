@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UsersOperations implements IUserOperation {
+public class UsersOperations implements IUserOperation<UserModel> {
 
     private final HashInterface hashFunction;
 
@@ -15,6 +15,7 @@ public class UsersOperations implements IUserOperation {
         this.hashFunction = hashFunction;
     }
 
+    @Override
     public Optional<UserModel> CheckUser(String mail, String password) throws SQLException {
         String HashValue = hashFunction.HashValue(password);
         String query = "SELECT * "
@@ -51,7 +52,6 @@ public class UsersOperations implements IUserOperation {
         rest.close();
         return cc != 0;
     }
-    @Override
     public List<UserModel> getAll() throws SQLException {
         List<UserModel> result = new ArrayList<>();
         String query = "SELECT * "

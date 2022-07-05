@@ -2,8 +2,7 @@ package Classes.ShoppingItem;
 
 import Classes.Cart.CartModel;
 import Classes.Cart.ICartOperation;
-import Classes.DAO.*;
-import Classes.Product.ProductCategoriesOperations;
+import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductOperations;
 
 import java.sql.PreparedStatement;
@@ -11,13 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class ShoppingItemOperations implements
- IUpdateDAO<ShoppingItemModel>{
+public class ShoppingItemOperations implements IShoppingItemDAO<ShoppingItemModel>{
 
     ICartOperation cartOperation;
     public ShoppingItemOperations(ICartOperation cartOperation){
         this.cartOperation = cartOperation;
     }
+    @Override
     public Optional<ShoppingItemModel> get(Integer productId,Integer UserID) throws SQLException {
         String query = "SELECT * "
                 + "FROM \"ShoppingItem\" "

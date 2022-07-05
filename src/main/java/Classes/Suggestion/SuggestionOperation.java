@@ -1,6 +1,5 @@
 package Classes.Suggestion;
 
-import Classes.DAO.IAddDAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuggestionOperation implements IAddDAO<SuggestionModel> {
+public class SuggestionOperation implements ISuggestionDAO<SuggestionModel> {
 
     @Override
     public boolean add(SuggestionModel suggestion) throws SQLException {
@@ -19,7 +18,6 @@ public class SuggestionOperation implements IAddDAO<SuggestionModel> {
         p.setInt(2,suggestion.getProduct_id());
         p.executeUpdate();
         p.close();
-        System.out.println("aooooo");
         return true;
     }
 
@@ -39,7 +37,7 @@ public class SuggestionOperation implements IAddDAO<SuggestionModel> {
         p.close();
         return suggestionModelList;
     }
-
+    @Override
     public void delete(Integer userId,Integer productID)throws SQLException{
         String query = "DELETE FROM Suggestion "
             + "WHERE User_id =? AND Product_id =? ";

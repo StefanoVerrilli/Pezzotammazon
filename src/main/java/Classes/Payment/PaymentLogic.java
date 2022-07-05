@@ -5,8 +5,6 @@ import Classes.OrderCollection.OrderCollectionOperations;
 import Classes.Cart.CartModel;
 import Classes.OrderCollection.OrderCollection;
 import Classes.Payment.Strategy.PaymentFactory;
-import Classes.Product.ProductCategoriesOperations;
-import Classes.Product.ProductOperations;
 import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;

@@ -2,7 +2,7 @@ package Classes.ShoppingItem;
 
 import Classes.Cart.CartModel;
 import Classes.Cart.CartOperation;
-import Classes.Product.ProductCategoriesOperations;
+import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductOperations;
 import Classes.FrontController.Action;
 import Classes.Product.ProductModel;

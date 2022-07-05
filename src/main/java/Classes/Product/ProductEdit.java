@@ -1,6 +1,8 @@
 package Classes.Product;
 
 import Classes.FrontController.Action;
+import Classes.Product.ProductCategory.ProductCategoriesOperations;
+import Classes.Product.ProductCategory.ProductCategoryModel;
 import org.apache.commons.io.IOUtils;
 
 import javax.servlet.annotation.MultipartConfig;

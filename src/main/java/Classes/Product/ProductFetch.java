@@ -4,6 +4,8 @@ import Classes.Command.Discriminator;
 import Classes.Command.Invoker;
 import Classes.Command.Dispatcher;
 import Classes.FrontController.Action;
+import Classes.Product.ProductCategory.ProductCategoriesOperations;
+import Classes.Product.ProductCategory.ProductCategoryModel;
 import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;

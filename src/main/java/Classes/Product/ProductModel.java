@@ -1,5 +1,7 @@
 package Classes.Product;
 
+import Classes.Product.ProductCategory.ProductCategoryModel;
+
 public class ProductModel {
 
 

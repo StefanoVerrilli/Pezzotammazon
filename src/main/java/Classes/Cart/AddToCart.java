@@ -1,6 +1,6 @@
 package Classes.Cart;
 
-import Classes.Product.ProductCategoriesOperations;
+import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductOperations;
 import Classes.FrontController.Action;
 import Classes.ShoppingItem.ShoppingItemOperations;

@@ -36,6 +36,6 @@ public class KmeansImp implements Action {
         Map<centroid, List<Record>> result =  means.fit(records,2,5000);
         IAdapter<centroid,List<Record>> adapter = new GSONAdapter();
         adapter.DataToJSON(result);
-        return "/Homepage";
+        return "/AdminPages/UserStatistics";
     }
 }

@@ -4,8 +4,8 @@ import Classes.Clustering.Record;
 import Classes.Order.Order;
 import Classes.Order.OrderOperations;
 import Classes.OrderCollection.OrderCollection;
-import Classes.Product.ProductCategoriesOperations;
-import Classes.Product.ProductCategoryModel;
+import Classes.Product.ProductCategory.ProductCategoriesOperations;
+import Classes.Product.ProductCategory.ProductCategoryModel;
 import Classes.Product.ProductModel;
 import Classes.Product.ProductOperations;
 import Classes.Suggestion.SuggestionModel;
@@ -26,8 +26,8 @@ public class DataSetElaboration {
                                            .collect(Collectors.toMap(ProductCategoryModel::getCategoryDescription,
                                            ProductCategoryModel -> 0));
         for(OrderCollection collection : orderCollectionList){
-            OrderOperations orderOperations = new OrderOperations(collection.getCollectionID());
-            List<Order> items = orderOperations.getAll();
+            OrderOperations orderOperations = new OrderOperations();
+            List<Order> items = orderOperations.getAll(collection.getCollectionID());
             for(Order order : items){
                 data.compute(order.getItem().getCategory().getCategoryDescription(),(key,value) -> {
                     if(value == null)
@@ -60,8 +60,8 @@ public class DataSetElaboration {
         List<ProductModel> products = productOperations.getAllByCategory(Category);
         Set<Order> orderSet = new HashSet<>();
         for(OrderCollection collection : orderCollectionList){
-            OrderOperations orderOperations = new OrderOperations(collection.getCollectionID());
-            List<Order> orders = orderOperations.getAllByCategory(Category);
+            OrderOperations orderOperations = new OrderOperations();
+            List<Order> orders = orderOperations.getAllByCategory(Category,collection.getCollectionID());
             for(Order order : orders)
                 orderSet.add(order);
         }

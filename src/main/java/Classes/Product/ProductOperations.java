@@ -1,6 +1,9 @@
 package Classes.Product;
 
 import Classes.DAO.*;
+import Classes.Product.ProductCategory.IProductCategoryDAO;
+import Classes.Product.ProductCategory.ProductCategoriesOperations;
+import Classes.Product.ProductCategory.ProductCategoryModel;
 
 import java.sql.*;
 import java.sql.ResultSet;
@@ -11,9 +14,9 @@ import java.util.Optional;
 
 public class ProductOperations implements IProductDAO<ProductModel> {
 
-    private final ProductCategoriesOperations categoriesOperation;
+    private final IProductCategoryDAO categoriesOperation;
 
-    public ProductOperations(ProductCategoriesOperations categoriesOperation) {
+    public ProductOperations(IProductCategoryDAO categoriesOperation) {
         this.categoriesOperation = categoriesOperation;
     }
 
@@ -96,7 +99,7 @@ public class ProductOperations implements IProductDAO<ProductModel> {
         p.close();
     }
 
-
+    @Override
     public void delete(Integer id) throws SQLException {
         String query = "DELETE FROM products "
                 + "WHERE ID=? ";
@@ -116,7 +119,7 @@ public class ProductOperations implements IProductDAO<ProductModel> {
         ResultSet rest = p.executeQuery();
         List<ProductModel> elements = new ArrayList<>();
 
-        ProductCategoryModel category = categoriesOperation.get(Category).get();
+        ProductCategoryModel category = (ProductCategoryModel) categoriesOperation.get(Category).get();
 
         while (rest.next()){
             ProductModel product = new ProductModel.Builder(rest.getString("Name"))
@@ -135,15 +138,18 @@ public class ProductOperations implements IProductDAO<ProductModel> {
 
     public List<ProductModel> getAllByCategory(String CategoryDescription) throws SQLException {
         String query = "SELECT Name,Image,Cost,ID,Amount,Description,Category "
-                + "FROM products join ProductCategories on products.Category = ProductCategories.CategoryID "
+                + "FROM products join ProductCategories "
+                + "on products.Category = ProductCategoris.CategoryID "
                 + "WHERE CategoryDescription = ? ";
 
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setString(1,CategoryDescription);
         ResultSet rest = p.executeQuery();
         List<ProductModel> elements = new ArrayList<>();
-        ProductCategoryModel categoryObject = new ProductCategoryModel(rest.getInt("Category"), CategoryDescription);
-        ProductCategoryModel category = categoriesOperation.get(categoryObject.getCategoryID()).get();
+        ProductCategoryModel categoryObject =
+        new ProductCategoryModel(rest.getInt("Category"),CategoryDescription);
+        ProductCategoryModel category = (ProductCategoryModel) categoriesOperation
+                                        .get(categoryObject.getCategoryID()).get();
 
         while (rest.next()){
             ProductModel product = new ProductModel.Builder(rest.getString("Name"))

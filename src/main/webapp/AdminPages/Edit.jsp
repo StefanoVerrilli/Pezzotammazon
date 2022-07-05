@@ -1,7 +1,7 @@
 <%@ page import="Classes.Product.ProductModel" %>
 <%@ page import="Classes.User.UserModel" %>
-<%@ page import="Classes.Product.ProductCategoriesOperations" %>
-<%@ page import="Classes.Product.ProductCategoryModel" %>
+<%@ page import="Classes.Product.ProductCategory.ProductCategoriesOperations" %>
+<%@ page import="Classes.Product.ProductCategory.ProductCategoryModel" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

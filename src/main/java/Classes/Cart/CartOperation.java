@@ -37,7 +37,7 @@ public class CartOperation implements ICartOperation<CartModel,ShoppingItemModel
         p.close();
         return cart;
     }
-
+    @Override
     public boolean add(CartModel cart) throws SQLException {
         Optional<CartModel> ResultCart = get(cart.getUser_id());
         if(!ResultCart.isPresent()){
@@ -51,7 +51,7 @@ public class CartOperation implements ICartOperation<CartModel,ShoppingItemModel
         return true;
     }
 
-
+@Override
    public List<ShoppingItemModel> getAll(Integer UserID) throws SQLException{
         Integer Cart_id = get(UserID).get().getCart_id();
         String query = "SELECT Quantity,Name,Cost,Image,ID,Amount "
