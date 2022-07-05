@@ -1,6 +1,9 @@
 package Classes.DataAnalysis;
 
 import Classes.Cart.CartOperation;
+import Classes.Clustering.DistanceMetric;
+import Classes.Clustering.EuclideanDistance;
+import Classes.Clustering.KMeans;
 import Classes.Clustering.Record;
 import Classes.ConcreteHashAlg;
 import Classes.DataAnalysis.DatasetPreparation.DataSetElaboration;
@@ -21,14 +24,12 @@ public class OrderElaboration implements Action {
         UsersOperations usersOperations = new UsersOperations(new ConcreteHashAlg());
         Integer inputID = Integer.valueOf(request.getParameter("id"));
         OrderCollectionOperations orderCollectionOperations =
-        new OrderCollectionOperations(new CartOperation(inputID));
+        new OrderCollectionOperations(new CartOperation());
         List<OrderCollection> collection = orderCollectionOperations.getAll(inputID);
         Optional<UserModel> user = usersOperations.get(inputID);
         DataSetElaboration dataSetElaboration = new DataSetElaboration();
+        request.getSession().setAttribute("suggestions",dataSetElaboration.Suggestor(collection,user.get()));
 
-        Record result = dataSetElaboration.getData(user.get(),collection);
-        String Category = dataSetElaboration.MaxPurchaseCategory(result);
-        request.getSession().setAttribute("suggestions",dataSetElaboration.getSuggestions(Category,collection));
         return "/AdminPages/UserSuggestion";
     }
 }

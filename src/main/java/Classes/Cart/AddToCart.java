@@ -21,13 +21,13 @@ public class AddToCart implements Action {
         }
         UserModel user = (UserModel) request.getSession().getAttribute("user");
         ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
-        CartOperation cartOperation = new CartOperation(user.getId());
+        CartOperation cartOperation = new CartOperation();
 
         ShoppingItemOperations shoppingItemOperations = new ShoppingItemOperations(cartOperation);
         ProductModel newProduct = productOperations.get(id).get();
-        ShoppingItemModel newOrder = new ShoppingItemModel(newProduct,cartOperation.getCart().get().getCart_id());
-        shoppingItemOperations.add(newOrder);
-        request.getSession().setAttribute("ShoppingList",cartOperation.getAll());
+        ShoppingItemModel newOrder = new ShoppingItemModel(newProduct,cartOperation.get(user.getId()).get().getCart_id());
+        shoppingItemOperations.add(newOrder, user.getId());
+        request.getSession().setAttribute("ShoppingList",cartOperation.getAll(user.getId()));
         return "/UserPages/Cart";
     }
 }

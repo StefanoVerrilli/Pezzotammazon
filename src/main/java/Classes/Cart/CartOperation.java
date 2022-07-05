@@ -1,5 +1,4 @@
 package Classes.Cart;
-import Classes.DAO.IAddDAO;
 import Classes.Product.ProductModel;
 import Classes.ShoppingItem.ShoppingItemModel;
 
@@ -12,22 +11,17 @@ import java.util.Optional;
 
 public class CartOperation implements ICartOperation<CartModel,ShoppingItemModel>{
 
-    private Integer userId;
-    public CartOperation(Integer User_id){
-        this.userId = User_id;
-    }
     @Override
-    public void EmptyCart() throws SQLException{
-        Integer Cart_id = getCart().get().getCart_id();
+    public void EmptyCart(CartModel cart) throws SQLException{
         String query = "DELETE FROM ShoppingItem "
                 + "WHERE CartID = ? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1,Cart_id);
+        p.setInt(1,cart.getCart_id());
         p.executeUpdate();
         p.close();
     }
     @Override
-    public Optional<CartModel> getCart() throws SQLException{
+    public Optional<CartModel> get(Integer userId) throws SQLException{
         String query = "SELECT CartID "
                 + "FROM  Cart "
                 + "WHERE UserID = ? ";
@@ -45,7 +39,7 @@ public class CartOperation implements ICartOperation<CartModel,ShoppingItemModel
     }
 
     public boolean add(CartModel cart) throws SQLException {
-        Optional<CartModel> ResultCart = getCart();
+        Optional<CartModel> ResultCart = get(cart.getUser_id());
         if(!ResultCart.isPresent()){
         String query = "INSERT INTO Cart (UserID) "
                 + "VALUES (?)";
@@ -58,8 +52,8 @@ public class CartOperation implements ICartOperation<CartModel,ShoppingItemModel
     }
 
 
-   public List<ShoppingItemModel> getAll() throws SQLException{
-        Integer Cart_id = getCart().get().getCart_id();
+   public List<ShoppingItemModel> getAll(Integer UserID) throws SQLException{
+        Integer Cart_id = get(UserID).get().getCart_id();
         String query = "SELECT Quantity,Name,Cost,Image,ID,Amount "
                 + "FROM ShoppingItem join products p on p.ID = ShoppingItem.ProductID "
                 + "WHERE CartID = ? ";

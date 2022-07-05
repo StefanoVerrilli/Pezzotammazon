@@ -4,7 +4,7 @@ import Classes.Pair;
 
 import java.util.Map;
 
-public interface DistanceMetric<T> {
+public interface DistanceMetric {
 
-    double calculate(Map<String,Double> f1, Map<String,Double> centroid);
+    double calculate(Map<String,Integer> f1, Map<String,Double> centroid);
 }

@@ -54,11 +54,9 @@ public class OrderCollectionOperations implements IGetDAO<OrderCollection>, IAdd
         }
 
     public boolean AddSingleOrders(int User_id) throws SQLException {
-        CartModel Cart = (CartModel) cartOperation.getCart().get();
-        System.out.println("id: " + Cart.getCart_id());
-        System.out.println("collection id: " + get(User_id).get().getCollectionID());
+        CartModel Cart = (CartModel) cartOperation.get(User_id).get();
         OrderOperations orderOperations = new OrderOperations(get(User_id).get().getCollectionID());
-        List<ShoppingItemModel> shoppingItems = cartOperation.getAll();
+        List<ShoppingItemModel> shoppingItems = cartOperation.getAll(User_id);
         for(ShoppingItemModel item: shoppingItems){
             Order order = new Order(get(User_id).get().getCollectionID(),item);
             orderOperations.add(order);

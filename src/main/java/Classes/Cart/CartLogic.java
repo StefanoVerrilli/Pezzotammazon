@@ -12,8 +12,8 @@ public class CartLogic implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserModel user = (UserModel) request.getSession().getAttribute("user");
-        CartOperation cartOperation = new CartOperation(user.getId());
-        List<ShoppingItemModel> shoppingList = cartOperation.getAll();
+        CartOperation cartOperation = new CartOperation();
+        List<ShoppingItemModel> shoppingList = cartOperation.getAll(user.getId());
         request.getSession().setAttribute("ShoppingList",shoppingList);
         return "/UserPages/Cart";
     }

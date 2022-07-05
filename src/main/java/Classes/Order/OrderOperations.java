@@ -68,7 +68,8 @@ public class OrderOperations implements IAddDAO<Order> {
 
         List<Order> result = new ArrayList<>();
 
-        ProductCategoryModel category = new ProductCategoryModel(rest.getInt("Category"), rest.getString("CategoryDescription"));
+        ProductCategoryModel category = new ProductCategoryModel
+        (rest.getInt("Category"), rest.getString("CategoryDescription"));
 
 
         while (rest.next()) {

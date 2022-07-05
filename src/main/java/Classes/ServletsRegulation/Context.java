@@ -2,6 +2,7 @@ package Classes.ServletsRegulation;
 
 import Classes.Cart.AddToCart;
 import Classes.Cart.CartLogic;
+import Classes.DataAnalysis.DatasetPreparation.KmeansImp;
 import Classes.DataAnalysis.OrderElaboration;
 import Classes.ShoppingItem.ChangeCost;
 import Classes.DataAnalysis.UsersPageLogic;
@@ -32,6 +33,7 @@ public class Context {
         Actions.putAction("GET/InsertLogic.do",new InsertLogic());
         Actions.putAction("GET/UsersPageLogic.do",new UsersPageLogic());
         Actions.putAction("GET/orderElaboration.do",new OrderElaboration());
+        Actions.putAction("GET/Kmeans.do",new KmeansImp());
     }
 
     public void LoadUserLinks(){

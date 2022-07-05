@@ -20,21 +20,21 @@ public class ChangeCost implements Action {
         int quantity = Integer.parseInt(request.getParameter("orderQuantity"));
         int id = Integer.parseInt(request.getParameter("orderId"));
         UserModel user = (UserModel) request.getSession().getAttribute("user");
-        CartOperation cartOperation = new CartOperation(user.getId());
+        CartOperation cartOperation = new CartOperation();
         ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
         ShoppingItemOperations ordersOperations = new ShoppingItemOperations(cartOperation);
 
         Optional<ProductModel> product = productOperations.get(id);
         if(!product.isPresent())
             throw new RuntimeException("No such item exist");
-        Optional<CartModel> cart = cartOperation.getCart();
+        Optional<CartModel> cart = cartOperation.get(user.getId());
         if(!cart.isPresent())
             throw new RuntimeException("No such cart");
 
         ShoppingItemModel item = new ShoppingItemModel(product.get(),cart.get().getCart_id());
         item.setQuantity(quantity);
         ordersOperations.update(item);
-        request.getSession().setAttribute("ShoppingList",cartOperation.getAll());
+        request.getSession().setAttribute("ShoppingList",cartOperation.getAll(user.getId()));
         return "/UserPages/Cart";
     }
 }

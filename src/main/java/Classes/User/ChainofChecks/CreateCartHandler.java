@@ -13,7 +13,7 @@ public class CreateCartHandler extends Handler{
         UserModel user = (UserModel) request.getSession().getAttribute("user");
         if(user.getAccessType() == AccessLevels.Admin)
             next.handle(request);
-        CartOperation cartOperation = new CartOperation(user.getId());
+        CartOperation cartOperation = new CartOperation();
         CartModel cart = new CartModel();
         cart.setUser_id(user.getId());
         if(cartOperation.add(cart))

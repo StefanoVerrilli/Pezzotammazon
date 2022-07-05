@@ -14,6 +14,7 @@ public class Director {
         Builder.addLink(new Pair<String,String>("Inserisci prodotto","InsertLogic.do"));
         Builder.addLink(new Pair<String,String>("Visualizza prodotti","ProductsTable.do"));
         Builder.addLink(new Pair<String,String>("Analysis","UsersPageLogic.do"));
+        Builder.addLink(new Pair<String,String>("Kmeans","Kmeans.do"));
     }
 
     public void constructUserNavBar(){

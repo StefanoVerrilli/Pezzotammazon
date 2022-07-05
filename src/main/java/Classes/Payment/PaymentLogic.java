@@ -26,7 +26,7 @@ public class PaymentLogic implements Action {
             return "/UserPages/Pay";
         }
         OrderCollectionOperations orderCollectionOperations =
-        new OrderCollectionOperations(new CartOperation(user.getId()));
+        new OrderCollectionOperations(new CartOperation());
         OrderCollection orderCollection = new OrderCollection();
         orderCollection.setUser_ID(user.getId());
         orderCollection.setTimestamp(Date.valueOf(java.time.LocalDate.now()));
@@ -41,9 +41,9 @@ public class PaymentLogic implements Action {
 
 
     private void EmptyCartWrapper(int User_id) throws SQLException{
-        CartOperation cartOperation = new CartOperation(User_id);
-        Optional<CartModel> cart = cartOperation.getCart();
+        CartOperation cartOperation = new CartOperation();
+        Optional<CartModel> cart = cartOperation.get(User_id);
         if(cart.isPresent())
-            cartOperation.EmptyCart();
+            cartOperation.EmptyCart(cart.get());
     }
 }

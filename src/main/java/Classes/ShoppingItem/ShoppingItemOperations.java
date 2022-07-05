@@ -11,20 +11,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class ShoppingItemOperations implements IAddDAO<ShoppingItemModel>, IDeleteDAO,
-IGetDAO<ShoppingItemModel>, IUpdateDAO<ShoppingItemModel>{
+public class ShoppingItemOperations implements
+ IUpdateDAO<ShoppingItemModel>{
 
     ICartOperation cartOperation;
     public ShoppingItemOperations(ICartOperation cartOperation){
         this.cartOperation = cartOperation;
     }
-    @Override
-    public Optional<ShoppingItemModel> get(Integer productId) throws SQLException {
+    public Optional<ShoppingItemModel> get(Integer productId,Integer UserID) throws SQLException {
         String query = "SELECT * "
                 + "FROM \"ShoppingItem\" "
                 + "WHERE CartID = ? AND ProductID = ?";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        CartModel cart = (CartModel) cartOperation.getCart().get();
+        CartModel cart = (CartModel) cartOperation.get(UserID).get();
         Integer cartId = cart.getCart_id();
         p.setInt(1,cartId);
         p.setInt(2, productId);
@@ -40,9 +39,8 @@ IGetDAO<ShoppingItemModel>, IUpdateDAO<ShoppingItemModel>{
         p.close();
         return shoppingItem;
     }
-    @Override
-    public boolean add(ShoppingItemModel item) throws SQLException {
-        Optional<ShoppingItemModel> ResultItem = get(item.getProduct().getID());
+    public boolean add(ShoppingItemModel item,Integer UserID) throws SQLException {
+        Optional<ShoppingItemModel> ResultItem = get(item.getProduct().getID(),UserID);
         if(ResultItem.isEmpty())
             InsertQuery(item);
         else{
@@ -76,12 +74,11 @@ IGetDAO<ShoppingItemModel>, IUpdateDAO<ShoppingItemModel>{
         p.close();
     }
 
-    @Override
-    public void delete(Integer ProductID) throws SQLException {
+    public void delete(Integer ProductID,Integer UserID) throws SQLException {
         String query = "DELETE FROM \"ShoppingItem\" "
                 + "WHERE CartID=? AND ProductID=? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        Optional<CartModel> cart = cartOperation.getCart();
+        Optional<CartModel> cart = cartOperation.get(UserID);
         if(cart.isEmpty())
             throw new SQLException("Cart is not present");
         Integer cartId = cart.get().getCart_id();
