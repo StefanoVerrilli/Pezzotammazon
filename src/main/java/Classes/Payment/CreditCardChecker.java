@@ -49,7 +49,6 @@ public class CreditCardChecker {
         int year = cal.get(Calendar.YEAR);
         int month = (cal.get(Calendar.MONTH) + 1);
 
-        System.out.println(year + " " +  expirationYear + " " +  month + " " + expirationMonth);
 
 
         if(year <= expirationYear) {
@@ -77,7 +76,6 @@ public class CreditCardChecker {
             odd = !odd;
         }
 
-        System.out.println(sum);
 
         return (sum % 10 == 0);
     }

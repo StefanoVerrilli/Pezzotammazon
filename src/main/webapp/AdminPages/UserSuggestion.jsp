@@ -18,13 +18,51 @@
   <script>
       let dataArray = [];
       let categoriesArray = [];
+
+      function suggestProduct(user_id, suggested_product_id) {
+          let formdata = new FormData();
+          formdata.append("userId", user_id);
+          formdata.append("productId", suggested_product_id);
+          $.ajax({
+              url: 'AddSuggestion.do',
+              type: 'POST',
+              data: formdata,
+              processData: false,
+              contentType: false,
+              success: function () {
+                  $('#suggested-product-carousel').load("UserSuggestion.jsp #suggested-product-carousel");
+              }
+          });
+          return false;
+      }
   </script>
 
-    Suggested products
-    <c:forEach var="suggestion" items="${suggestions}">
-        <li>${suggestion.getName()}</li>
-    </c:forEach>
+    Suggested products for <c:out value="${selected_user.getUsername()}"></c:out>
 
+        <div id="suggested-product-carousel" class="container is-fullwidth" style="min-width:300px; overflow-x: auto; overflow-y: hidden">
+    <c:forEach var="suggestion" items="${suggestions}">
+        <div class="card is-inline-block" style="width: 300px">
+            <div class="card-image is-clipped">
+                    <figure class="image has-ratio 16by9" style="max-width:300px">
+                        <img src="data:image/png;base64,${suggestion.getImage()}"
+                             alt="Image depicting ${suggestion.getName()}">
+                    </figure>
+            </div>
+            <div class="card-content">
+                <div class="content">
+                    <p class="title is-5 mt-3"><c:out value="${suggestion.getName()}"/></p>
+                    <p class="title is-4 mt-3">
+                        <fmt:formatNumber value="${suggestion.getCost()}" type="currency" maxFractionDigits="2"
+                                          currencyCode="EUR"/>
+                    </p>
+                </div>
+            </div>
+            <footer class="card-footer">
+                <a href="#" class="card-footer-item" onclick="suggestProduct(${selected_user.getId()}, ${suggestion.getID()})">Suggest item</a>
+            </footer>
+        </div>
+    </c:forEach>
+        </div>
 
     <canvas id="top-purchases-visualization" width="300" height="100"></canvas>
 

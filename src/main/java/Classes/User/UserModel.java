@@ -38,7 +38,6 @@ public class UserModel {
 
         public Builder setAccessType(int level) {
             access = AccessLevels.values()[level];
-            System.out.println(access);
             return this;
         }
 

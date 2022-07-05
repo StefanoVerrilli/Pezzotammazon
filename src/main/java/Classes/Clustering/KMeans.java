@@ -106,7 +106,6 @@ public class KMeans extends Clustering{
                     (k,v) -> average.compute(k,(k1,currentValue) -> v + currentValue)
             );
             }
-
             average.forEach((k,v) -> average.put(k,v/records.size()));
             return new centroid(average);
     }

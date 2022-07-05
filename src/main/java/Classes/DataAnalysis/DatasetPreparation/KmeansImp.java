@@ -33,7 +33,7 @@ public class KmeansImp implements Action {
             records.add(elaboration.getData(user,orders));
         }
         KMeans means = new KMeans(new EuclideanDistance());
-        Map<centroid, List<Record>> result =  means.fit(records,2,2000);
+        Map<centroid, List<Record>> result =  means.fit(records,2,5000);
         IAdapter<centroid,List<Record>> adapter = new GSONAdapter();
         adapter.DataToJSON(result);
         return "/Homepage";

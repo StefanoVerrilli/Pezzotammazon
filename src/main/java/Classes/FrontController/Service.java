@@ -29,19 +29,18 @@ public class    Service extends HttpServlet {
         try {
             Action action = ActionFactory.getAction(request);
             String View = action.execute(request,response);
-            //request.getRequestDispatcher(View + ".jsp").forward(request,response);
             response.sendRedirect(View + ".jsp");
         } catch (Exception e) {
             throw new ServletException("Executing action failed",e);
         }
     }
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException{
             Service(request,response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException{
         Service(request,response);
     }
 }

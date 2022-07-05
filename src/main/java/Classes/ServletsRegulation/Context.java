@@ -11,6 +11,7 @@ import Classes.Product.*;
 import Classes.ShoppingItem.DeleteShoppingItem;
 import Classes.Payment.PaymentLogic;
 import Classes.Payment.PaymentPageLoad;
+import Classes.Suggestion.AddSuggestion;
 import Classes.User.Access.LogIn;
 import Classes.User.Access.LogOut;
 import Classes.User.Access.Register;
@@ -34,6 +35,7 @@ public class Context {
         Actions.putAction("GET/UsersPageLogic.do",new UsersPageLogic());
         Actions.putAction("GET/orderElaboration.do",new OrderElaboration());
         Actions.putAction("GET/Kmeans.do",new KmeansImp());
+        Actions.putAction("POST/AddSuggestion.do",new AddSuggestion());
     }
 
     public void LoadUserLinks(){

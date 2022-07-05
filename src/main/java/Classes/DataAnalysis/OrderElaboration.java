@@ -22,20 +22,21 @@ public class OrderElaboration implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UsersOperations usersOperations = new UsersOperations(new ConcreteHashAlg());
-        Integer inputID = Integer.valueOf(request.getParameter("id"));
+        Integer UserId = Integer.valueOf(request.getParameter("id"));
         OrderCollectionOperations orderCollectionOperations =
         new OrderCollectionOperations(new CartOperation());
-        List<OrderCollection> collection = orderCollectionOperations.getAll(inputID);
-        Optional<UserModel> user = usersOperations.get(inputID);
+        List<OrderCollection> collection = orderCollectionOperations.getAll(UserId);
+        Optional<UserModel> user = usersOperations.get(UserId);
         DataSetElaboration dataSetElaboration = new DataSetElaboration();
 
         // TODO: Errore in questa classe che causa un 505 (getAllByCategory)
-        //request.getSession().setAttribute("suggestions",dataSetElaboration.Suggestor(collection,user.get()));
+        request.getSession().setAttribute("suggestions",dataSetElaboration.Suggestor(collection,user.get()));
+        request.getSession().setAttribute("selected_user", user.get());
 
         // TODO: Reintegrare queste funzioni (utili per le statistiche)
         Record result = dataSetElaboration.getData(user.get(),collection);
-        String Category = dataSetElaboration.MaxPurchaseCategory(result);
         request.getSession().setAttribute("user_purchases_by_category", result.getFeatures());
+
 
          return "/AdminPages/UserSuggestion";
     }

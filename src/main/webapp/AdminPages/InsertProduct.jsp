@@ -43,7 +43,7 @@
 %>
 <body>
 <div class="container">
-<form id="productForm" enctype="multipart/form-data" method="post" action="Insert.do" onclick="event.preventDefault();submitForm()">
+<form id="productForm" enctype="multipart/form-data" method="post" action="Insert.do" onsubmit="event.preventDefault();submitForm()">
     <div class="field">
         <label class="label" for="productName">Product name</label>
         <div class="control">

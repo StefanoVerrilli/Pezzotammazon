@@ -13,7 +13,6 @@
       response.sendRedirect("/LogIn.jsp");
   }else{
       user = (UserModel) request.getSession().getAttribute("user");
-      System.out.println(user.getAccessType());
   }
 %>
 <jsp:include page="Navbar.jsp">

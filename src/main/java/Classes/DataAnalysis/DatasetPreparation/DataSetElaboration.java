@@ -8,14 +8,12 @@ import Classes.Product.ProductCategoriesOperations;
 import Classes.Product.ProductCategoryModel;
 import Classes.Product.ProductModel;
 import Classes.Product.ProductOperations;
+import Classes.Suggestion.SuggestionModel;
+import Classes.Suggestion.SuggestionOperation;
 import Classes.User.UserModel;
 
 import java.sql.SQLException;
-import java.util.AbstractMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DataSetElaboration {
@@ -53,13 +51,11 @@ public class DataSetElaboration {
                 Category = category;
             }
         }
-    Map.Entry<String,Integer> map = new AbstractMap.SimpleEntry<>(Category,Max);
-    System.out.println("La categoria con maggior numero di acquisti è: " + map.getKey() + " con ben: " +
-    map.getValue() + " acqusti.");
     return Category;
     }
 
     public List<ProductModel> getSuggestions(String Category,List<OrderCollection> orderCollectionList) throws SQLException {
+
         ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
         List<ProductModel> products = productOperations.getAllByCategory(Category);
         Set<Order> orderSet = new HashSet<>();
@@ -71,6 +67,9 @@ public class DataSetElaboration {
         }
         products.removeIf(e -> orderSet.stream()
         .anyMatch(order -> order.getItem().getID() == e.getID()));
+        List<SuggestionModel> AlreadySuggested = new SuggestionOperation().getAll(orderCollectionList.get(0).getUser_ID());
+        products.removeIf(e-> AlreadySuggested.stream()
+        .anyMatch(suggestion -> suggestion.getProduct_id() == e.getID()));
         return products;
     }
 
