@@ -28,12 +28,15 @@ public class OrderElaboration implements Action {
         List<OrderCollection> collection = orderCollectionOperations.getAll(inputID);
         Optional<UserModel> user = usersOperations.get(inputID);
         DataSetElaboration dataSetElaboration = new DataSetElaboration();
-        request.getSession().setAttribute("suggestions",dataSetElaboration.Suggestor(collection,user.get()));
 
+        // TODO: Errore in questa classe che causa un 505 (getAllByCategory)
+        //request.getSession().setAttribute("suggestions",dataSetElaboration.Suggestor(collection,user.get()));
+
+        // TODO: Reintegrare queste funzioni (utili per le statistiche)
         Record result = dataSetElaboration.getData(user.get(),collection);
         String Category = dataSetElaboration.MaxPurchaseCategory(result);
         request.getSession().setAttribute("user_purchases_by_category", result.getFeatures());
-        request.getSession().setAttribute("suggestions",dataSetElaboration.getSuggestions(Category,collection));
-        return "/AdminPages/UserSuggestion";
+
+         return "/AdminPages/UserSuggestion";
     }
 }
