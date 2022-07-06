@@ -29,7 +29,7 @@ public class ProductOperations implements IProductDAO<ProductModel> {
         ResultSet rest = p.executeQuery();
 
         ProductCategoryModel category =
-                                    new ProductCategoryModel(rest.getInt("Category"),
+                                        new ProductCategoryModel(rest.getInt("Category"),
                                     rest.getString("CategoryDescription"));
 
         ProductModel product = new ProductModel.Builder(rest.getString("Name"))
