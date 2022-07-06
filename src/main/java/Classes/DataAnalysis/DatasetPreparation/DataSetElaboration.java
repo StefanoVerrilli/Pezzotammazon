@@ -73,10 +73,4 @@ public class DataSetElaboration {
         return products;
     }
 
-    public List<ProductModel> Suggestor(List<OrderCollection> orderCollectionList,UserModel User) throws SQLException{
-        Record record = getData(User,orderCollectionList);
-        String preferredCategory = MaxPurchaseCategory(record);
-        return getSuggestions(preferredCategory,orderCollectionList);
-    }
-
 }

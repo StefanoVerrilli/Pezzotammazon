@@ -4,11 +4,12 @@
 
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
-        Context context = new Context();
-        DefaultState defaultState = new DefaultState(context);
-        defaultState.LoadLink();
         if(request.getSession().getAttribute("user") != null){
             response.sendRedirect("Homepage.jsp");
+        }else{
+            Context context = new Context();
+            DefaultState defaultState = new DefaultState(context);
+            defaultState.LoadLink();
         }
     %>
 <body>

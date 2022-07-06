@@ -1,7 +1,11 @@
 package Classes.DataAnalysis;
 
+import Classes.Cart.CartOperation;
 import Classes.ConcreteHashAlg;
 import Classes.FrontController.Action;
+import Classes.Order.OrderOperations;
+import Classes.OrderCollection.OrderCollectionOperations;
+import Classes.SuggestionSystemFacede.DataAnalysisFacade;
 import Classes.User.UserModel;
 import Classes.User.UsersOperations;
 
@@ -12,8 +16,12 @@ import java.util.List;
 public class UsersPageLogic implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        UsersOperations usersOperations  = new UsersOperations(new ConcreteHashAlg());
-        List<UserModel> userModelList = usersOperations.getAll();
+        DataAnalysisFacade dataAnalysisFacade = new DataAnalysisFacade();
+        List<UserModel> userModelList = dataAnalysisFacade.getSuggestibleUsers(
+        new UsersOperations(new ConcreteHashAlg()),
+        new OrderCollectionOperations(new CartOperation()),
+        new OrderOperations());
+        
         request.getSession().setAttribute("UsersList",userModelList);
         return "/AdminPages/UsersPage";
     }

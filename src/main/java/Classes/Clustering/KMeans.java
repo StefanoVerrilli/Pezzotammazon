@@ -9,12 +9,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class KMeans extends Clustering{
+    private static final Random random = new Random();
 
     public KMeans(DistanceMetric metric) {
         super(metric);
     }
-
-    private static final Random random = new Random();
 
     public Map<centroid, List<Record>> fit(List<Record> records,
     int k,
@@ -70,11 +69,11 @@ public class KMeans extends Clustering{
     }
 
 
-    private static centroid nearestCentroid(Record record,List<centroid> centroids,DistanceMetric distance){
+    private centroid nearestCentroid(Record record,List<centroid> centroids,DistanceMetric distance){
     double minimumDistance = Double.MAX_VALUE;
     centroid nearest = null;
     for(centroid centroid : centroids){
-        double currentDistance = distance.calculate(record.getFeatures(),centroid.getCoords());
+        double currentDistance = Distance(record.getFeatures(),centroid.getCoords());
         if(currentDistance< minimumDistance){
             minimumDistance = currentDistance;
             nearest = centroid;

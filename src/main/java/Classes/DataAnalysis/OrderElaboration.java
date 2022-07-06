@@ -1,14 +1,11 @@
 package Classes.DataAnalysis;
 
 import Classes.Cart.CartOperation;
-import Classes.Clustering.DistanceMetric;
-import Classes.Clustering.EuclideanDistance;
-import Classes.Clustering.KMeans;
 import Classes.Clustering.Record;
 import Classes.ConcreteHashAlg;
-import Classes.DataAnalysis.DatasetPreparation.DataSetElaboration;
 import Classes.FrontController.Action;
 import Classes.OrderCollection.OrderCollectionOperations;
+import Classes.SuggestionSystemFacede.DataAnalysisFacade;
 import Classes.User.UserModel;
 import Classes.User.UsersOperations;
 import Classes.OrderCollection.OrderCollection;
@@ -27,8 +24,9 @@ public class OrderElaboration implements Action {
         new OrderCollectionOperations(new CartOperation());
         List<OrderCollection> collection = orderCollectionOperations.getAll(UserId);
         Optional<UserModel> user = usersOperations.get(UserId);
-        DataSetElaboration dataSetElaboration = new DataSetElaboration();
-
+        if(!user.isPresent())
+            throw new RuntimeException("User does not exist");
+        DataAnalysisFacade facade = new DataAnalysisFacade();
 
         request.getSession().setAttribute("suggestions",dataSetElaboration.Suggestor(collection,user.get()));
         request.getSession().setAttribute("selected_user", user.get());
@@ -37,7 +35,6 @@ public class OrderElaboration implements Action {
         Record result = dataSetElaboration.getData(user.get(),collection);
         result.getFeatures().entrySet().removeIf(e ->  e.getValue() == 0);
         request.getSession().setAttribute("user_purchases_by_category", result.getFeatures().entrySet());
-
 
          return "/AdminPages/UserSuggestion";
     }

@@ -52,6 +52,7 @@ public class UsersOperations implements IUserOperation<UserModel> {
         rest.close();
         return cc != 0;
     }
+    @Override
     public List<UserModel> getAll() throws SQLException {
         List<UserModel> result = new ArrayList<>();
         String query = "SELECT * "
