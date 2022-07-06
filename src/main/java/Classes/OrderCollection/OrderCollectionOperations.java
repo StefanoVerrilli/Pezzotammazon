@@ -63,8 +63,8 @@ public class OrderCollectionOperations implements IOrderCollectionDAO<OrderColle
         return true;
     }
 
-
-    public List<OrderCollection> getAll(int User_id) throws SQLException {
+@Override
+    public List<OrderCollection> getAll(Integer User_id) throws SQLException {
         List<OrderCollection> orderCollectionList = new ArrayList<>();
         String query = "SELECT OrderID,TimeStamp "
                 + "FROM \"Order\" "
