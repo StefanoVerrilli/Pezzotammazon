@@ -28,11 +28,11 @@ public class OrderElaboration implements Action {
             throw new RuntimeException("User does not exist");
         DataAnalysisFacade facade = new DataAnalysisFacade();
 
-        request.getSession().setAttribute("suggestions",dataSetElaboration.Suggestor(collection,user.get()));
+        request.getSession().setAttribute("suggestions",facade.getSuggestions(collection, user.get()));
         request.getSession().setAttribute("selected_user", user.get());
 
 
-        Record result = dataSetElaboration.getData(user.get(),collection);
+        Record result = facade.getData(user.get(),collection);
         result.getFeatures().entrySet().removeIf(e ->  e.getValue() == 0);
         request.getSession().setAttribute("user_purchases_by_category", result.getFeatures().entrySet());
 
