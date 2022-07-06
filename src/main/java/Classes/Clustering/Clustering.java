@@ -11,6 +11,10 @@ public abstract class Clustering {
         this.distanceMethod = metric;
     }
 
+    public double Distance(Map<String, Integer> f1, Map<String, Double> centroid){
+        return  this.distanceMethod.calculate(f1,centroid);
+    }
+
     public abstract Map<centroid, List<Record>> fit(List<Record> records,
             int k,
             int maxIterations);
