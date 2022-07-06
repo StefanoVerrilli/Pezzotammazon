@@ -39,16 +39,17 @@
 
     Suggested products for <c:out value="${selected_user.getUsername()}"></c:out>
 
-        <div id="suggested-product-carousel" class="container is-fullwidth" style="min-width:300px; overflow-x: auto; overflow-y: hidden">
+        <div id="suggested-product-carousel" class="container is-fullwidth">
+            <div class="is-flex is-flex-direction-row is-flex-wrap-nowrap py-4" style="overflow-x: auto; overflow-y: hidden">
     <c:forEach var="suggestion" items="${suggestions}">
-        <div class="card is-inline-block" style="width: 300px">
-            <div class="card-image is-clipped">
+        <div class="card mx-4" style="min-width: 300px">
+            <div class="card-content is-clipped" style=" height:300px">
+                <div class="card-image is-clipped" style="height:150px">
                     <figure class="image has-ratio 16by9" style="max-width:300px">
                         <img src="data:image/png;base64,${suggestion.getImage()}"
                              alt="Image depicting ${suggestion.getName()}">
                     </figure>
-            </div>
-            <div class="card-content">
+                </div>
                 <div class="content">
                     <p class="title is-5 mt-3"><c:out value="${suggestion.getName()}"/></p>
                     <p class="title is-4 mt-3">
@@ -62,6 +63,7 @@
             </footer>
         </div>
     </c:forEach>
+            </div>
         </div>
 
     <canvas id="top-purchases-visualization" width="300" height="100"></canvas>
