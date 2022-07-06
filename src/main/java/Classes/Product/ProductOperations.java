@@ -28,8 +28,9 @@ public class ProductOperations implements IProductDAO<ProductModel> {
         p.setInt(1,id);
         ResultSet rest = p.executeQuery();
 
-        ProductCategoryModel category = new ProductCategoryModel(rest.getInt("Category"),
-                rest.getString("CategoryDescription"));
+        ProductCategoryModel category =
+                                    new ProductCategoryModel(rest.getInt("Category"),
+                                    rest.getString("CategoryDescription"));
 
         ProductModel product = new ProductModel.Builder(rest.getString("Name"))
                                        .setImage(rest.getString("Image"))
@@ -47,12 +48,13 @@ public class ProductOperations implements IProductDAO<ProductModel> {
         List result = new ArrayList();
         String query = "SELECT * "
                 + "FROM products join ProductCategories on products.Category = ProductCategories.CategoryID ";
-        Statement stat = (Statement) DAO.myDb.getConnection().createStatement();
+        Statement stat = DAO.myDb.getConnection().createStatement();
         ResultSet rest = stat.executeQuery(query);
         while(rest.next()){
 
-            ProductCategoryModel category = new ProductCategoryModel(rest.getInt("Category"),
-                                            rest.getString("CategoryDescription"));
+            ProductCategoryModel category =
+            new ProductCategoryModel(rest.getInt("Category"),
+                                    rest.getString("CategoryDescription"));
 
             ProductModel product = new ProductModel.Builder(rest.getString("Name"))
                                            .setImage(rest.getString("Image"))
@@ -111,15 +113,17 @@ public class ProductOperations implements IProductDAO<ProductModel> {
 
     @Override
     public List<ProductModel> getAllByCategory(Integer Category) throws SQLException {
-        String query = "SELECT * "
-                + "FROM products "
-                + "WHERE Category = ? ";
+        String query = "SELECT Name,Image,Cost,ID,Amount,Description,CategoryDescription "
+                               + "FROM products join ProductCategories "
+                               + "on products.Category = ProductCategories.CategoryID "
+                               + "WHERE Category = ? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1,Category);
         ResultSet rest = p.executeQuery();
         List<ProductModel> elements = new ArrayList<>();
 
-        ProductCategoryModel category = (ProductCategoryModel) categoriesOperation.get(Category).get();
+        ProductCategoryModel category =
+        new ProductCategoryModel(Category,rest.getString("CategoryDescription"));
 
         while (rest.next()){
             ProductModel product = new ProductModel.Builder(rest.getString("Name"))
@@ -139,7 +143,7 @@ public class ProductOperations implements IProductDAO<ProductModel> {
     public List<ProductModel> getAllByCategory(String CategoryDescription) throws SQLException {
         String query = "SELECT Name,Image,Cost,ID,Amount,Description,Category "
                 + "FROM products join ProductCategories "
-                + "on products.Category = ProductCategoris.CategoryID "
+                + "on products.Category = ProductCategories.CategoryID "
                 + "WHERE CategoryDescription = ? ";
 
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
