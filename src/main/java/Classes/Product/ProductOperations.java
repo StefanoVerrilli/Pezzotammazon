@@ -139,7 +139,7 @@ public class ProductOperations implements IProductDAO<ProductModel> {
     public List<ProductModel> getAllByCategory(String CategoryDescription) throws SQLException {
         String query = "SELECT Name,Image,Cost,ID,Amount,Description,Category "
                 + "FROM products join ProductCategories "
-                + "on products.Category = ProductCategoris.CategoryID "
+                + "on products.Category = ProductCategories.CategoryID "
                 + "WHERE CategoryDescription = ? ";
 
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
