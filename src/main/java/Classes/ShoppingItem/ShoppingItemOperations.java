@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class ShoppingItemOperations implements IShoppingItemDAO<ShoppingItemModel>{
+public class ShoppingItemOperations implements IShoppingItemOperations<ShoppingItemModel> {
 
     ICartOperation cartOperation;
     public ShoppingItemOperations(ICartOperation cartOperation){

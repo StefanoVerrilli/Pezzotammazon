@@ -1,6 +1,5 @@
 package Classes.Order;
 
-import Classes.DAO.DAO;
 import Classes.Product.ProductCategory.ProductCategoryModel;
 import Classes.Product.ProductModel;
 
@@ -10,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderOperations implements IOrderDAO<Order> {
+public class OrderOperations implements IOrderOperations<Order> {
 
     public boolean add(Order order,Integer collectionID) throws SQLException {
         String query = "INSERT INTO ItemOrder(Quantity, OrderID, ProductID) "

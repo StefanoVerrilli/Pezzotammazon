@@ -19,9 +19,8 @@ public class UsersPageLogic implements Action {
         DataAnalysisFacade dataAnalysisFacade = new DataAnalysisFacade();
         List<UserModel> userModelList = dataAnalysisFacade.getSuggestibleUsers(
         new UsersOperations(new ConcreteHashAlg()),
-        new OrderCollectionOperations(new CartOperation()),
-        new OrderOperations());
-        
+        new OrderCollectionOperations(new CartOperation()));
+
         request.getSession().setAttribute("UsersList",userModelList);
         return "/AdminPages/UsersPage";
     }

@@ -1,8 +1,7 @@
 package Classes.Product;
 
 import Classes.DAO.*;
-import Classes.Product.ProductCategory.IProductCategoryDAO;
-import Classes.Product.ProductCategory.ProductCategoriesOperations;
+import Classes.Product.ProductCategory.IProductCategoryOperations;
 import Classes.Product.ProductCategory.ProductCategoryModel;
 
 import java.sql.*;
@@ -12,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ProductOperations implements IProductDAO<ProductModel> {
+public class ProductOperations implements IProductOperations<ProductModel> {
 
-    private final IProductCategoryDAO categoriesOperation;
+    private final IProductCategoryOperations categoriesOperation;
 
-    public ProductOperations(IProductCategoryDAO categoriesOperation) {
+    public ProductOperations(IProductCategoryOperations categoriesOperation) {
         this.categoriesOperation = categoriesOperation;
     }
 

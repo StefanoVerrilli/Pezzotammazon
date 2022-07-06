@@ -2,6 +2,6 @@ package Classes.DAO;
 
 import java.sql.SQLException;
 
-public interface IDeleteDAO extends DAO {
+public interface IDeleteDAO {
     public void delete(Integer ID) throws SQLException;
 }

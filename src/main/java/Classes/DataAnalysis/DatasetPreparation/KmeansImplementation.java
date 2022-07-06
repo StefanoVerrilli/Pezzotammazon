@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
-public class KmeansImp implements Action {
+public class KmeansImplementation implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UsersOperations usersOperations = new UsersOperations(new ConcreteHashAlg());

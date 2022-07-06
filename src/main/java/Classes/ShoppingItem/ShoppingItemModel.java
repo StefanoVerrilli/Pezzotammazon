@@ -8,7 +8,7 @@ public class ShoppingItemModel {
     private ProductModel product;
 
     private Integer CartID;
-    private int quantity = 1;
+    private Integer quantity = 1;
 
     public ShoppingItemModel(ProductModel product, Integer CartID){
         this.product = product;

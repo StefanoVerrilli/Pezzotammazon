@@ -28,11 +28,9 @@ public class OrderElaboration implements Action {
             throw new RuntimeException("User does not exist");
         DataAnalysisFacade facade = new DataAnalysisFacade();
 
-        // TODO: Errore in questa classe che causa un 505 (getAllByCategory)
         request.getSession().setAttribute("suggestions", facade.getSuggestions(collection, user.get()));
         request.getSession().setAttribute("selected_user", user.get());
 
-        // TODO: Reintegrare queste funzioni (utili per le statistiche)
         Record result = facade.getData(user.get(),collection);
         request.getSession().setAttribute("user_purchases_by_category", result.getFeatures());
 

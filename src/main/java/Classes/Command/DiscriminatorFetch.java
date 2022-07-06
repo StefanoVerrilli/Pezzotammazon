@@ -1,10 +1,10 @@
 package Classes.Command;
 
-public class Discriminator implements DiscriminatorInterface{
+public class DiscriminatorFetch implements DiscriminatorInterface{
 
     private Integer id;
 
-    public Discriminator(Integer id){
+    public DiscriminatorFetch(Integer id){
         this.id = id;
     }
 
