@@ -68,11 +68,11 @@
 
     Top purchased by category for this user:
 
-    <c:forEach var="category" items="${user_purchases_by_category.entrySet()}">
+    <c:forEach var="category" items="${user_purchases_by_category}">
         <c:out value="${category.getKey()}"></c:out> (<c:out value="${category.getValue()}"></c:out> purchases)
     </c:forEach>
 
-    <c:forEach var="category" items="${user_purchases_by_category.entrySet()}">
+    <c:forEach var="category" items="${user_purchases_by_category}">
         <script>
             categoriesArray.push("<c:out value="${category.getKey()}"></c:out>")
             dataArray.push(<c:out value="${category.getValue()}"></c:out>)
