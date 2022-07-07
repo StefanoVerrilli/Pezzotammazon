@@ -1,5 +1,6 @@
 <%@ page import="Classes.ServletsRegulation.Context" %>
 <%@ page import="Classes.ServletsRegulation.DefaultState" %>
+<%@ page import="Classes.ServletsRegulation.State" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
     <%
@@ -7,9 +8,9 @@
         if(request.getSession().getAttribute("user") != null){
             response.sendRedirect("Homepage.jsp");
         }else{
-            Context context = new Context();
-            DefaultState defaultState = new DefaultState(context);
-            defaultState.LoadLink();
+            State DefaultState = new DefaultState();
+            Context context = new Context(DefaultState);
+            context.LoadLinks();
         }
     %>
 <body>

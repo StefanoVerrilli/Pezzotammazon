@@ -1,12 +1,21 @@
 package Classes.ServletsRegulation;
 
-public class UserState extends State{
-    public UserState(Context context) {
-        super(context);
-    }
+import Classes.Cart.AddToCart;
+import Classes.Cart.CartLogic;
+import Classes.FrontController.Actions;
+import Classes.Payment.PaymentLogic;
+import Classes.Payment.PaymentPageLoad;
+import Classes.ShoppingItem.ChangeCost;
+import Classes.ShoppingItem.DeleteShoppingItem;
 
+public class UserState implements State{
     @Override
     public void LoadLink() {
-        context.LoadUserLinks();
+        Actions.putAction("GET/PaymentPageLoad.do", new PaymentPageLoad());
+        Actions.putAction("POST/ChangeCost.do", new ChangeCost());
+        Actions.putAction("POST/DeleteOrder.do", new DeleteShoppingItem());
+        Actions.putAction("GET/CartLogic.do", new CartLogic());
+        Actions.putAction("GET/AddCart.do", new AddToCart());
+        Actions.putAction("POST/PaymentLogic.do", new PaymentLogic());
     }
 }

@@ -20,38 +20,14 @@ public class Context {
 
     private State state;
 
-    public Context(){
-        this.state = null;
+    public Context(State state){
+        this.state = state;
     }
 
     public void changeState(State state){
         this.state = state;
     }
-    public void LoadAdminLinks(){
-        Actions.putAction("GET/delete.do",new ProductDelete());
-        Actions.putAction("POST/EditAction.do",new ProductEdit());
-        Actions.putAction("POST/Insert.do",new ProductInsert());
-        Actions.putAction("GET/InsertLogic.do",new InsertLogic());
-        Actions.putAction("GET/UsersPageLogic.do",new UsersPageLogic());
-        Actions.putAction("GET/orderElaboration.do",new OrderElaboration());
-        Actions.putAction("GET/Kmeans.do",new KmeansImplementation());
-        Actions.putAction("POST/AddSuggestion.do",new AddSuggestion());
-    }
-
-    public void LoadUserLinks(){
-        Actions.putAction("GET/PaymentPageLoad.do",new PaymentPageLoad());
-        Actions.putAction("POST/ChangeCost.do",new ChangeCost());
-        Actions.putAction("POST/DeleteOrder.do",new DeleteShoppingItem());
-        Actions.putAction("GET/CartLogic.do",new CartLogic());
-        Actions.putAction("GET/AddCart.do",new AddToCart());
-        Actions.putAction("POST/PaymentLogic.do",new PaymentLogic());
-    }
-
-    public void LoadDefaultLinks(){
-        Actions.putAction("GET/FetchProduct.do",new ProductFetch());
-        Actions.putAction("POST/Register.do",new Register());
-        Actions.putAction("POST/LogIn.do", new LogIn());
-        Actions.putAction("GET/LogOut.do",new LogOut());
-        Actions.putAction("GET/ProductsTable.do",new ProductsPageLogic());
+    public void LoadLinks(){
+        this.state.LoadLink();
     }
 }
