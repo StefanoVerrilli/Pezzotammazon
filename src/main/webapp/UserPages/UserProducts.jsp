@@ -22,7 +22,7 @@
     <h2 class="title">Products</h2>
 
     <div class="block is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap">
-<c:forEach var="product" items="${data}">
+<c:forEach var="product" items="${products_table}">
         <!-- PRODOTTO SINGOLO -->
         <a href="FetchProduct.do?id=${product.getID()}" class="mx-5 my-3 box is-inline-block">
             <div class="block is-clipped" style="height: 200px; width:300px">

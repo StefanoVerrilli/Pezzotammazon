@@ -20,7 +20,7 @@
 
 <div class="container">
     <div class="box mt-4">
-        <c:forEach items="${data}" var="product">
+        <c:forEach items="${products_table}" var="product">
             <div class="block">
         <div class="columns is-align-items-center">
             <div class="column is-1">
