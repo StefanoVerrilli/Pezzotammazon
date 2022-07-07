@@ -5,6 +5,9 @@ import Classes.Command.Dispatcher;
 import Classes.Command.Invoker;
 import Classes.FrontController.Action;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
+import Classes.Suggestion.SuggestionModel;
+import Classes.Suggestion.SuggestionOperation;
+import Classes.User.AccessLevels;
 import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +24,13 @@ public class ProductsPageLogic implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         getAllProductsFromDatabase();
 
+
         request.getSession().setAttribute("products_table",product_list);
 
         getUserInformationFromSession(request);
+
+        if(user.getAccessType() == AccessLevels.User)
+            getSuggestionsAndAddtoSession(request);
 
         return getStringLinkToAppropriatePage();
     }
@@ -41,5 +48,11 @@ public class ProductsPageLogic implements Action {
 
     private void getUserInformationFromSession(HttpServletRequest request) {
         this.user = (UserModel) request.getSession().getAttribute("user");
+    }
+
+    private void getSuggestionsAndAddtoSession(HttpServletRequest request) throws SQLException {
+        SuggestionOperation suggestionOperation = new SuggestionOperation();
+        List<SuggestionModel> product_suggestions = suggestionOperation.getAll(user.getId());
+        request.getSession().setAttribute("product_suggestions", product_suggestions);
     }
 }

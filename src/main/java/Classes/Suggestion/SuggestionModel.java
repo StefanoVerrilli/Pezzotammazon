@@ -1,29 +1,37 @@
 package Classes.Suggestion;
 
+import Classes.Product.ProductCategory.ProductCategoriesOperations;
+import Classes.Product.ProductModel;
+import Classes.Product.ProductOperations;
+
+import java.sql.SQLException;
+
 public class SuggestionModel {
 
     private Integer User_id;
-    private Integer Product_id;
+    private ProductModel suggestedProduct;
 
-    public SuggestionModel(Integer user_id,Integer product_id){
+    public SuggestionModel(Integer user_id,Integer suggestedProductID) throws SQLException {
         this.User_id = user_id;
-        this.Product_id = product_id;
+        this.setProduct(suggestedProductID);
     }
 
 
-    public Integer getUser_id() {
+    public Integer getUserID() {
         return User_id;
     }
 
-    public void setUser_id(Integer user_id) {
+    public void setUser(Integer user_id) {
         User_id = user_id;
     }
 
-    public Integer getProduct_id() {
-        return Product_id;
+    public Integer getProductID() {
+        return suggestedProduct.getID();
     }
+    public ProductModel getProduct() {return suggestedProduct;}
 
-    public void setProduct_id(Integer product_id) {
-        Product_id = product_id;
+    public void setProduct(Integer suggestedProductID) throws SQLException {
+        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
+        this.suggestedProduct = productOperations.get(suggestedProductID).get();
     }
 }

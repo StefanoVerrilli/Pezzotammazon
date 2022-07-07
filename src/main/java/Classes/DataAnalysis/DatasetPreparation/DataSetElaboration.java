@@ -69,7 +69,7 @@ public class DataSetElaboration {
         .anyMatch(order -> order.getItem().getID() == e.getID()));
         List<SuggestionModel> AlreadySuggested = new SuggestionOperation().getAll(orderCollectionList.get(0).getUser_ID());
         products.removeIf(e-> AlreadySuggested.stream()
-        .anyMatch(suggestion -> suggestion.getProduct_id() == e.getID()));
+        .anyMatch(suggestion -> suggestion.getProductID() == e.getID()));
         return products;
     }
 
