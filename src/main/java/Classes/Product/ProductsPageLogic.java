@@ -13,6 +13,7 @@ import Classes.User.UserModel;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductsPageLogic implements Action {
@@ -52,7 +53,12 @@ public class ProductsPageLogic implements Action {
 
     private void getSuggestionsAndAddtoSession(HttpServletRequest request) throws SQLException {
         SuggestionOperation suggestionOperation = new SuggestionOperation();
-        List<SuggestionModel> product_suggestions = suggestionOperation.getAll(user.getId());
+        List<SuggestionModel> product_suggestions;
+        try{
+           product_suggestions = suggestionOperation.getAll(user.getId());
+        } catch (SQLException exception) {
+           product_suggestions = new ArrayList<>();
+        }
         request.getSession().setAttribute("product_suggestions", product_suggestions);
     }
 }
