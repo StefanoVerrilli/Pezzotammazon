@@ -91,11 +91,8 @@ public class PaymentLogic implements Action {
     private void decrementProductIstanceAmount(ProductModel product, ProductOperations operations, Integer amountOrdered) throws Exception {
         if((product.getAmount() - amountOrdered)  >= 0) {
             product.setAmount(product.getAmount() - amountOrdered);
-            System.out.println(product.getCategory().getCategoryID());
             operations.update(product);
-            System.out.println("FRATM");
         } else {
-            System.out.println("CIAO");
             throw new Exception("Product can't be purchased");
         }
     }
