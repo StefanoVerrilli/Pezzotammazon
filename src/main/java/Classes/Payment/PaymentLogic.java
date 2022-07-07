@@ -77,7 +77,7 @@ public class PaymentLogic implements Action {
         List<ShoppingItemModel> orderedItems = operation.getAll(user.getId());
         ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
         for(ShoppingItemModel item : orderedItems) {
-            ProductModel product = item.getProduct();
+            ProductModel product = productOperations.get(item.getProduct().getID()).get();
             Integer amountOrdered = item.getQuantity();
 
             try {
