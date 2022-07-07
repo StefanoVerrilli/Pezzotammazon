@@ -1,6 +1,6 @@
 package Classes.Product;
 
-import Classes.Command.Discriminator;
+import Classes.Command.DiscriminatorFetch;
 import Classes.Command.Invoker;
 import Classes.Command.Dispatcher;
 import Classes.FrontController.Action;
@@ -32,7 +32,7 @@ public class ProductFetch implements Action {
 
 
         request.getSession().setAttribute("Product",product.get());
-        Discriminator discriminator = new Discriminator(id);
+        DiscriminatorFetch discriminator = new DiscriminatorFetch(id);
         Invoker dispatcher = new Invoker(new Dispatcher(discriminator,user));
         return dispatcher.executeOperation();
     }

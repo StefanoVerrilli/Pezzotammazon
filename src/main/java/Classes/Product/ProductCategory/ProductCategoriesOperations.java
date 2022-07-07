@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ProductCategoriesOperations implements IProductCategoryDAO<ProductCategoryModel> {
+public class ProductCategoriesOperations implements IProductCategoryOperations<ProductCategoryModel> {
 
 
     @Override

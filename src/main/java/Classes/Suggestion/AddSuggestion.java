@@ -13,7 +13,7 @@ public class AddSuggestion implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Integer userId  = Integer.valueOf(request.getParameter("userId"));
-        Integer productId = Integer.valueOf(request.getParameter("productId"));
+        int productId = Integer.parseInt(request.getParameter("productId"));
         List<ProductModel> suggestions = (List<ProductModel>) request.getSession().getAttribute("suggestions");
         suggestions.removeIf(e -> e.getID() == productId);
         request.getSession().setAttribute("suggestions",suggestions);

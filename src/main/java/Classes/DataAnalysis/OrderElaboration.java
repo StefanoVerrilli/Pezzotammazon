@@ -28,9 +28,8 @@ public class OrderElaboration implements Action {
             throw new RuntimeException("User does not exist");
         DataAnalysisFacade facade = new DataAnalysisFacade();
 
-        request.getSession().setAttribute("suggestions",facade.getSuggestions(collection, user.get()));
+        request.getSession().setAttribute("suggestions", facade.getSuggestions(collection, user.get()));
         request.getSession().setAttribute("selected_user", user.get());
-
 
         Record result = facade.getData(user.get(),collection);
         result.getFeatures().entrySet().removeIf(e ->  e.getValue() == 0);

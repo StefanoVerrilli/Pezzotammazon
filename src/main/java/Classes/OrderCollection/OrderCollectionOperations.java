@@ -1,9 +1,6 @@
 package Classes.OrderCollection;
 
-import Classes.Cart.CartModel;
 import Classes.Cart.ICartOperation;
-import Classes.DAO.IAddDAO;
-import Classes.DAO.IGetDAO;
 import Classes.Order.Order;
 import Classes.Order.OrderOperations;
 import Classes.ShoppingItem.ShoppingItemModel;
@@ -15,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class OrderCollectionOperations implements IOrderCollectionDAO<OrderCollection>
+public class OrderCollectionOperations implements IOrderCollection<OrderCollection>
 {
     private final ICartOperation cartOperation;
     public OrderCollectionOperations(ICartOperation cartOperation){
@@ -53,7 +50,6 @@ public class OrderCollectionOperations implements IOrderCollectionDAO<OrderColle
         }
 
     public boolean AddSingleOrders(int User_id) throws SQLException {
-        CartModel Cart = (CartModel) cartOperation.get(User_id).get();
         OrderOperations orderOperations = new OrderOperations();
         List<ShoppingItemModel> shoppingItems = cartOperation.getAll(User_id);
         for(ShoppingItemModel item: shoppingItems){

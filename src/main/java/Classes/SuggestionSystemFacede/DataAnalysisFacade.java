@@ -2,8 +2,7 @@ package Classes.SuggestionSystemFacede;
 
 import Classes.Clustering.Record;
 import Classes.DataAnalysis.DatasetPreparation.DataSetElaboration;
-import Classes.Order.IOrderDAO;
-import Classes.OrderCollection.IOrderCollectionDAO;
+import Classes.OrderCollection.IOrderCollection;
 import Classes.OrderCollection.OrderCollection;
 import Classes.Product.ProductModel;
 import Classes.User.IUserOperation;
@@ -12,7 +11,6 @@ import Classes.User.UserModel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class DataAnalysisFacade {
 
@@ -30,11 +28,11 @@ public Record getData(UserModel user, List<OrderCollection> orderCollectionList)
 }
 
 public List<UserModel> getSuggestibleUsers(IUserOperation userOperation,
-IOrderCollectionDAO orderCollectionDAO, IOrderDAO orderDAO) throws SQLException {
+IOrderCollection orderCollection) throws SQLException {
     List<UserModel> users = userOperation.getAll();
     List<UserModel> result = new ArrayList<>();
     for(UserModel user : users){
-        List<OrderCollection> orderCollectionList = orderCollectionDAO.getAll(user.getId());
+        List<OrderCollection> orderCollectionList = orderCollection.getAll(user.getId());
         Record record = getData(user,orderCollectionList);
         for(Integer isSuggestible: record.getFeatures().values()){
             if(isSuggestible != 0){

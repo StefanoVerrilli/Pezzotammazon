@@ -1,5 +1,7 @@
 package Classes.User;
 
+import Classes.Product.ProductModel;
+
 public class UserModel {
 
     private String email;
@@ -9,7 +11,13 @@ public class UserModel {
     private Integer id;
 
 
-    private UserModel(){}
+    private UserModel(Builder builder){
+        this.id = builder.id;
+        this.AccessType = builder.access;
+        this.email = builder.mail;
+        this.password = builder.password;
+        this.username = builder.username;
+        }
     public static class Builder {
         private String mail;
         private String password;
@@ -42,13 +50,7 @@ public class UserModel {
         }
 
         public UserModel build(){
-            UserModel userModel = new UserModel();
-            userModel.id = this.id;
-            userModel.AccessType = this.access;
-            userModel.email = this.mail;
-            userModel.password = this.password;
-            userModel.username = this.username;
-            return userModel;
+            return new UserModel(this);
         }
     }
 
