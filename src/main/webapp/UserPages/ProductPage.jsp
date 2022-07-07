@@ -24,7 +24,8 @@
     <div class="column is-flex-grow-4 is-flex-shink-2 is-align-self-flex-start" style="min-width:500px">
         <div class="block">
             <p class="title">${Product.getName()}</p>
-                ${Product.getDesc()}
+            <p class="has-text-link">${Product.getCategory().getCategoryDescription()}</p>
+            <p class="mt-4 p-2" style="border: 1px solid #000">${Product.getDesc()}</p>
             </div>
     </div>
     <div style="min-width:250px" class="column is-flex-grow-2 is-flex-shink-4">
