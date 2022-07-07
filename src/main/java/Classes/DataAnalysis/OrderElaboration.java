@@ -32,7 +32,8 @@ public class OrderElaboration implements Action {
         request.getSession().setAttribute("selected_user", user.get());
 
         Record result = facade.getData(user.get(),collection);
-        request.getSession().setAttribute("user_purchases_by_category", result.getFeatures());
+        result.getFeatures().entrySet().removeIf(e ->  e.getValue() == 0);
+        request.getSession().setAttribute("user_purchases_by_category", result.getFeatures().entrySet());
 
          return "/AdminPages/UserSuggestion";
     }

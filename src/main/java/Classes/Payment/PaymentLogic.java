@@ -4,6 +4,9 @@ import Classes.FrontController.Action;
 import Classes.OrderCollection.OrderCollectionOperations;
 import Classes.Cart.CartModel;
 import Classes.OrderCollection.OrderCollection;
+import Classes.Payment.Strategy.IPayMethod;
+import Classes.Payment.Strategy.IPaymentFactory;
+import Classes.Payment.Strategy.Payment;
 import Classes.Payment.Strategy.PaymentFactory;
 import Classes.User.UserModel;
 
@@ -19,10 +22,14 @@ public class PaymentLogic implements Action {
         String method = request.getParameter("payment_type");
         UserModel user = (UserModel) request.getSession().getAttribute("user");
         PaymentFactory factory = new PaymentFactory(request);
-        if(!factory.PaymentMethod(method).Pay()) {
-            request.getSession().setAttribute("invalid_payment", "Invalid payment information.");
+        Payment Payment;
+        if((Payment = factory.PaymentMethod(method)) == null) {
+            request.getSession().setAttribute("error", "Invalid payment information.");
             return "/UserPages/Pay";
         }
+        if(!Payment.Pay())
+            request.getSession().setAttribute("error","Transaction failed");
+
         OrderCollectionOperations orderCollectionOperations =
         new OrderCollectionOperations(new CartOperation());
         OrderCollection orderCollection = new OrderCollection();

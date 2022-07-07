@@ -43,7 +43,14 @@ public class ProductModel {
 
     private String image;
 
-    private ProductModel(){
+    private ProductModel(Builder builder){
+        this.name = builder.name;
+        this.amount = builder.amount;
+        this.cost = builder.cost;
+        this.desc = builder.desc;
+        this.ID = builder.id;
+        this.image = builder.image;
+        this.category = builder.category;
     }
 
     public static class Builder{
@@ -90,15 +97,7 @@ public class ProductModel {
         }
 
         public ProductModel build(){
-            ProductModel productModel = new ProductModel();
-            productModel.name = this.name;
-            productModel.amount = this.amount;
-            productModel.cost = this.cost;
-            productModel.desc = this.desc;
-            productModel.ID = this.id;
-            productModel.image = this.image;
-            productModel.category = this.category;
-            return productModel;
+            return new ProductModel(this);
         }
     }
 

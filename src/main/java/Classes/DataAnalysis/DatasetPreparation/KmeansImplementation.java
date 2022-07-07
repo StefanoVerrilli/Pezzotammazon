@@ -1,6 +1,6 @@
 package Classes.DataAnalysis.DatasetPreparation;
 
-import Classes.Adapter.GSONAdapter;
+import Classes.Adapter.DataToD3JSONAdapter;
 import Classes.Adapter.IAdapter;
 import Classes.Cart.CartOperation;
 import Classes.Clustering.EuclideanDistance;
@@ -32,8 +32,10 @@ public class KmeansImplementation implements Action {
         .ExecuteClustering(usersOperations,orderCollectionOperations,
         2,5000);
 
-        IAdapter<centroid,List<Record>> adapter = new GSONAdapter();
+        IAdapter<Map<centroid,List<Record>>> adapter = new DataToD3JSONAdapter();
         adapter.DataToJSON(result);
+
+        request.getSession().setAttribute("analytics_data", ((DataToD3JSONAdapter) adapter).getResults());
         return "/AdminPages/UserStatistics";
     }
 }
