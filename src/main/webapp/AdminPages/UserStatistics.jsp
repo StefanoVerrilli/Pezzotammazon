@@ -17,11 +17,21 @@
 <body>
 
 
-<div class="data-visualization"></div>
+<div id="data-visualization"></div>
 
+<style>
+    svg {
+        border: solid 1px #ccc;
+    }
+    .link {
+        fill: none;
+        stroke: #ccc;
+        stroke-width: 1.5px;
+    }
+</style>
 
 <script type="text/javascript">
-    let data = ${analytics_data}
+    let data_input = ${analytics_data};
 </script>
 
 
