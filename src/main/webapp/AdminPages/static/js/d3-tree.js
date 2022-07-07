@@ -1,93 +1,68 @@
-// Setup
-
-// CODICE DI / CODE BY npathhq:
-// https://github.com/npathhq/radial-tree-demo
+// CODICE DI / CODE BY Jes Fink-Jensen:
+// https://medium.com/analytics-vidhya/creating-a-radial-tree-using-d3-js-for-javascript-be943e23b74e
 
 // LICENZA SCONOSCIUTA / UNKNOWN LICENSE
 
-const appElement = document.getElementsByClassName('data-visualization')[0];
-let height = appElement.clientHeight;
-let width = appElement.clientWidth;
+/* INFO BY THE ORIGINAL AUTHOR:
+Code adapted from
+https://observablehq.com/@d3/Fradial-tidy-tree
+https://javadude.wordpress.com/2012/06/20/d3-js-from-tree-to-cluster-and-radial-projection/
+https://stackoverflow.com/questions/59783070/d3-v5-rad
+ */
 
-const svg = d3.select('.data-visualization')
-    .append('svg')
-    .attr('viewBox', [0, 0, width, height])
-    .attr('class', 'visualization')
+let createRadialTree = function (input, width, height) {
 
-const gContent = svg.append('g')
-    .attr('class', 'visualization__content');
+    let svg = d3.select('#data-visualization').append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+    let diameter = height * 0.75;
+    let radius = diameter / 2;
+
+    let tree = d3.tree()
+        .size([2*Math.PI, radius])
+        .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2) / a.depth; });
+
+    let data = d3.hierarchy(input)
+
+    let treeData = tree(data);
+
+    let nodes = treeData.descendants();
+    let links = treeData.links();
+
+    let graphGroup = svg.append('g')
+        .attr('transform', "translate("+(width/2)+","+(height/2)+")");
+
+    graphGroup.selectAll(".link")
+        .data(links)
+        .join("path")
+        .attr("class", "link")
+        .attr("d", d3.linkRadial()
+            .angle(d => d.x)
+            .radius(d => d.y));
+
+    let node = graphGroup
+        .selectAll(".node")
+        .data(nodes)
+        .join("g")
+        .attr("class", "node")
+        .attr("transform", function(d){
+            return `rotate(${d.x * 180 / Math.PI - 90})` + `translate(${d.y}, 0)`;
+        });
 
 
-// Radial Tree
-const processedData = d3.hierarchy(data).sort((a, b) => d3.ascending(a.data.name, b.data.name));
+    node.append("circle").attr("r", 1);
 
-// Tree
-const DEGREES_OF_CIRCLE = 2 * Math.PI;
-const RADIUS = width / 2;
-const tree = d3.tree()
-    .size([DEGREES_OF_CIRCLE, RADIUS])
-    .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+    node.append("text")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", 12)
+        .attr("dx", function(d) { return d.x < Math.PI ? 8 : -8; })
+        .attr("dy", ".31em")
+        .attr("text-anchor", function(d) { return d.x < Math.PI ? "start" : "end"; })
+        .attr("transform", function(d) { return d.x < Math.PI ? null : "rotate(180)"; })
+        .text(function(d) { return d.data.name; });
+};
 
-const root = tree(processedData);
-console.log('processedData', processedData);
-console.log('root', root);
 
-// Draw
-gContent.append('g')
-    .attr('fill', 'none')
-    .attr('stroke', '#555')
-    .attr('stroke-opacity', 0.4)
-    .attr('stroke-width', 1.5)
-    .selectAll('path')
-    .data(root.links())
-    .join('path')
-    .attr('d', d3.linkRadial()
-        .angle(d => d.x)
-        .radius(d => d.y)
-    );
 
-gContent.append("g")
-    .selectAll("circle")
-    .data(root.descendants())
-    .join("circle")
-    .attr("transform", d => `
-        rotate(${d.x * 180 / Math.PI - 90})
-        translate(${d.y},0)
-      `)
-    .attr("fill", d => d.children ? "#555" : "#999")
-    .attr("r", 2.5);
-
-gContent.append("g")
-    .attr("font-family", "-apple-system, sans-serif")
-    .attr("font-size", 10)
-    .attr("stroke-linejoin", "round")
-    .attr("stroke-width", 3)
-    .selectAll("text")
-    .data(root.descendants())
-    .join("text")
-    .attr("transform", d => `
-        rotate(${d.x * 180 / Math.PI - 90})
-        translate(${d.y},0)
-        rotate(${d.x >= Math.PI ? 180 : 0})
-      `)
-    .attr("dy", "0.31em")
-    .attr("x", d => d.x < Math.PI === !d.children ? 6 : -6)
-    .attr("text-anchor", d => d.x < Math.PI === !d.children ? "start" : "end")
-    .text(d => d.data.name)
-    .clone(true).lower()
-    .attr("stroke", "white");
-
-const autoBox = () => {
-    const contentBox = gContent.node().getBBox();
-    // gContent.append('rect')
-    //   .attr('width', contentBox.width)
-    //   .attr('height', contentBox.height)
-    //   .attr('x', contentBox.x)
-    //   .attr('y', contentBox.y)
-    //   .style('fill', 'transparent')
-    //   .style('stroke', '#757575');
-    const { x, y, width, height } = contentBox;
-    return [x, y, width, height];
-}
-
-svg.attr("viewBox", autoBox).node();
+createRadialTree(data_input, 800, 800)

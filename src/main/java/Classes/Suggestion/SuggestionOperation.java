@@ -14,8 +14,8 @@ public class SuggestionOperation implements ISuggestionDAO<SuggestionModel> {
         String query = "INSERT INTO Suggestion(user_id, product_id) "
             + "VALUES (?,?) ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
-        p.setInt(1,suggestion.getUser_id());
-        p.setInt(2,suggestion.getProduct_id());
+        p.setInt(1,suggestion.getUserID());
+        p.setInt(2,suggestion.getProductID());
         p.executeUpdate();
         p.close();
         return true;

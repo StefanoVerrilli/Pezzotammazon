@@ -20,6 +20,16 @@ public class CartOperation implements ICartOperation<CartModel,ShoppingItemModel
         p.executeUpdate();
         p.close();
     }
+
+    public void delete(Integer cartId, Integer productId) throws SQLException {
+        String query = "DELETE FROM ShoppingItem "
+                + "WHERE CartID = ? AND ProductID = ? ";
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
+        p.setInt(1, cartId);
+        p.setInt(2, productId);
+        p.executeUpdate();
+        p.close();
+    }
     @Override
     public Optional<CartModel> get(Integer userId) throws SQLException{
         String query = "SELECT CartID "
