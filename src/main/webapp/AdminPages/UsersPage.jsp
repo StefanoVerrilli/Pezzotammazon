@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <jsp:include page="/Head.jsp">
-        <jsp:param name="page_title" value="Classes.Cart.CartModel - Pezzotammazon"/>
+        <jsp:param name="page_title" value="Users - Pezzotammazon"/>
     </jsp:include>
 
     <jsp:include page="/Navbar.jsp">

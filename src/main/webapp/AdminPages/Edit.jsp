@@ -9,7 +9,7 @@
 <html>
 <head>
     <jsp:include page="/Head.jsp">
-        <jsp:param name="page_title" value="Classes.Cart.CartModel - Pezzotammazon"/>
+        <jsp:param name="page_title" value="Edit ${Product.getName()} - Pezzotammazon"/>
     </jsp:include>
 
     <jsp:include page="/Navbar.jsp">
@@ -42,7 +42,6 @@
             return false;
         }
     </script>
-    <title>EditProduct</title>
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
 
@@ -50,7 +49,6 @@
             response.sendRedirect("/LogIn.jsp");
         }
     %>
-</head>
 <body>
 <div class="container my-3">
     <form id="productForm" enctype="multipart/form-data" action="EditAction.do" method="POST" onsubmit="event.preventDefault();submitForm()">

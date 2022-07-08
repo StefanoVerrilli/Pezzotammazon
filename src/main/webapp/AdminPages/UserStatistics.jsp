@@ -4,7 +4,7 @@
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script defer src="static/js/d3-tree.js"></script>
 <jsp:include page="/Head.jsp">
-    <jsp:param name="page_title" value="Classes.Cart.CartModel - Pezzotammazon"/>
+    <jsp:param name="page_title" value="User macro-groups - Pezzotammazon"/>
 </jsp:include>
 <jsp:include page="/Navbar.jsp">
     <jsp:param name="access_type" value="${user.getAccessType()}"/>

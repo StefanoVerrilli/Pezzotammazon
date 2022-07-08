@@ -16,7 +16,7 @@
 <body>
 
 <jsp:include page="Head.jsp">
-    <jsp:param name="page_title" value="Login to Pezzotammazon"/>
+    <jsp:param name="page_title" value="Login to your Pezzotammazon account"/>
 </jsp:include>
 
 <jsp:include page="Navbar.jsp" />

@@ -3,7 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
     <jsp:include page="/Head.jsp">
-        <jsp:param name="page_title" value="Classes.Cart.CartModel - Pezzotammazon"/>
+        <jsp:param name="page_title" value="All products - Pezzotammazon"/>
     </jsp:include>
 
     <jsp:include page="/Navbar.jsp">

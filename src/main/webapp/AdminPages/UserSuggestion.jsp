@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
   <jsp:include page="/Head.jsp">
-    <jsp:param name="page_title" value="Classes.Cart.CartModel - Pezzotammazon"/>
+    <jsp:param name="page_title" value="Suggest user ${selected_user.getUsername()} a product - Pezzotammazon"/>
   </jsp:include>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
   <jsp:include page="/Navbar.jsp">
