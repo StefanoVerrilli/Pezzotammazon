@@ -29,6 +29,8 @@ public class PaymentLogic implements Action {
      * @param response Variabile di risposta HTTP
      * @return Stringa che rappresenta la pagina sulla quale redirigere l'utente al termine dell'operazione
      * @throws Exception Eccezione generale che identifica un errore durante l'esecuzione
+     * @see Classes.ServletsRegulation.Context
+     * @see Action
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

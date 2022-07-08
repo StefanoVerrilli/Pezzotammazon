@@ -7,18 +7,18 @@ import java.io.IOException;
 
 
 /**
- * Fornisce un interfaccia di accesso da parte di tutte le richieste effettuate da parte
- * dei file .jsp per i servizi dei servlet.
- * Per osservare il meccanismo tramite cui la classe effettua lo smistamento delle richieste,
- * tramite il pattern Factory, visualizzare i seguenti file:
+ * Fornisce un'interfaccia di accesso alle richieste eseguite nei file
+ * .jsp, utilizzando il pattern Factory ({@link ActionFactory}, {@link Action}, {@link Actions}) per lo smistamento delle richieste
  * @see ActionFactory
  * @see Action
  * @see Actions
+ * @see Classes.ServletsRegulation.Context
  */
 @WebServlet(name = "Service", value = "*.do")
 @MultipartConfig(maxFileSize = 16177215)
 public class    Service extends HttpServlet {
     /**
+     *
      * @param request
      * @param response
      * @throws ServletException
@@ -34,6 +34,7 @@ public class    Service extends HttpServlet {
             throw new ServletException("Executing action failed",e);
         }
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException{
             Service(request,response);

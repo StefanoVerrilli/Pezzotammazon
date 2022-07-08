@@ -1,9 +1,8 @@
 package Classes.DAO;
 
-import Classes.User.UserModel;
-
-import java.sql.SQLException;
-import java.util.Optional;
+/**
+ * Interfaccia al database (DAO)
+ */
 
 public interface DAO {
     static final Database myDb = Database.getInstance();

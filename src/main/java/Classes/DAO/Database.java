@@ -25,7 +25,7 @@ public class Database {
     /**
      * Istanza che contiene l'oggetto Database
      */
-    private static Database dbIsntance;
+    private static Database dbInstance;
 
     /**
      * Costruttore privato, per impedire l'istanziazione della classe da parte di classi esterne
@@ -42,10 +42,10 @@ public class Database {
         /**
          * Costruisce la classe se non ancora istanziata
          */
-        if (dbIsntance == null) {
-            dbIsntance = new Database();
+        if (dbInstance == null) {
+            dbInstance = new Database();
         }
-        return dbIsntance;
+        return dbInstance;
     }
 
     /**
