@@ -1,29 +1,18 @@
 # Pezzotammazon
 
+A very simple Amazon clone written in Java (STL).
+
 ## Roadmap
 
-### Features
+- [ ] Allow removal of suggested items
+- [ ] Remove suggested item after purchase
+- [ ] Add most purchased categories graphics
+- [ ] Add user analytics graphics
+- [ ] Translate menu titles
+- [ ] Add titles to webpages
+- [ ] Redirect homepages
+    - User: UserProducts
+    - Admin: ProductsTable
+- [ ] Template pattern for Payment
+- [ ] Add javascript checks to Payment form (real time)
 
-- [X] Login/Registration
-
-#### Admin
-
-- [X] Add product 
-- [X] Edit product
-- [ ] User view
-
-#### User
-
-- [ ] Classes.Cart.Cart
-- [ ] Buy product page
-- [ ] Payment page
-- [ ] Main page
-
-
-### Patterns
-
-- [ ] Bridge (clustering, distance metrics)
-- [X] Builder (user/admin)
-- [ ] Decorator (products)
-- [ ] Strategy (payment)
-- [ ] Suggested products
