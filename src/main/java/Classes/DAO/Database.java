@@ -7,23 +7,52 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static Classes.DAO.DatabaseSettings.*;
 
+/**
+ * Classe singleton che implementa il database, richiede l'impostazione delle variabili necessarie a gestirlo
+ * @see DatabaseSettings
+ */
+
 public class Database {
     private final static String JDBC_DRIVER = DB_DRIVER;
     private final static String DATABASE_URL = "jdbc:" + DB_TYPE + ":"+ DB_PATH;
+
+    /**
+     * Variabile di sessione di connessione al database
+     * @see Connection
+     */
     private Connection conn;
+
+    /**
+     * Istanza che contiene l'oggetto Database
+     */
     private static Database dbIsntance;
 
+    /**
+     * Costruttore privato, per impedire l'istanziazione della classe da parte di classi esterne
+     */
     private Database(){
     }
 
 
+    /**
+     * Permette di ottenere l'istanza privata del singleton Database
+     * @return Unica istanza della classe Database
+     */
     public static Database getInstance() {
+        /**
+         * Costruisce la classe se non ancora istanziata
+         */
         if (dbIsntance == null) {
             dbIsntance = new Database();
         }
         return dbIsntance;
     }
 
+    /**
+     * Permette la connessione al database
+     * @return Sessione di connessione al database
+     * @see Connection
+     */
     public Connection getConnection() {
 
         if (conn == null) {

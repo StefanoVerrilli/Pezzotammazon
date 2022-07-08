@@ -22,6 +22,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class PaymentLogic implements Action {
+
+    /**
+     * Esegue le azioni necessarie a eseguire il pagamento e modifica lo stato dell'ordine e degli articoli acquistati
+     * @param request Variabile di richiesta HTTP
+     * @param response Variabile di risposta HTTP
+     * @return Stringa che rappresenta la pagina sulla quale redirigere l'utente al termine dell'operazione
+     * @throws Exception Eccezione generale che identifica un errore durante l'esecuzione
+     */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -53,6 +61,12 @@ public class PaymentLogic implements Action {
     }
 
 
+    /**
+     * Ripulisce il carrello dell'utente
+     * @param User_id Identificativo dell'utente
+     * @throws SQLException Errore durante l'esecuzione di una query SQL
+     * @see CartOperation
+     */
     private void EmptyCartWrapper(int User_id) throws SQLException{
         CartOperation cartOperation = new CartOperation();
         Optional<CartModel> cart = cartOperation.get(User_id);
@@ -60,6 +74,11 @@ public class PaymentLogic implements Action {
             cartOperation.EmptyCart(cart.get());
     }
 
+    /**
+     * Esegue il pagamento
+     * @param request Variabile di richiesta HTTP, contenente i dati necessari per il pagamento
+     * @throws Exception Errore durante il pagamento
+     */
     private void payOrderBySessionInformation(HttpServletRequest request) throws Exception {
         String method = request.getParameter("payment_type");
         PaymentFactory factory = new PaymentFactory(request);
@@ -72,6 +91,15 @@ public class PaymentLogic implements Action {
             throw new Exception("Transaction failed");
         }
     }
+
+    /**
+     * Decrementa la quantità in stock nel magazzino dei prodotti acquistati dall'utente
+     * @param operation Variabile per accedere alle operazioni sul carrello dell'utente
+     * @param user Utente che ha acquistato
+     * @throws Exception Errore causato dall'acquisto di una quantità di prodotto superiore a quella in magazzino
+     * @see CartOperation
+     * @see UserModel
+     */
 
     private void decrementProductsAmount(CartOperation operation, UserModel user) throws Exception {
         List<ShoppingItemModel> orderedItems = operation.getAll(user.getId());
@@ -88,6 +116,15 @@ public class PaymentLogic implements Action {
         }
     }
 
+    /**
+     * Decrementa il valore di quantità in stock di un singolo prodotto
+     * @param product Prodotto di cui decrementare la quantità
+     * @param operations Variabile per le operazioni sui prodotti
+     * @param amountOrdered Quantità di prodotto ordinato, da sottrarre a quella attualmente presente in stock
+     * @throws Exception Errore causato dall'acquisto di una quantità di prodotto superiore a quella in magazzino
+     * @see ProductOperations
+     * @see ProductModel
+     */
     private void decrementProductIstanceAmount(ProductModel product, ProductOperations operations, Integer amountOrdered) throws Exception {
         if((product.getAmount() - amountOrdered)  >= 0) {
             product.setAmount(product.getAmount() - amountOrdered);
