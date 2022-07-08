@@ -10,6 +10,7 @@ import Classes.Clustering.centroid;
 import Classes.ConcreteHashAlg;
 import Classes.FrontController.Action;
 import Classes.OrderCollection.OrderCollectionOperations;
+import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.SuggestionSystemFacede.ClusteringFacade;
 import Classes.User.UsersOperations;
 
@@ -24,13 +25,16 @@ public class KmeansImplementation implements Action {
         UsersOperations usersOperations = new UsersOperations(new ConcreteHashAlg());
         OrderCollectionOperations orderCollectionOperations =
         new OrderCollectionOperations(new CartOperation());
+        ProductCategoriesOperations productCategoriesOperations =
+        new ProductCategoriesOperations();
+        int NumClusters = productCategoriesOperations.getCount();
 
         ClusteringFacade clusteringFacade =
         new ClusteringFacade(new KMeans(new EuclideanDistance()));
 
         Map<centroid, List<Record>> result = clusteringFacade
         .ExecuteClustering(usersOperations,orderCollectionOperations,
-        2,5000);
+        NumClusters,10000);
 
         IAdapter<Map<centroid,List<Record>>> adapter = new DataToD3JSONAdapter();
         adapter.DataToJSON(result);

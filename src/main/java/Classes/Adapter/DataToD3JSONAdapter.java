@@ -18,13 +18,19 @@ public class DataToD3JSONAdapter implements IAdapter<Map<centroid, List<Record>>
     private void prepareData(Map<centroid, List<Record>> data) {
         String maxCoordsKey;
         for (Map.Entry<centroid, List<Record>> element : data.entrySet()) {
+            System.out.println("------CLUSTER-------");
+            for(Map.Entry<String,Double> e : element.getKey().getCoords().entrySet()){
+                    System.out.println(e.getKey() + ":" + e.getValue());
+             }
+             for(Record e2 : element.getValue())
+                System.out.println(e2.getTarget().getUsername());
              maxCoordsKey = element.getKey().getCoords().entrySet()
                                     .stream()
                                     .max((Map.Entry<String, Double> cord1, Map.Entry<String, Double> cord2) -> cord1.getValue()
                                     .compareTo(cord2.getValue())
                                     )
                                     .get().getKey();
-             List<UserModel> list = new ArrayList<>();
+             List<UserModel> list = preparedData.get(maxCoordsKey) != null ? preparedData.get(maxCoordsKey) : new ArrayList<>();
              element.getValue().stream().forEach(e -> list.add(e.getTarget()));
              preparedData.put(maxCoordsKey, list);
         }
@@ -59,7 +65,7 @@ public class DataToD3JSONAdapter implements IAdapter<Map<centroid, List<Record>>
         }
 
         jsonObj.put("children", categoryList);
-
+        System.out.println(jsonObj.toJSONString());
         results = jsonObj.toJSONString();
 
     }

@@ -1,6 +1,9 @@
 package Classes.Suggestion;
 
 
+import Classes.Product.ProductCategory.ProductCategoryModel;
+import Classes.Product.ProductModel;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,15 +26,27 @@ public class SuggestionOperation implements ISuggestionDAO<SuggestionModel> {
 
 
     public List<SuggestionModel> getAll(Integer userId) throws SQLException {
-        String query = "SELECT *"
-        +   "FROM Suggestion "
+        String query = "SELECT product_id,Name,Description,Amount,Cost,CategoryID,Image,CategoryDescription "
+        +   "FROM Suggestion join products on Suggestion.product_id = products.ID "
+        +   "join ProductCategories on products.Category = ProductCategories.CategoryID "
         +   "WHERE User_id = ? ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1,userId);
         ResultSet rest = p.executeQuery();
         List<SuggestionModel> suggestionModelList = new ArrayList<>();
         while (rest.next()){
-            SuggestionModel suggestion = new SuggestionModel(rest.getInt(1),rest.getInt(2));
+            ProductCategoryModel category =
+            new ProductCategoryModel(rest.getInt("CategoryID"),
+            rest.getString("CategoryDescription"));
+            ProductModel productModel = new ProductModel.Builder(rest.getString("Name"))
+                                        .setId(rest.getInt("product_id"))
+                                        .setAmount(rest.getInt("Amount"))
+                                        .setCost(rest.getFloat("Cost"))
+                                        .setDesc(rest.getString("Description"))
+                                        .setImage(rest.getString("Image"))
+                                        .setCategory(category)
+                                        .build();
+            SuggestionModel suggestion = new SuggestionModel(userId,productModel);
             suggestionModelList.add(suggestion);
         }
         p.close();

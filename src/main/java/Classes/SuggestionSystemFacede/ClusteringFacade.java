@@ -25,7 +25,7 @@ private final Clustering ClusteringMethod;
     IOrderCollection orderOperations,
     Integer clusters,Integer iterations) throws SQLException {
         List<Record> recordList = new ArrayList<>();
-        List<UserModel> users = userOperation.getAll();
+        List<UserModel> users = DataPreparationFacade.getSuggestibleUsers(userOperation,orderOperations);
         for(UserModel user : users){
             List<OrderCollection> orders = orderOperations.getAll(user.getId());
             recordList.add(DataPreparationFacade.getData(user, orders));

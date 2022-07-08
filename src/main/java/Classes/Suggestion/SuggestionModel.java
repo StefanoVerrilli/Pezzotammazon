@@ -11,9 +11,9 @@ public class SuggestionModel {
     private Integer User_id;
     private ProductModel suggestedProduct;
 
-    public SuggestionModel(Integer user_id,Integer suggestedProductID) throws SQLException {
+    public SuggestionModel(Integer user_id,ProductModel suggestedProduct) {
         this.User_id = user_id;
-        this.setProduct(suggestedProductID);
+        this.suggestedProduct = suggestedProduct;
     }
 
 
@@ -30,8 +30,7 @@ public class SuggestionModel {
     }
     public ProductModel getProduct() {return suggestedProduct;}
 
-    public void setProduct(Integer suggestedProductID) throws SQLException {
-        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
-        this.suggestedProduct = productOperations.get(suggestedProductID).get();
+    public void setProduct(ProductModel suggestedProduct) {
+        this.suggestedProduct = suggestedProduct;
     }
 }

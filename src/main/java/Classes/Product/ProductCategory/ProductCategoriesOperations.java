@@ -15,8 +15,7 @@ public class ProductCategoriesOperations implements IProductCategoryOperations<P
 
     @Override
     public boolean add(ProductCategoryModel category) throws SQLException {
-        int result;
-        String query = "INSERT INTO ProductsCategory (CategoryID,CategoryDescription) "
+        String query = "INSERT INTO ProductCategories (CategoryID,CategoryDescription) "
                 + "VALUES(?,?)";
         PreparedStatement p = DAO.myDb.getConnection().prepareStatement(query);
         p.setInt(1, category.getCategoryID());
@@ -24,6 +23,15 @@ public class ProductCategoriesOperations implements IProductCategoryOperations<P
         p.executeUpdate();
         p.close();
         return true;
+    }
+
+    @Override
+    public int getCount() throws SQLException{
+        String query = "SELECT Count(*) "
+                + "FROM ProductCategories ";
+        PreparedStatement p =myDb.getConnection().prepareStatement(query);
+        ResultSet rest = p.executeQuery();
+        return rest.getInt(1);
     }
 
     @Override

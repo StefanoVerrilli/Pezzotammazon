@@ -1,12 +1,15 @@
 package Classes.Suggestion;
 
 import Classes.FrontController.Action;
+import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductModel;
+import Classes.Product.ProductOperations;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Optional;
 
 @MultipartConfig(maxFileSize = 16177215)
 public class AddSuggestion implements Action {
@@ -18,7 +21,10 @@ public class AddSuggestion implements Action {
         suggestions.removeIf(e -> e.getID() == productId);
         request.getSession().setAttribute("suggestions",suggestions);
         SuggestionOperation suggestionOperation = new SuggestionOperation();
-        suggestionOperation.add(new SuggestionModel(userId,productId));
+        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
+        Optional<ProductModel> product = productOperations.get(productId);
+        if(product.isPresent())
+            suggestionOperation.add(new SuggestionModel(userId,product.get()));
         return "/Homepage";
     }
 }

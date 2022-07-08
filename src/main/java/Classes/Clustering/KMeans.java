@@ -73,7 +73,7 @@ public class KMeans extends Clustering{
     double minimumDistance = Double.MAX_VALUE;
     centroid nearest = null;
     for(centroid centroid : centroids){
-        double currentDistance = Distance(record.getFeatures(),centroid.getCoords());
+        double currentDistance = distance.calculate(record.getFeatures(),centroid.getCoords());
         if(currentDistance< minimumDistance){
             minimumDistance = currentDistance;
             nearest = centroid;
