@@ -58,7 +58,6 @@ public class DataSetElaboration {
 
         ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
         List<ProductModel> products = productOperations.getAllByCategory(Category);
-        System.out.println(products.size());
         Set<Order> orderSet = new HashSet<>();
         for(OrderCollection collection : orderCollectionList){
             OrderOperations orderOperations = new OrderOperations();
@@ -71,7 +70,6 @@ public class DataSetElaboration {
         List<SuggestionModel> AlreadySuggested = new SuggestionOperation().getAll(orderCollectionList.get(0).getUser_ID());
         products.removeIf(e-> AlreadySuggested.stream()
         .anyMatch(suggestion -> suggestion.getProductID() == e.getID()));
-        System.out.println(products.size());
         return products;
     }
 

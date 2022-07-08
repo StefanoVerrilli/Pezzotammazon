@@ -9,8 +9,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class KMeans extends Clustering{
-    private static final Random random = new Random();
-
     public KMeans(DistanceMetric metric) {
         super(metric);
     }
@@ -53,15 +51,17 @@ public class KMeans extends Clustering{
                 mins.compute(key,(k1,min) -> min == null || value < min ? value : min);
             });
         }
-    Set<String > attributes = records.stream()
+    List<String > attributes = records.stream()
                             .flatMap(e -> e.getFeatures().keySet().stream())
-                            .collect(Collectors.toSet());
+                            .collect(Collectors.toList());
     for(int i=0;i<k;i++){
         Map<String,Double> coordinates = new HashMap<>();
+        attributes.forEach(e -> coordinates.put(e,0.0));
         for(String attribute : attributes){
             double max = maxs.get(attribute);
             double min = mins.get(attribute);
-            coordinates.put(attribute,random.nextDouble()*(max - min ) + min);
+            double value = attribute.equals(attributes.get(i)) ? max : min;
+            coordinates.put(attribute,value);
         }
         centroids.add(new centroid(coordinates));
     }

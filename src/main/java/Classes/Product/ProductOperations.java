@@ -93,7 +93,6 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         p.setString(2,product.getDesc());
         p.setInt(3,product.getAmount());
         p.setFloat(4,product.getCost());
-        System.out.println(product.getCategory().getCategoryID());
         p.setInt(5,product.getCategory().getCategoryID());
         p.setString(6,product.getImage());
         p.setInt(7,product.getID());
