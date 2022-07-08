@@ -7,14 +7,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Classe contenente le operazioni sull'utente
+ */
+
 public class UsersOperations implements IUserOperation<UserModel> {
 
     private final HashInterface hashFunction;
 
+    /**
+     * Aggiunge l'implementazione dell'algoritmo di hashing da utilizzare
+     * @param hashFunction Tipo di algoritmo da utilizzare
+     * @see HashInterface Interfaccia generica che le implementazioni devono rispettare
+     * @see HashInterface Implementazione dell'algoritmo MD5
+     */
     public UsersOperations(HashInterface hashFunction) {
         this.hashFunction = hashFunction;
     }
 
+    /**
+     * Verifica le credenziali di accesso dell'utente
+     * @param mail Email dell'utente
+     * @param password Password dell'utente
+     * @return Modello contenente le informazioni dell'utente
+     * @throws SQLException Errore durante la query sul database
+     */
     @Override
     public Optional<UserModel> CheckUser(String mail, String password) throws SQLException {
         String HashValue = hashFunction.HashValue(password);
@@ -40,6 +57,12 @@ public class UsersOperations implements IUserOperation<UserModel> {
         return Optional.of(newUser);
     }
 
+    /**
+     * Controlla se l'email è già presente sul database degli utenti
+     * @param mail Email che si vuole cercare
+     * @return Valore booleano true se già presente, false altrimenti
+     * @throws SQLException Errore durante la query sul database
+     */
     private boolean checkMailExists(String mail) throws SQLException{
         String query = "SELECT COUNT(*) "
                 + "FROM users "
@@ -52,6 +75,14 @@ public class UsersOperations implements IUserOperation<UserModel> {
         rest.close();
         return cc != 0;
     }
+
+    /**
+     * Ottiene la lista completa di utenti presenti sul database
+     * @return Lista di utenti presenti sul database
+     * @throws SQLException Errore durante la query sul database
+     * @see UserModel
+     * @see Classes.User.UserModel.Builder
+     */
     @Override
     public List<UserModel> getAll() throws SQLException {
         List<UserModel> result = new ArrayList<>();
@@ -72,6 +103,13 @@ public class UsersOperations implements IUserOperation<UserModel> {
         return result;
     }
 
+    /**
+     * Aggiunge un utente sul database
+     * @param user Utente che si vuole aggiungere, completo di tutti i dettagli
+     * @return Valore booleano true se l'operazione avviene con successo, false altrimenti
+     * @throws SQLException Errore durante la query sul database
+     * @see UserModel
+     */
     @Override
     public boolean add(UserModel user) throws SQLException {
         if(!checkMailExists(user.getEmail())){
@@ -89,6 +127,14 @@ public class UsersOperations implements IUserOperation<UserModel> {
         return false;
     }
 
+    /**
+     * Ottiene l'utente il cui ID viene passato come parametro della funzione
+     * @param Id Identificativo univoco dell'utente sul database
+     * @return Modello completo dell'utente, contenenti tutte le informazioni presenti sul database
+     * @throws SQLException Errore durante la query sul database
+     * @see UserModel
+     * @see Classes.User.UserModel.Builder
+     */
     @Override
     public Optional<UserModel> get(Integer Id) throws SQLException {
         String query = "SELECT * "
