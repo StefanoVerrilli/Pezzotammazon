@@ -12,7 +12,7 @@ public class DiscriminatorLinks implements DiscriminatorInterface{
         UserState userState = new UserState();
         Context context = new Context(userState);
         context.LoadLinks();
-        return "/Homepage";
+        return "/UserPages/UserProducts";
     }
 
     @Override
@@ -20,6 +20,6 @@ public class DiscriminatorLinks implements DiscriminatorInterface{
         State AdminState = new AdminState();
         Context context = new Context(AdminState);
         context.LoadLinks();
-        return "/Homepage";
+        return "/AdminPages/ProductsTable";
     }
 }

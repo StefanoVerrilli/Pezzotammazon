@@ -12,10 +12,12 @@ public class LogIn implements Action {
         Handler h1 = new UserValidationHandler();
         Handler h2 = new CreateCartHandler();
         Handler h3 = new NavbarCreationHandler();
-        Handler h4 = new RedirectHandler();
+        Handler h4 = new LoadDataHandler();
+        Handler h5 = new RedirectHandler();
         h1.SetNext(h2);
         h2.SetNext(h3);
         h3.SetNext(h4);
+        h4.SetNext(h5);
         return h1.handle(request);
     }
 }
