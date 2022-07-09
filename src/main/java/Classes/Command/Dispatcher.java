@@ -2,14 +2,11 @@ package Classes.Command;
 
 import Classes.User.AccessLevels;
 import Classes.User.UserModel;
-import Classes.User.UsersOperations;
-
-import java.util.Optional;
 
 public class Dispatcher implements Command{
 
-    private UserModel user;
-    private DiscriminatorInterface discriminator;
+    private final UserModel user;
+    private final DiscriminatorInterface discriminator;
 
     public Dispatcher(DiscriminatorInterface discriminator, UserModel user){
         this.user = user;

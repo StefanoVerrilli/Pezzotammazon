@@ -8,6 +8,6 @@ import java.sql.SQLException;
  */
 
 public interface IUpdateDAO<T> {
-    public void update(T t) throws SQLException;
+    void update(T t) throws SQLException;
 
 }

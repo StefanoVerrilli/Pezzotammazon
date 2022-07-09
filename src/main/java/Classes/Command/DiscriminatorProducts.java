@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DiscriminatorProducts implements DiscriminatorInterface{
 
-    private List<ProductModel> products;
+    private final List<ProductModel> products;
     public DiscriminatorProducts(List<ProductModel> list){
         this.products = list;
     }

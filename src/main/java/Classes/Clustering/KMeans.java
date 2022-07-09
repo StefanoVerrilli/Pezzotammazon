@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class KMeans extends Clustering{
@@ -23,7 +21,7 @@ public class KMeans extends Clustering{
         for(int i=0;i<maxIterations;i++){
             boolean isLastIteration = i == maxIterations -1;
             for(Record record : records){
-                centroid centroid = nearestCentroid(record,centroids,super.distanceMethod);
+                centroid centroid = nearestCentroid(record,centroids);
                 assignToCluster(clusters,record,centroid);
             }
 
@@ -69,11 +67,11 @@ public class KMeans extends Clustering{
     }
 
 
-    private centroid nearestCentroid(Record record,List<centroid> centroids,DistanceMetric distance){
+    private centroid nearestCentroid(Record record,List<centroid> centroids){
     double minimumDistance = Double.MAX_VALUE;
     centroid nearest = null;
     for(centroid centroid : centroids){
-        double currentDistance = distance.calculate(record.getFeatures(),centroid.getCoords());
+        double currentDistance = super.Distance(record.getFeatures(),centroid.getCoords());
         if(currentDistance< minimumDistance){
             minimumDistance = currentDistance;
             nearest = centroid;

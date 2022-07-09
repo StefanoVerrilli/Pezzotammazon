@@ -117,7 +117,7 @@ public class UsersOperations implements IUserOperation<UserModel> {
             String Registration = "INSERT INTO users (email,password,username) "
                     + "VALUES(?,?,?)";
             PreparedStatement p = myDb.getConnection().prepareStatement(Registration);
-            String MyHash = null;
+            String MyHash;
             try {
                 MyHash = hashFunction.HashValue(user.getPassword());
             } catch (NoSuchAlgorithmException e) {

@@ -8,5 +8,5 @@ import java.util.Optional;
  * @param <T> Tipo generico del dato da ottenere
  */
 public interface IGetDAO<T> {
-    public Optional<T> get(Integer Id) throws SQLException;
+    Optional<T> get(Integer Id) throws SQLException;
 }
