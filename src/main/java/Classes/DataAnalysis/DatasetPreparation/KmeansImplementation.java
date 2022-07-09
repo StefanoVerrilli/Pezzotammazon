@@ -1,7 +1,7 @@
 package Classes.DataAnalysis.DatasetPreparation;
 
 import Classes.Adapter.DataToD3JSONAdapter;
-import Classes.Adapter.IAdapter;
+import Classes.Adapter.IJSONAdapter;
 import Classes.Cart.CartOperation;
 import Classes.Clustering.EuclideanDistance;
 import Classes.Clustering.KMeans;
@@ -36,7 +36,7 @@ public class KmeansImplementation implements Action {
         .ExecuteClustering(usersOperations,orderCollectionOperations,
         NumClusters,10000);
 
-        IAdapter<Map<centroid,List<Record>>> adapter = new DataToD3JSONAdapter();
+        IJSONAdapter<Map<centroid,List<Record>>> adapter = new DataToD3JSONAdapter();
         adapter.DataToJSON(result);
 
         request.getSession().setAttribute("analytics_data", ((DataToD3JSONAdapter) adapter).getResults());

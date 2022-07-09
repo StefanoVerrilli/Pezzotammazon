@@ -5,8 +5,21 @@ import Classes.User.UserModel;
 
 import java.util.Map;
 
+/**
+ * Classe che racchiude le informazioni di ciascun utente e le lega alle caratteristiche calcolate tramite clustering.
+ */
+
 public class Record {
+
+    /**
+     * Modello contenente i dati dell'utente.
+     * @see UserModel
+     */
     private final UserModel target;
+
+    /**
+     * Informazioni sull'utente, utilizzato per il clustering.
+     */
     private final Map<String,Integer> features;
 
 

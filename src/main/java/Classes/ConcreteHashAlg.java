@@ -12,9 +12,10 @@ import java.math.BigInteger;
 public class ConcreteHashAlg implements HashInterface{
 
     /**
-     * Generata MD5
-     * @param Key Chiave di cui si vuole ottenere la stringa MD5
-     * @return Stringa che rappresenta la rappresentazione MD5 della chiave passata in input
+     * Genera una stringa MD5.
+     * @param Key Chiave di cui si vuole ottenere la stringa MD5.
+     * @return Stringa che rappresenta la rappresentazione MD5 della chiave passata in input.
+     * @exception NoSuchAlgorithmException Algoritmo di hashing non presente nell'ambiente.
      */
     @Override
     public String HashValue(String Key) throws NoSuchAlgorithmException {

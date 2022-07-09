@@ -10,7 +10,12 @@ import java.util.List;
 import java.util.Map;
 import org.json.simple.JSONObject;
 
-public class DataToD3JSONAdapter implements IAdapter<Map<centroid, List<Record>>>{
+/**
+ * Classe adapter che adatta i dati calcolati tramite clustering ai dati necessari alla corretta visualizzazione
+ * di questi tramite la libreria Javascript D3.js
+ */
+
+public class DataToD3JSONAdapter implements IJSONAdapter<Map<centroid, List<Record>>> {
 
     private Map<String,List<UserModel>> preparedData = new HashMap<>();
     String results;

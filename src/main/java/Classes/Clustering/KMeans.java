@@ -6,11 +6,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Implementazione del clustering con K-Means, estendendo {@link Clustering}. Utilizza il pattern Bridge con {@link Clustering}, {@link DistanceMetric}.
+ * @see Clustering
+ */
+
 public class KMeans extends Clustering{
+
+    /**
+     * Costruttore.
+     * @param metric Tipo di metrica utilizzata per il calcolo delle distanze.
+     */
     public KMeans(DistanceMetric metric) {
         super(metric);
     }
 
+    /**
+     * Implementa il metodo astratto definito in {@link Clustering}.
+     * @param records Lista di utenti con le caratteristiche calcolate.
+     * @param k Numero massimo per la generazione casuale dei centroidi.
+     * @param maxIterations Numero massimo di iterazioni da eseguire.
+     * @return
+     */
     public Map<centroid, List<Record>> fit(List<Record> records,
     int k,
     int maxIterations){
@@ -37,6 +54,14 @@ public class KMeans extends Clustering{
         return lastState;
     }
 
+    /**
+     * Genera centroidi casuali.
+     * @param records Lista degli utenti con le caratteristiche calcolate.
+     * @see Record
+     * @param k Numero massimo per la generazione casuale.
+     * @return Lista di centroidi.
+     * @see centroid
+     */
     private static List<centroid> randomCentroids(List<Record> records,int k){
         List<centroid> centroids = new ArrayList<>();
         Map<String ,Double> maxs = new HashMap<>();
@@ -67,6 +92,14 @@ public class KMeans extends Clustering{
     }
 
 
+    /**
+     * Individua il centroide più vicino.
+     * @param record Lista degli utenti con le caratteristiche calcolate.
+     * @see Record
+     * @param centroids Lista di centroidi.
+     * @see centroid
+     * @return Centroide più vicino
+     */
     private centroid nearestCentroid(Record record,List<centroid> centroids){
     double minimumDistance = Double.MAX_VALUE;
     centroid nearest = null;
@@ -80,6 +113,13 @@ public class KMeans extends Clustering{
     return nearest;
     }
 
+    /**
+     * Assegna un record (classe contenente informazioni sull'utente) al cluster.
+     * @param clusters Mappa centroide-lista di Record che contiene le informazioni sui legami di ogni utente con un cluster specifico.
+     * @param record Record dell'utente.
+     * @param centroid Centroide.
+     * @see Record
+     */
     private static void assignToCluster(Map<centroid,List<Record>> clusters,
     Record record,
     centroid centroid){
