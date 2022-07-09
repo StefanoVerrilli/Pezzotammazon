@@ -25,10 +25,10 @@ public class ChangeCost implements Action {
         ShoppingItemOperations ordersOperations = new ShoppingItemOperations(cartOperation);
 
         Optional<ProductModel> product = productOperations.get(id);
-        if(!product.isPresent())
+        if(product.isEmpty())
             throw new RuntimeException("No such item exist");
         Optional<CartModel> cart = cartOperation.get(user.getId());
-        if(!cart.isPresent())
+        if(cart.isEmpty())
             throw new RuntimeException("No such cart");
 
         ShoppingItemModel item = new ShoppingItemModel(product.get(),cart.get().getCart_id());

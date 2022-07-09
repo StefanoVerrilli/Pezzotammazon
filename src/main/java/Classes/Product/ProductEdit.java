@@ -20,10 +20,14 @@ public class ProductEdit implements Action {
         ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
 
         ProductCategoriesOperations categoryOperations = new ProductCategoriesOperations();
-        Optional<ProductCategoryModel> category = categoryOperations.get(Integer.parseInt(request.getParameter("productCategory")));
+        Optional<ProductCategoryModel> category =
+        categoryOperations.get(Integer.parseInt(request.getParameter("productCategory")));
 
         Optional<ProductModel> productToAdd = productOperations.
                 get(Integer.parseInt(request.getParameter("productID")));
+        if(productToAdd.isEmpty()){
+            request.getSession().setAttribute("error","product not found");
+            return "/Error/404";}
         productToAdd.get().setName(request.getParameter("productName"));
         productToAdd.get().setDesc(request.getParameter("productDesc"));
         productToAdd.get().setCost(Float.parseFloat(request.getParameter("productCost")));

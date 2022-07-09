@@ -1,8 +1,5 @@
 package Classes.User.ChainofChecks;
 
-import Classes.Command.DiscriminatorProducts;
-import Classes.Command.Dispatcher;
-import Classes.Command.Invoker;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductModel;
 import Classes.Product.ProductOperations;
@@ -11,12 +8,10 @@ import Classes.Suggestion.SuggestionOperation;
 import Classes.User.AccessLevels;
 import Classes.User.UserModel;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class LoadDataHandler extends Handler {
 

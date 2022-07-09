@@ -24,7 +24,7 @@ public class OrderElaboration implements Action {
         new OrderCollectionOperations(new CartOperation());
         List<OrderCollection> collection = orderCollectionOperations.getAll(UserId);
         Optional<UserModel> user = usersOperations.get(UserId);
-        if(!user.isPresent())
+        if(user.isEmpty())
             throw new RuntimeException("User does not exist");
         DataAnalysisFacade facade = new DataAnalysisFacade();
 

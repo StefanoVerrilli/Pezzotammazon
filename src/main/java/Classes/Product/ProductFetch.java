@@ -21,7 +21,7 @@ public class ProductFetch implements Action {
         ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
         Integer id = Integer.parseInt(request.getParameter("id"));
         product = productOperations.get(id);
-        if(!product.isPresent()){
+        if(product.isEmpty()){
             request.getSession().setAttribute("error","Error during fetching of the product");
             return "/Homepage.jsp";
         }

@@ -36,19 +36,4 @@ public class Order {
 
     public ProductModel getItem(){return item;}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj){
-            return true;}
-        if (obj == null){
-            return false;}
-        Order otherProduct = (Order) obj;
-        return Objects.equals(item.getID(), otherProduct.item.getID());
-    }
-
-    @Override
-    public int hashCode(){
-    return item.getID();
-    }
-
 }

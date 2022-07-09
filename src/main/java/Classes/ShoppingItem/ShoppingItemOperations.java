@@ -23,7 +23,7 @@ public class ShoppingItemOperations implements IShoppingItemOperations<ShoppingI
                 + "WHERE CartID = ? AND ProductID = ?";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         CartModel cart = (CartModel) cartOperation.get(UserID).get();
-        Integer cartId = cart.getCart_id();
+        int cartId = cart.getCart_id();
         p.setInt(1,cartId);
         p.setInt(2, productId);
         ResultSet rest = p.executeQuery();
@@ -43,7 +43,7 @@ public class ShoppingItemOperations implements IShoppingItemOperations<ShoppingI
         if(ResultItem.isEmpty())
             InsertQuery(item);
         else{
-        Integer newQuantity = ResultItem.get().getQuantity()+1;
+        int newQuantity = ResultItem.get().getQuantity()+1;
         ResultItem.get().setQuantity(newQuantity);
         update(ResultItem.get());}
         return true;
@@ -80,7 +80,7 @@ public class ShoppingItemOperations implements IShoppingItemOperations<ShoppingI
         Optional<CartModel> cart = cartOperation.get(UserID);
         if(cart.isEmpty())
             throw new SQLException("Cart is not present");
-        Integer cartId = cart.get().getCart_id();
+        int cartId = cart.get().getCart_id();
         p.setInt(1,cartId);
         p.setInt(2,ProductID);
         p.executeUpdate();

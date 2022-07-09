@@ -49,9 +49,12 @@ public class OrderCollectionOperations implements IOrderCollection<OrderCollecti
         return true;
         }
 
+    @Override
     public boolean AddSingleOrders(int User_id) throws SQLException {
         OrderOperations orderOperations = new OrderOperations();
         List<ShoppingItemModel> shoppingItems = cartOperation.getAll(User_id);
+        if(get(User_id).isEmpty())
+            return false;
         for(ShoppingItemModel item: shoppingItems){
             Order order = new Order(get(User_id).get().getCollectionID(),item);
             orderOperations.add(order, get(User_id).get().getCollectionID());

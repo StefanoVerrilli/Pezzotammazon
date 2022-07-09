@@ -44,7 +44,7 @@ public class ProductOperations implements IProductOperations<ProductModel> {
     }
 
     public List<ProductModel> getAll() throws SQLException {
-        List result = new ArrayList();
+        List<ProductModel> result = new ArrayList<>();
         String query = "SELECT * "
                 + "FROM products join ProductCategories on products.Category = ProductCategories.CategoryID ";
         Statement stat = DAO.myDb.getConnection().createStatement();
@@ -69,7 +69,6 @@ public class ProductOperations implements IProductOperations<ProductModel> {
     }
 
     public boolean add(ProductModel product) throws SQLException {
-        int result;
         String query = "INSERT INTO products (Name,Description,Amount,Cost,Category,Image) "
                 + "VALUES(?,?,?,ROUND(?,2),?,?)";
         PreparedStatement p = DAO.myDb.getConnection().prepareStatement(query);
@@ -79,7 +78,7 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         p.setFloat(4,product.getCost());
         p.setInt(5,product.getCategory().getCategoryID());
         p.setString(6,product.getImage());
-        result = p.executeUpdate();
+        p.executeUpdate();
         p.close();
         return true;
     }
@@ -151,8 +150,10 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         List<ProductModel> elements = new ArrayList<>();
         ProductCategoryModel categoryObject =
         new ProductCategoryModel(rest.getInt("Category"),CategoryDescription);
-        ProductCategoryModel category = (ProductCategoryModel) categoriesOperation
-                                        .get(categoryObject.getCategoryID()).get();
+        Optional<ProductCategoryModel> category = (Optional<ProductCategoryModel>) categoriesOperation
+                                        .get(categoryObject.getCategoryID());
+        if(category.isEmpty())
+            return elements;
 
         while (rest.next()){
             ProductModel product = new ProductModel.Builder(rest.getString("Name"))
@@ -161,7 +162,7 @@ public class ProductOperations implements IProductOperations<ProductModel> {
                     .setId(rest.getInt("ID"))
                     .setAmount(rest.getInt("Amount"))
                     .setDesc(rest.getString("Description"))
-                    .setCategory(category)
+                    .setCategory(category.get())
                     .build();
             elements.add(product);
         }

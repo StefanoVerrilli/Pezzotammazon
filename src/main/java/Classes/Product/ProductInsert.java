@@ -12,6 +12,8 @@ import javax.servlet.http.Part;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Base64;
+import java.util.Optional;
+
 @MultipartConfig(maxFileSize = 16177215)
 public class ProductInsert implements Action {
     @Override
@@ -20,13 +22,16 @@ public class ProductInsert implements Action {
         InputStream is = filePart.getInputStream();
         byte[] bytesArray = IOUtils.toByteArray(is);
 
-        ProductCategoryModel category = new ProductCategoriesOperations().get(Integer.parseInt(request.getParameter("productCategory"))).get();
+        Optional<ProductCategoryModel> category = new ProductCategoriesOperations()
+                                        .get(Integer.parseInt(request.getParameter("productCategory")));
+        if(category.isEmpty())
+            throw new IllegalArgumentException("product category not found");
 
         ProductModel productToAdd  = new ProductModel.Builder(request.getParameter("productName"))
                                     .setCost(Float.parseFloat(request.getParameter("productCost")))
                                     .setAmount(Integer.valueOf(request.getParameter("productAmount")))
                                     .setDesc(request.getParameter("productDesc"))
-                                    .setCategory(category)
+                                    .setCategory(category.get())
                                     .setImage(Base64.getEncoder().encodeToString(bytesArray))
                                     .build();
         try {

@@ -1,11 +1,10 @@
 package Classes.Payment;
+
+import Classes.Cart.CartModel;
 import Classes.Cart.CartOperation;
 import Classes.FrontController.Action;
-import Classes.OrderCollection.OrderCollectionOperations;
-import Classes.Cart.CartModel;
 import Classes.OrderCollection.OrderCollection;
-import Classes.Payment.Strategy.IPayMethod;
-import Classes.Payment.Strategy.IPaymentFactory;
+import Classes.OrderCollection.OrderCollectionOperations;
 import Classes.Payment.Strategy.Payment;
 import Classes.Payment.Strategy.PaymentFactory;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
@@ -46,7 +45,6 @@ public class PaymentLogic implements Action {
 
         CartOperation cartOperation = new CartOperation();
 
-
         decrementProductsAmount(cartOperation, user);
 
         OrderCollectionOperations orderCollectionOperations =
@@ -55,9 +53,8 @@ public class PaymentLogic implements Action {
         orderCollection.setUser_ID(user.getId());
         orderCollection.setTimestamp(Date.valueOf(java.time.LocalDate.now()));
         orderCollectionOperations.add(orderCollection);
-        orderCollectionOperations.AddSingleOrders(user.getId());
-
-
+        if(!orderCollectionOperations.AddSingleOrders(user.getId()))
+            return "/Error/404";
         EmptyCartWrapper(user.getId());
         return "/Homepage";
     }
@@ -107,11 +104,12 @@ public class PaymentLogic implements Action {
         List<ShoppingItemModel> orderedItems = operation.getAll(user.getId());
         ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
         for(ShoppingItemModel item : orderedItems) {
-            ProductModel product = productOperations.get(item.getProduct().getID()).get();
+            Optional<ProductModel> product = productOperations.get(item.getProduct().getID());
+            if(product.isEmpty())
+                throw new RuntimeException("error during Payment: no product found");
             Integer amountOrdered = item.getQuantity();
-
             try {
-                decrementProductIstanceAmount(product, productOperations, amountOrdered);
+                decrementProductIstanceAmount(product.get(), productOperations, amountOrdered);
             } catch (Exception e) {
                 operation.delete(item.getCartID(), item.getProduct().getID());
             }
