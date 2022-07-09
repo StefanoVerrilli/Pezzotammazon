@@ -20,7 +20,9 @@ import java.util.List;
 public class ProductsPageLogic implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        List<ProductModel> products = (List<ProductModel>) request.getSession().getAttribute("products_table");
+        ProductOperations operations = new ProductOperations(new ProductCategoriesOperations());
+        List<ProductModel> products = operations.getAll();
+        request.getSession().setAttribute("products_table", products);
         DiscriminatorProducts discriminatorProducts = new DiscriminatorProducts(products);
         UserModel user = (UserModel) request.getSession().getAttribute("user");
         Invoker invoker = new Invoker(new Dispatcher(discriminatorProducts,user));
