@@ -62,8 +62,7 @@ public class DataSetElaboration {
         for(OrderCollection collection : orderCollectionList){
             OrderOperations orderOperations = new OrderOperations();
             List<Order> orders = orderOperations.getAllByCategory(Category,collection.getCollectionID());
-            for(Order order : orders)
-                orderSet.add(order);
+            orderSet.addAll(orders);
         }
         products.removeIf(e -> orderSet.stream()
         .anyMatch(order -> order.getItem().getID() == e.getID()));

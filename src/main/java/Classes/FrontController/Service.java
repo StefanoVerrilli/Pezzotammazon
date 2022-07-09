@@ -3,8 +3,6 @@ package Classes.FrontController;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import java.io.IOException;
-
 
 /**
  * Fornisce un'interfaccia di accesso alle richieste eseguite nei file
@@ -22,7 +20,6 @@ public class    Service extends HttpServlet {
      * @param request
      * @param response
      * @throws ServletException
-     * @throws IOException
      */
     protected void Service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException{

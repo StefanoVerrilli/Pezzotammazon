@@ -3,7 +3,7 @@ package Classes.Command;
 import java.sql.SQLException;
 
 public class Invoker {
-    private Command currentCommand;
+    private final Command currentCommand;
     public Invoker(Command command) {
         this.currentCommand = command;
     }

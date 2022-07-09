@@ -17,7 +17,7 @@ public class PaymentFactory {
 
     public Payment PaymentMethod(String key){
         Optional<IPayMethod> paymentMethod = Payment.stream().filter(e -> e.getKey().equals(key)).findFirst();
-        if(!paymentMethod.isPresent()){
+        if(paymentMethod.isEmpty()){
             throw new IllegalArgumentException();
         }
         return paymentMethod.get().Create(request);

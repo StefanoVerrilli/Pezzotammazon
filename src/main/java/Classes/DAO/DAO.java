@@ -5,5 +5,5 @@ package Classes.DAO;
  */
 
 public interface DAO {
-    static final Database myDb = Database.getInstance();
+    Database myDb = Database.getInstance();
 }

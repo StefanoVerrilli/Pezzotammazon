@@ -1,7 +1,5 @@
 package Classes.Clustering;
 
-import Classes.Pair;
-
 import java.util.Map;
 
 public interface DistanceMetric {

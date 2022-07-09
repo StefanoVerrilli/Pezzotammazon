@@ -30,7 +30,6 @@ private final Clustering ClusteringMethod;
             List<OrderCollection> orders = orderOperations.getAll(user.getId());
             recordList.add(DataPreparationFacade.getData(user, orders));
         }
-        Map<centroid, List<Record>> result = ClusteringMethod.fit(recordList, clusters, iterations);
-        return result;
+        return ClusteringMethod.fit(recordList, clusters, iterations);
     }
 }

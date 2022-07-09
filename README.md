@@ -8,11 +8,10 @@ A very simple Amazon clone written in Java (STL).
 - [ ] Remove suggested item after purchase
 - [ ] Add most purchased categories graphics
 - [ ] Add user analytics graphics
-- [ ] Translate menu titles
-- [ ] Add titles to webpages
-- [ ] Redirect homepages
+- [x] Translate menu titles
+- [x] Add titles to webpages
+- [x] Redirect homepages
     - User: UserProducts
     - Admin: ProductsTable
-- [ ] Template pattern for Payment
 - [ ] Add javascript checks to Payment form (real time)
 

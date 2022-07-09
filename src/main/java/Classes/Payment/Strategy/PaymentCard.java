@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class PaymentCard implements Payment{
 
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
 
     public PaymentCard(HttpServletRequest request) {
         this.request = request;

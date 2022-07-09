@@ -2,6 +2,7 @@ package Classes.User;
 import Classes.DAO.DAO;
 import Classes.HashInterface;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class UsersOperations implements IUserOperation<UserModel> {
      * @throws SQLException Errore durante la query sul database
      */
     @Override
-    public Optional<UserModel> CheckUser(String mail, String password) throws SQLException {
+    public Optional<UserModel> CheckUser(String mail, String password) throws SQLException, NoSuchAlgorithmException {
         String HashValue = hashFunction.HashValue(password);
         String query = "SELECT * "
                 + "FROM users "
@@ -116,7 +117,12 @@ public class UsersOperations implements IUserOperation<UserModel> {
             String Registration = "INSERT INTO users (email,password,username) "
                     + "VALUES(?,?,?)";
             PreparedStatement p = myDb.getConnection().prepareStatement(Registration);
-            String MyHash = hashFunction.HashValue(user.getPassword());
+            String MyHash;
+            try {
+                MyHash = hashFunction.HashValue(user.getPassword());
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
             p.setString(1,user.getEmail());
             p.setString(2,MyHash);
             p.setString(3,user.getUsername());

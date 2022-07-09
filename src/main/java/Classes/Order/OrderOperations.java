@@ -34,8 +34,7 @@ public class OrderOperations implements IOrderOperations<Order> {
         ResultSet rest = p.executeQuery();
         if(rest.isClosed())
             return new ArrayList<>();
-        List<Order> result = getAllByCategoryResults(rest,collectionID);
-        return result;
+        return getAllByCategoryResults(rest,collectionID);
     }
 
 

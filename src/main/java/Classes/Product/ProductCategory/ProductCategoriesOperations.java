@@ -62,7 +62,7 @@ public class ProductCategoriesOperations implements IProductCategoryOperations<P
         List<ProductCategoryModel> catList = new ArrayList<>();
         String query = "SELECT * "
                 + "FROM ProductCategories ";
-        Statement stat = (Statement) DAO.myDb.getConnection().createStatement();
+        Statement stat = DAO.myDb.getConnection().createStatement();
         ResultSet result = stat.executeQuery(query);
         while(result.next()){
             ProductCategoryModel category = new ProductCategoryModel(result.getInt("CategoryID"),

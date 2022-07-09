@@ -1,16 +1,15 @@
 package Classes.Navbar;
 
-import Classes.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Navbar {
-    private List<Pair<String,String>> elements = new ArrayList<>();
-    public List<Pair<String,String>> getElements(){
+    private List<Map.Entry<String,String>> elements = new ArrayList<>();
+    public List<Map.Entry<String,String>> getElements(){
         return this.elements;
     }
-    public void setElements(List<Pair<String,String>> _elements){
+    public void setElements(List<Map.Entry<String, String>> _elements){
         this.elements = _elements;
     }
 }

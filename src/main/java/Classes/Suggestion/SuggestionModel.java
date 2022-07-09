@@ -1,10 +1,6 @@
 package Classes.Suggestion;
 
-import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductModel;
-import Classes.Product.ProductOperations;
-
-import java.sql.SQLException;
 
 public class SuggestionModel {
 

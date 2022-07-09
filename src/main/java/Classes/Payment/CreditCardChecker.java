@@ -1,6 +1,5 @@
 package Classes.Payment;
 
-import java.time.LocalDate;
 import java.util.Calendar;
 
 public class CreditCardChecker {
@@ -52,9 +51,7 @@ public class CreditCardChecker {
 
 
         if(year <= expirationYear) {
-            if(year == expirationYear && month > expirationMonth)
-                return false;
-            return true;
+            return year != expirationYear || month <= expirationMonth;
         }
 
         return false;

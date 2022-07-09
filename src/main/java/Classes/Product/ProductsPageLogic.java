@@ -1,20 +1,13 @@
 package Classes.Product;
 
-import Classes.Command.DiscriminatorInterface;
 import Classes.Command.DiscriminatorProducts;
 import Classes.Command.Dispatcher;
 import Classes.Command.Invoker;
 import Classes.FrontController.Action;
-import Classes.Product.ProductCategory.ProductCategoriesOperations;
-import Classes.Suggestion.SuggestionModel;
-import Classes.Suggestion.SuggestionOperation;
-import Classes.User.AccessLevels;
 import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductsPageLogic implements Action {

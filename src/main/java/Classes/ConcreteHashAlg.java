@@ -17,15 +17,14 @@ public class ConcreteHashAlg implements HashInterface{
      * @return Stringa che rappresenta la rappresentazione MD5 della chiave passata in input
      */
     @Override
-    public String HashValue(String Key) {
+    public String HashValue(String Key) throws NoSuchAlgorithmException {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] messageDigest = md.digest(Key.getBytes());
             BigInteger bigInt = new BigInteger(1, messageDigest);
             return bigInt.toString(16);
         }catch (NoSuchAlgorithmException e){
-
+            throw new NoSuchAlgorithmException("Error during password storing");
         }
-        return null;
     }
 }

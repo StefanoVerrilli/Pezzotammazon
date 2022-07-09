@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class BuildNavbar{
 
-    public static void GetNavbar(HttpServletRequest request) throws Exception {
+    public static void GetNavbar(HttpServletRequest request) {
         Navbar myNavbar = new Navbar();
         NavBarBuilder builder = new NavBarBuilder();
         Director director = new Director(builder);
