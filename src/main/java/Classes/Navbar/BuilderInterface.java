@@ -1,7 +1,7 @@
 package Classes.Navbar;
 
-import Classes.Pair;
+import java.util.Map;
 
 public interface BuilderInterface {
-    public void addLink(Pair<String,String> pair);
+    public void addLink(Map.Entry<String, String> pair);
 }

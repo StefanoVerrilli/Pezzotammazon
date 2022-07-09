@@ -1,15 +1,14 @@
 package Classes.Navbar;
 
-import Classes.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class NavBarBuilder implements BuilderInterface{
     private Navbar myNavbar = new Navbar();
-    private List<Pair<String,String>> elements = new ArrayList<>();
+    private List<Map.Entry<String, String>> elements = new ArrayList<>();
     @Override
-    public void addLink(Pair<String,String> pair) {
+    public void addLink(Map.Entry<String, String> pair) {
         this.elements.add(pair);
     }
     public Navbar getProduct(){
