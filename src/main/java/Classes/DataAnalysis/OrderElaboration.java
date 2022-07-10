@@ -12,8 +12,8 @@ import Classes.OrderCollection.OrderCollection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class OrderElaboration implements Action {
     @Override
@@ -33,7 +33,7 @@ public class OrderElaboration implements Action {
 
         Record result = facade.getData(user.get(),collection);
         result.getFeatures().entrySet().removeIf(e ->  e.getValue() == 0);
-        request.getSession().setAttribute("user_purchases_by_category", result.getFeatures().entrySet());
+        request.getSession().setAttribute("user_purchases_by_category", result.getFeatures().entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new)));
 
          return "/AdminPages/UserSuggestion";
     }

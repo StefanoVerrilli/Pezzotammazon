@@ -37,7 +37,8 @@
       }
   </script>
 
-    Suggested products for <c:out value="${selected_user.getUsername()}"></c:out>
+  <div class="container">
+  <h2 class="is-size-2">Suggested products for <c:out value="${selected_user.getUsername()}"></c:out></h2>
 
         <div id="suggested-product-carousel" class="container is-fullwidth">
             <div class="is-flex is-flex-direction-row is-flex-wrap-nowrap py-4" style="overflow-x: auto; overflow-y: hidden">
@@ -68,13 +69,23 @@
 
     <canvas id="top-purchases-visualization" width="300" height="100"></canvas>
 
-    Top purchased by category for this user:
+  <h2 class="is-size-2"><c:out value="${selected_user.getUsername()}"></c:out>'s top purchases by category:</h2>
 
-    <c:forEach var="category" items="${user_purchases_by_category}">
-        <c:out value="${category.getKey()}"></c:out> (<c:out value="${category.getValue()}"></c:out> purchases)
+
+    <c:forEach var="category" items="${user_purchases_by_category.entrySet()}" varStatus="index">
+      <div class="columns">
+        <div class="column is-flex-grow-0">
+            <span class="is-size-3 has-text-grey-light">#<c:out value="${index.index + 1}"></c:out></span>
+        </div>
+        <div class="column">
+        <p><span class="is-size-4"><c:out value="${category.getKey()}"></c:out></span></p>
+        <p class="is-size-5">(<c:out value="${category.getValue()}"></c:out> purchases)</p>
+        </div>
+      </div>
     </c:forEach>
+  </div>
 
-    <c:forEach var="category" items="${user_purchases_by_category}">
+    <c:forEach var="category" items="${user_purchases_by_category.entrySet()}">
         <script>
             categoriesArray.push("<c:out value="${category.getKey()}"></c:out>")
             dataArray.push(<c:out value="${category.getValue()}"></c:out>)

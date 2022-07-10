@@ -15,10 +15,10 @@
     %>
 </head>
 <body>
-    <ul>
+    <div class="container">
         <c:forEach items="${UsersList}" var="user">
-            <li><a href="orderElaboration.do?id=${user.getId()}"> ${user.getUsername()}</a></li>
+        <a href="orderElaboration.do?id=${user.getId()}" class="box my-4 has-text-centered"> ${user.getUsername()} <span class="has-text-grey-light">(${user.getEmail()})</span></a>
         </c:forEach>
-    </ul>
+    </div>
 </body>
 </html>
