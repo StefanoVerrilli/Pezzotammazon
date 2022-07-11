@@ -5,9 +5,7 @@
         <jsp:param name="page_title" value="Insert a new product - Pezzotammazon"/>
     </jsp:include>
 
-    <jsp:include page="/Navbar.jsp">
-        <jsp:param name="access_type" value="${user.getAccessType()}"/>
-    </jsp:include>
+    <jsp:include page="/Navbar.jsp"/>
 
     <script>
         var result;
@@ -26,9 +24,6 @@
                 data: formData,
                 processData : false,
                 contentType : false,
-                success : function (){
-                    alert("success");
-                }
             });
             form.reset();
             document.getElementById("preview").src = "";

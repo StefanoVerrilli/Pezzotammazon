@@ -19,7 +19,7 @@ public class UserValidationHandler extends Handler{
             request.getSession().setAttribute("user",user.get());
             return next.handle(request);}
         else{
-            request.setAttribute("error", "Username or Password are invalid");
+            request.getSession().setAttribute("error", "Username or Password are invalid");
             return "LogIn";
             }
     }

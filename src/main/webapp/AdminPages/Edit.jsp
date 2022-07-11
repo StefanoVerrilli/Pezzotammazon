@@ -12,9 +12,7 @@
         <jsp:param name="page_title" value="Edit ${Product.getName()} - Pezzotammazon"/>
     </jsp:include>
 
-    <jsp:include page="/Navbar.jsp">
-        <jsp:param name="access_type" value="${access_type}"/>
-    </jsp:include>
+    <jsp:include page="/Navbar.jsp"/>
 
     <script>
             var result;

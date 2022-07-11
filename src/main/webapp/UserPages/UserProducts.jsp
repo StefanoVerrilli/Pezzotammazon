@@ -5,15 +5,12 @@
         <jsp:param name="page_title" value="Products - Pezzotammazon"/>
     </jsp:include>
 
-    <jsp:include page="/Navbar.jsp">
-        <jsp:param name="access_type" value="${access_type}"/>
-    </jsp:include>
+    <jsp:include page="/Navbar.jsp"/>
 <body>
 <%
     if(session.getAttribute("user") == null) {
         response.sendRedirect("/LogIn.jsp");
     }
-    //request.getSession().getAttribute
 %>
 
 <c:if test="${not empty product_suggestions}">

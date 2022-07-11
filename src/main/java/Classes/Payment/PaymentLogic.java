@@ -3,6 +3,7 @@ package Classes.Payment;
 import Classes.Cart.CartModel;
 import Classes.Cart.CartOperations;
 import Classes.Cart.ICartOperations;
+import Classes.Exceptions.LogicException;
 import Classes.FrontController.Action;
 import Classes.OrderCollection.IOrderCollectionOperations;
 import Classes.OrderCollection.OrderCollectionModel;
@@ -48,7 +49,7 @@ public class PaymentLogic implements Action {
 
         ICartOperations<CartModel, ShoppingItemModel> cartOperation = new CartOperations();
 
-        decrementProductsAmount(cartOperation, user);
+        decrementProductsAmount(request,cartOperation, user);
 
         IOrderCollectionOperations<OrderCollectionModel> orderCollectionOperations =
         new OrderCollectionOperations(cartOperation);
@@ -58,9 +59,9 @@ public class PaymentLogic implements Action {
         orderCollection.setTimestamp(Date.valueOf(java.time.LocalDate.now()));
         orderCollectionOperations.add(orderCollection);
         if(!orderCollectionOperations.AddSingleOrders(user.getId()))
-            return "/Error/404";
-        EmptyCartWrapper(user.getId());
-        return "/Homepage";
+            throw new LogicException(request,"error","error during payment");
+        EmptyCartWrapper(request,user.getId());
+        return "/UserPages/ProductPage";
     }
 
 
@@ -70,11 +71,12 @@ public class PaymentLogic implements Action {
      * @throws SQLException Errore durante l'esecuzione di una query SQL
      * @see CartOperations
      */
-    private void EmptyCartWrapper(int User_id) throws SQLException{
+    private void EmptyCartWrapper(HttpServletRequest request,int User_id) throws LogicException,SQLException{
         ICartOperations<CartModel,ShoppingItemModel> cartOperation = new CartOperations();
         Optional<CartModel> cart = cartOperation.get(User_id);
-        if(cart.isPresent())
-            cartOperation.EmptyCart(cart.get());
+        if(cart.isEmpty())
+            throw new LogicException(request,"error","NoCartFound");
+        cartOperation.EmptyCart(cart.get());
     }
 
     /**
@@ -104,14 +106,14 @@ public class PaymentLogic implements Action {
      * @see UserModel
      */
 
-    private void decrementProductsAmount(ICartOperations operation, UserModel user) throws Exception {
+    private void decrementProductsAmount(HttpServletRequest request,ICartOperations operation, UserModel user) throws SQLException,LogicException {
         List<ShoppingItemModel> orderedItems = operation.getAll(user.getId());
         IProductOperations<ProductModel> productOperations =
         new ProductOperations(new ProductCategoriesOperations());
         for(ShoppingItemModel item : orderedItems) {
             Optional<ProductModel> product = productOperations.get(item.getProduct().getID());
             if(product.isEmpty())
-                throw new RuntimeException("error during Payment: no product found");
+                throw new LogicException(request,"error","NoProductFound");
             Integer amountOrdered = item.getQuantity();
             try {
                 decrementProductIstanceAmount(product.get(), productOperations, amountOrdered);

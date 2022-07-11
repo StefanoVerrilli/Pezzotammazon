@@ -3,9 +3,7 @@
     <jsp:param name="page_title" value="Error 404 - Pezzotammazon"/>
 </jsp:include>
 
-<jsp:include page="/Navbar.jsp">
-    <jsp:param name="access_type" value="${access_type}"/>
-</jsp:include>
+<jsp:include page="/Navbar.jsp"/>
 
 <div class="container has-text-centered is-size-2">
     <i class="fa-solid fa-question"></i>

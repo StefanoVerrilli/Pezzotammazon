@@ -5,9 +5,8 @@
     <jsp:param name="page_title" value="${Product.getName()} - Pezzotammazon"/>
 </jsp:include>
 
-<jsp:include page="/Navbar.jsp">
-   <jsp:param name="access_type" value="${access_type}"/>
-</jsp:include>
+<jsp:include page="/Navbar.jsp"/>
+
 <%
     if(session.getAttribute("user") == null) {
         response.sendRedirect("/LogIn.jsp");}

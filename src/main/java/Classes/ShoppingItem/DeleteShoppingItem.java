@@ -3,6 +3,7 @@ package Classes.ShoppingItem;
 import Classes.Cart.CartModel;
 import Classes.Cart.CartOperations;
 import Classes.Cart.ICartOperations;
+import Classes.Exceptions.LogicException;
 import Classes.FrontController.Action;
 import Classes.User.UserModel;
 
@@ -14,7 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteShoppingItem implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-            int id = Integer.parseInt(request.getParameter("id"));
+            int id;
+            try{
+                id = Integer.parseInt(request.getParameter("id"));}
+            catch (NumberFormatException e){
+                throw new LogicException(request,"error","Unable to fetch product");
+            }
             UserModel user = (UserModel) request.getSession().getAttribute("user");
             ICartOperations<CartModel,ShoppingItemModel> cartOperation = new CartOperations();
             IShoppingItemOperations<ShoppingItemModel> itemOperations =

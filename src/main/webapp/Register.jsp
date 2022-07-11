@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: stefanoverrilli
-  Date: 05/06/22
-  Time: 09:33
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -13,8 +7,6 @@
 </jsp:include>
 
 <jsp:include page="Navbar.jsp">
-    <jsp:param name="access_type" value="${access_type}"/>
-</jsp:include>
 
 <body>
 

@@ -5,9 +5,7 @@
         <jsp:param name="page_title" value="Users - Pezzotammazon"/>
     </jsp:include>
 
-    <jsp:include page="/Navbar.jsp">
-        <jsp:param name="access_type" value="${user.getAccessType()}"/>
-    </jsp:include>
+    <jsp:include page="/Navbar.jsp"/>
     <%
         response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
         if (session.getAttribute("user") == null)

@@ -5,9 +5,7 @@
     <jsp:param name="page_title" value="Suggest user ${selected_user.getUsername()} a product - Pezzotammazon"/>
   </jsp:include>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
-  <jsp:include page="/Navbar.jsp">
-    <jsp:param name="access_type" value="${user.getAccessType()}"/>
-  </jsp:include>
+  <jsp:include page="/Navbar.jsp"/>
     <%
         response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
         if (session.getAttribute("user") == null)

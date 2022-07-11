@@ -13,7 +13,14 @@
         <servlet-name>Homepage</servlet-name>
         <url-pattern>/Homepage</url-pattern>
     </servlet-mapping>
-    
+    <error-page>
+        <exception-type>Classes.Exceptions.LogicException</exception-type>
+        <location>/Error/LogicError.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/Error/404.jsp</location>
+    </error-page>
     <servlet>
         <servlet-name>LogIn</servlet-name>
         <jsp-file>/LogIn.jsp</jsp-file>

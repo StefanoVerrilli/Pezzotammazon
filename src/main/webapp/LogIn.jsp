@@ -6,7 +6,7 @@
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
         if(request.getSession().getAttribute("user") != null){
-            response.sendRedirect("Homepage.jsp");
+            request.getRequestDispatcher("ProductsTable.do").forward(request,response);
         }else{
             State DefaultState = new DefaultState();
             Context context = new Context(DefaultState);

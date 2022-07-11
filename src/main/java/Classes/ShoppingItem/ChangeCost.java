@@ -3,6 +3,7 @@ package Classes.ShoppingItem;
 import Classes.Cart.CartModel;
 import Classes.Cart.CartOperations;
 import Classes.Cart.ICartOperations;
+import Classes.Exceptions.LogicException;
 import Classes.Product.IProductOperations;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductOperations;
@@ -19,10 +20,14 @@ import java.util.Optional;
 public class ChangeCost implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int quantity = Integer.parseInt(request.getParameter("orderQuantity"));
-        int id = Integer.parseInt(request.getParameter("orderId"));
+        int quantity,id;
+        try{
+        quantity = Integer.parseInt(request.getParameter("orderQuantity"));
+        id = Integer.parseInt(request.getParameter("orderId"));}
+        catch (NumberFormatException e){
+            throw new LogicException(request,"error","Error fetching data");
+        }
         UserModel user = (UserModel) request.getSession().getAttribute("user");
-
         ICartOperations<CartModel,ShoppingItemModel> cartOperation = new CartOperations();
         IProductOperations<ProductModel> productOperations =
         new ProductOperations(new ProductCategoriesOperations());
@@ -31,10 +36,10 @@ public class ChangeCost implements Action {
 
         Optional<ProductModel> product = productOperations.get(id);
         if(product.isEmpty())
-            throw new RuntimeException("No such item exist");
+            throw new LogicException(request,"error","No such item exist");
         Optional<CartModel> cart = cartOperation.get(user.getId());
         if(cart.isEmpty())
-            throw new RuntimeException("No such cart");
+            throw new LogicException(request,"error","No such cart");
 
         ShoppingItemModel item = new ShoppingItemModel(product.get(),cart.get().getCart_id());
         item.setQuantity(quantity);

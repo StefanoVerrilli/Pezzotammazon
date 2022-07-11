@@ -11,6 +11,7 @@ import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class ProductFetch implements Action {
 
         if(product.isEmpty()){
             request.getSession().setAttribute("error","Error during fetching of the product");
-            return "/Error/404";
+            throw new SQLException();
         }
 
         IProductCategoryOperations<ProductCategoryModel> operation =

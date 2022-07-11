@@ -2,6 +2,7 @@ package Classes.DataAnalysis;
 
 import Classes.Cart.CartOperations;
 import Classes.Clustering.Record;
+import Classes.Exceptions.LogicException;
 import Classes.OrderCollection.IOrderCollectionOperations;
 import Classes.User.Hashing.ConcreteHashAlg;
 import Classes.FrontController.Action;
@@ -21,7 +22,7 @@ public class OrderElaboration implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         IUserOperation<UserModel> usersOperations = new UsersOperations(new ConcreteHashAlg());
-        Integer UserId = Integer.valueOf(request.getParameter("id"));
+        int UserId = Integer.parseInt(request.getParameter("id"));
 
         IOrderCollectionOperations<OrderCollectionModel> orderCollectionOperations =
         new OrderCollectionOperations(new CartOperations());
@@ -29,7 +30,7 @@ public class OrderElaboration implements Action {
         List<OrderCollectionModel> collection = orderCollectionOperations.getAll(UserId);
         Optional<UserModel> user = usersOperations.get(UserId);
         if(user.isEmpty())
-            throw new RuntimeException("User does not exist");
+            throw new LogicException(request,"error","User does not exist");
         DataAnalysisFacade facade = new DataAnalysisFacade();
 
         request.getSession().setAttribute("suggestions", facade.getSuggestions(collection, user.get()));

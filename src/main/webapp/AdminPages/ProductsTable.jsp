@@ -6,9 +6,7 @@
         <jsp:param name="page_title" value="All products - Pezzotammazon"/>
     </jsp:include>
 
-    <jsp:include page="/Navbar.jsp">
-        <jsp:param name="access_type" value="${access_type}"/>
-    </jsp:include>
+    <jsp:include page="/Navbar.jsp"/>
 
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");

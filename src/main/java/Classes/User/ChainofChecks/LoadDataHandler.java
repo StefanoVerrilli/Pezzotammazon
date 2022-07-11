@@ -34,13 +34,13 @@ public class LoadDataHandler extends Handler {
     }
 
     private void getAllProductsFromDatabase() throws SQLException {
-        IProductOperations<ProductModel> productOperations = new ProductOperations(new ProductCategoriesOperations());
+        IProductOperations<ProductModel> productOperations =
+        new ProductOperations(new ProductCategoriesOperations());
         this.product_list = productOperations.getAll();
     }
 
     private void getUserInformationFromSession(HttpServletRequest request) {
-        this.user = (UserModel) request.getSession()
-                                        .getAttribute("user");
+        this.user = (UserModel) request.getSession().getAttribute("user");
     }
 
     private void getSuggestionsAndAddtoSession(HttpServletRequest request) {
@@ -51,7 +51,6 @@ public class LoadDataHandler extends Handler {
         } catch (SQLException exception) {
             product_suggestions = new ArrayList<>();
         }
-        request.getSession()
-                .setAttribute("product_suggestions", product_suggestions);
+        request.getSession().setAttribute("product_suggestions", product_suggestions);
     }
 }

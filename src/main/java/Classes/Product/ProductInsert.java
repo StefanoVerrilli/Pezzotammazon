@@ -24,13 +24,14 @@ public class ProductInsert implements Action {
         byte[] bytesArray = IOUtils.toByteArray(is);
 
         IProductCategoryOperations<ProductCategoryModel> productCategoryOperations =
-                                                        new ProductCategoriesOperations();
+        new ProductCategoriesOperations();
 
         Optional<ProductCategoryModel> category = productCategoryOperations
         .get(Integer.parseInt(request.getParameter("productCategory")));
 
-        if(category.isEmpty())
-            throw new IllegalArgumentException("product category not found");
+        if(category.isEmpty()){
+            throw new SQLException();
+            }
         ProductModel productToAdd;
         try {
             productToAdd = new ProductModel.Builder(request.getParameter("productName"))
@@ -46,7 +47,8 @@ public class ProductInsert implements Action {
                 new ProductOperations(new ProductCategoriesOperations());
                 productOperations.add(productToAdd);
             } catch (SQLException e) {
-                throw new RuntimeException(e);}
+                request.getSession().setAttribute("error","error during insertion");
+                }
         }catch (NumberFormatException e){
                 request.getSession().setAttribute("error","Illegal arguments for product insert");
                 return "";

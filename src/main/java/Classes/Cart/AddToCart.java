@@ -1,5 +1,6 @@
 package Classes.Cart;
 
+import Classes.Exceptions.LogicException;
 import Classes.Product.IProductOperations;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductOperations;
@@ -17,10 +18,11 @@ import java.util.Optional;
 public class AddToCart implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Integer id = Integer.parseInt(request.getParameter("id"));
-        if(id == 0) {
-            request.getSession().setAttribute("error", "Invalid Product, please retry");
-            return "UserProducts";
+        int id;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        }catch (NumberFormatException e){
+            throw new LogicException(request,"error","Invalid Product");
         }
         UserModel user = (UserModel) request.getSession().getAttribute("user");
         IProductOperations<ProductModel> productOperations =
@@ -31,7 +33,7 @@ public class AddToCart implements Action {
         new ShoppingItemOperations(cartOperation);
         Optional<ProductModel> newProduct = productOperations.get(id);
         if(newProduct.isEmpty()){
-            return "/Error/404";
+            throw new LogicException(request,"error","Product Not found");
         }
         ShoppingItemModel newOrder = new ShoppingItemModel(newProduct.get(),
         cartOperation.get(user.getId()).get().getCart_id());
