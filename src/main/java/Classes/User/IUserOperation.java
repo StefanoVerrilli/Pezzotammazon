@@ -2,6 +2,7 @@ package Classes.User;
 
 import Classes.DAO.DAO;
 import Classes.DAO.IAddDAO;
+import Classes.DAO.IGetAll;
 import Classes.DAO.IGetDAO;
 
 import java.security.NoSuchAlgorithmException;
@@ -14,7 +15,7 @@ import java.util.Optional;
  * @param <T> Tipo generico
  */
 
-public interface IUserOperation<T> extends DAO,IAddDAO<T>,IGetDAO<T>{
+public interface IUserOperation<T> extends DAO,IAddDAO<T>,IGetDAO<T>, IGetAll<T> {
 
     /**
      * Verifica le credenziali dell'utente
@@ -25,10 +26,4 @@ public interface IUserOperation<T> extends DAO,IAddDAO<T>,IGetDAO<T>{
      */
     Optional<T> CheckUser(String email,String password) throws SQLException, NoSuchAlgorithmException;
 
-    /**
-     * Ottiene tutti gli utenti
-     * @return Lista con tipo generico, solitamente il modello che definisce l'utente
-     * @throws SQLException Errore durante la query sul database
-     */
-    List<T> getAll() throws SQLException;
 }

@@ -1,6 +1,7 @@
 package Classes.Product;
 
 import Classes.FrontController.Action;
+import Classes.Product.ProductCategory.IProductCategoryOperations;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductCategory.ProductCategoryModel;
 import org.apache.commons.io.IOUtils;
@@ -22,7 +23,10 @@ public class ProductInsert implements Action {
         InputStream is = filePart.getInputStream();
         byte[] bytesArray = IOUtils.toByteArray(is);
 
-        Optional<ProductCategoryModel> category = new ProductCategoriesOperations()
+        IProductCategoryOperations<ProductCategoryModel> productCategoryOperations =
+                                                        new ProductCategoriesOperations();
+
+        Optional<ProductCategoryModel> category = productCategoryOperations
                                         .get(Integer.parseInt(request.getParameter("productCategory")));
         if(category.isEmpty())
             throw new IllegalArgumentException("product category not found");
@@ -35,7 +39,9 @@ public class ProductInsert implements Action {
                                     .setImage(Base64.getEncoder().encodeToString(bytesArray))
                                     .build();
         try {
-            ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
+            IProductOperations<ProductModel> productOperations =
+            new ProductOperations(new ProductCategoriesOperations());
+
             productOperations.add(productToAdd);
             return "";
         } catch (SQLException e) {

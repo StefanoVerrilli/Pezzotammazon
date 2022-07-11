@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderOperations implements IOrderOperations<Order> {
+public class OrderOperations implements IOrderOperations<OrderModel> {
 
-    public boolean add(Order order,Integer collectionID) throws SQLException {
+    public boolean add(OrderModel order,Integer collectionID) throws SQLException {
         String query = "INSERT INTO ItemOrder(Quantity, OrderID, ProductID) "
                 + "VALUES(?,?,?) ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
@@ -23,7 +23,7 @@ public class OrderOperations implements IOrderOperations<Order> {
         return true;
     }
     @Override
-    public List<Order> getAllByCategory(String Category,Integer collectionID) throws SQLException {
+    public List<OrderModel> getAllByCategory(String Category,Integer collectionID) throws SQLException {
         String query = "SELECT Quantity,Name,Image,Description,ID,Amount,Cost,Category,CategoryDescription "
                 + "FROM ItemOrder join products p on p.ID = ItemOrder.ProductID "
                 + "join ProductCategories on p.Category = ProductCategories.CategoryID "
@@ -38,9 +38,9 @@ public class OrderOperations implements IOrderOperations<Order> {
     }
 
 
-    private List<Order> getAllByCategoryResults(ResultSet rest,Integer collectionID) throws SQLException {
+    private List<OrderModel> getAllByCategoryResults(ResultSet rest,Integer collectionID) throws SQLException {
 
-        List<Order> result = new ArrayList<>();
+        List<OrderModel> result = new ArrayList<>();
             ProductCategoryModel category = new ProductCategoryModel
             (rest.getInt("Category"), rest.getString("CategoryDescription"));
 
@@ -54,15 +54,15 @@ public class OrderOperations implements IOrderOperations<Order> {
                     .setDesc(rest.getString("Description"))
                     .setCategory(category)
                     .build();
-            Order order = new Order(rest.getInt(1), product, collectionID);
-            result.add(order);
+            OrderModel orderModel = new OrderModel(rest.getInt(1), product, collectionID);
+            result.add(orderModel);
         }
 
         return result;
     }
 
-    public List<Order> getAll(Integer collectionID) throws SQLException {
-        List<Order> result = new ArrayList<>();
+    public List<OrderModel> getAll(Integer collectionID) throws SQLException {
+        List<OrderModel> result = new ArrayList<>();
         String query = "SELECT Quantity,Name,Image,Description,ID,Amount,Cost,Category, CategoryDescription "
                                + "FROM ItemOrder join products p on p.ID = ItemOrder.ProductID "
                                + "join ProductCategories on p.Category = ProductCategories.CategoryID "
@@ -83,8 +83,8 @@ public class OrderOperations implements IOrderOperations<Order> {
                                            .setDesc(rest.getString("Description"))
                                            .setCategory(category)
                                            .build();
-            Order order = new Order(rest.getInt(1), product, collectionID);
-            result.add(order);
+            OrderModel orderModel = new OrderModel(rest.getInt(1), product, collectionID);
+            result.add(orderModel);
         }
         return result;
     }

@@ -10,5 +10,8 @@ public interface IShoppingItemOperations<T> extends DAO, IUpdateDAO<T> {
 
     Optional<T> get(Integer productId, Integer UserID) throws SQLException;
 
+    void delete(Integer ProductID, Integer UserID) throws SQLException;
+
+    boolean add(ShoppingItemModel item, Integer UserID) throws SQLException;
 
 }

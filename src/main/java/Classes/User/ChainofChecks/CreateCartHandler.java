@@ -1,7 +1,9 @@
 package Classes.User.ChainofChecks;
 
 import Classes.Cart.CartModel;
-import Classes.Cart.CartOperation;
+import Classes.Cart.CartOperations;
+import Classes.Cart.ICartOperations;
+import Classes.ShoppingItem.ShoppingItemModel;
 import Classes.User.AccessLevels;
 import Classes.User.UserModel;
 
@@ -13,7 +15,7 @@ public class CreateCartHandler extends Handler{
         UserModel user = (UserModel) request.getSession().getAttribute("user");
         if(user.getAccessType() == AccessLevels.Admin)
             next.handle(request);
-        CartOperation cartOperation = new CartOperation();
+        ICartOperations<CartModel, ShoppingItemModel> cartOperation = new CartOperations();
         CartModel cart = new CartModel();
         cart.setUser_id(user.getId());
         if(cartOperation.add(cart))

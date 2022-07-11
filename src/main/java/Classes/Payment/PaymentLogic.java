@@ -1,12 +1,15 @@
 package Classes.Payment;
 
 import Classes.Cart.CartModel;
-import Classes.Cart.CartOperation;
+import Classes.Cart.CartOperations;
+import Classes.Cart.ICartOperations;
 import Classes.FrontController.Action;
-import Classes.OrderCollection.OrderCollection;
+import Classes.OrderCollection.IOrderCollectionOperations;
+import Classes.OrderCollection.OrderCollectionModel;
 import Classes.OrderCollection.OrderCollectionOperations;
 import Classes.Payment.Strategy.Payment;
 import Classes.Payment.Strategy.PaymentFactory;
+import Classes.Product.IProductOperations;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductModel;
 import Classes.Product.ProductOperations;
@@ -43,13 +46,14 @@ public class PaymentLogic implements Action {
             return "/UserPages/Pay";
         }
 
-        CartOperation cartOperation = new CartOperation();
+        ICartOperations<CartModel, ShoppingItemModel> cartOperation = new CartOperations();
 
         decrementProductsAmount(cartOperation, user);
 
-        OrderCollectionOperations orderCollectionOperations =
+        IOrderCollectionOperations<OrderCollectionModel> orderCollectionOperations =
         new OrderCollectionOperations(cartOperation);
-        OrderCollection orderCollection = new OrderCollection();
+
+        OrderCollectionModel orderCollection = new OrderCollectionModel();
         orderCollection.setUser_ID(user.getId());
         orderCollection.setTimestamp(Date.valueOf(java.time.LocalDate.now()));
         orderCollectionOperations.add(orderCollection);
@@ -64,10 +68,10 @@ public class PaymentLogic implements Action {
      * Ripulisce il carrello dell'utente
      * @param User_id Identificativo dell'utente
      * @throws SQLException Errore durante l'esecuzione di una query SQL
-     * @see CartOperation
+     * @see CartOperations
      */
     private void EmptyCartWrapper(int User_id) throws SQLException{
-        CartOperation cartOperation = new CartOperation();
+        ICartOperations<CartModel,ShoppingItemModel> cartOperation = new CartOperations();
         Optional<CartModel> cart = cartOperation.get(User_id);
         if(cart.isPresent())
             cartOperation.EmptyCart(cart.get());
@@ -96,13 +100,14 @@ public class PaymentLogic implements Action {
      * @param operation Variabile per accedere alle operazioni sul carrello dell'utente
      * @param user Utente che ha acquistato
      * @throws Exception Errore causato dall'acquisto di una quantità di prodotto superiore a quella in magazzino
-     * @see CartOperation
+     * @see CartOperations
      * @see UserModel
      */
 
-    private void decrementProductsAmount(CartOperation operation, UserModel user) throws Exception {
+    private void decrementProductsAmount(ICartOperations operation, UserModel user) throws Exception {
         List<ShoppingItemModel> orderedItems = operation.getAll(user.getId());
-        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
+        IProductOperations<ProductModel> productOperations =
+        new ProductOperations(new ProductCategoriesOperations());
         for(ShoppingItemModel item : orderedItems) {
             Optional<ProductModel> product = productOperations.get(item.getProduct().getID());
             if(product.isEmpty())
@@ -125,7 +130,7 @@ public class PaymentLogic implements Action {
      * @see ProductOperations
      * @see ProductModel
      */
-    private void decrementProductIstanceAmount(ProductModel product, ProductOperations operations, Integer amountOrdered) throws Exception {
+    private void decrementProductIstanceAmount(ProductModel product, IProductOperations operations, Integer amountOrdered) throws Exception {
         if((product.getAmount() - amountOrdered)  >= 0) {
             product.setAmount(product.getAmount() - amountOrdered);
             operations.update(product);

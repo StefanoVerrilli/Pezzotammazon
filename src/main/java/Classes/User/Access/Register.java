@@ -1,7 +1,8 @@
 package Classes.User.Access;
 
-import Classes.ConcreteHashAlg;
+import Classes.User.Hashing.ConcreteHashAlg;
 import Classes.FrontController.Action;
+import Classes.User.IUserOperation;
 import Classes.User.UserModel;
 import Classes.User.UsersOperations;
 
@@ -15,7 +16,7 @@ public class Register implements Action {
                 .setMail(request.getParameter("mail"))
                 .setPassword(request.getParameter("password"))
                 .build();
-        UsersOperations usersOperations = new UsersOperations(new ConcreteHashAlg());
+        IUserOperation<UserModel> usersOperations = new UsersOperations(new ConcreteHashAlg());
         if(usersOperations.add(userToAdd)){
             return "LogIn";
         }else{

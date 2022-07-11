@@ -1,6 +1,7 @@
 package Classes.User.ChainofChecks;
 
-import Classes.ConcreteHashAlg;
+import Classes.User.Hashing.ConcreteHashAlg;
+import Classes.User.IUserOperation;
 import Classes.User.UserModel;
 import Classes.User.UsersOperations;
 
@@ -12,7 +13,7 @@ public class UserValidationHandler extends Handler{
     public String handle(HttpServletRequest request) throws Exception{
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
-        UsersOperations usersOperations = new UsersOperations(new ConcreteHashAlg());
+        IUserOperation<UserModel> usersOperations = new UsersOperations(new ConcreteHashAlg());
         Optional<UserModel> user = usersOperations.CheckUser(mail, password);
         if(user.isPresent()){
             request.getSession().setAttribute("user",user.get());

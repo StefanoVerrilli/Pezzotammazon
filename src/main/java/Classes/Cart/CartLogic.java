@@ -12,7 +12,7 @@ public class CartLogic implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserModel user = (UserModel) request.getSession().getAttribute("user");
-        CartOperation cartOperation = new CartOperation();
+        ICartOperations<CartModel,ShoppingItemModel> cartOperation = new CartOperations();
         List<ShoppingItemModel> shoppingList = cartOperation.getAll(user.getId());
         request.getSession().setAttribute("ShoppingList",shoppingList);
         return "/UserPages/Cart";

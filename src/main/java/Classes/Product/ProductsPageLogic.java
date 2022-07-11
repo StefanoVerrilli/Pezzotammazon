@@ -14,9 +14,11 @@ import java.util.List;
 public class ProductsPageLogic implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ProductOperations operations = new ProductOperations(new ProductCategoriesOperations());
+        IProductOperations<ProductModel> operations =
+        new ProductOperations(new ProductCategoriesOperations());
         List<ProductModel> products = operations.getAll();
         request.getSession().setAttribute("products_table", products);
+
         DiscriminatorProducts discriminatorProducts = new DiscriminatorProducts(products);
         UserModel user = (UserModel) request.getSession().getAttribute("user");
         Invoker invoker = new Invoker(new Dispatcher(discriminatorProducts,user));

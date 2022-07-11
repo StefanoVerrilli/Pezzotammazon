@@ -3,7 +3,7 @@ package Classes.OrderCollection;
 
 import java.sql.Date;
 
-public class OrderCollection {
+public class OrderCollectionModel {
 
     private int User_ID;
 

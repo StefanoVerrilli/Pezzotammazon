@@ -4,9 +4,12 @@ import Classes.DAO.DAO;
 import Classes.DAO.IAddDAO;
 
 import java.sql.SQLException;
+import java.util.List;
 
-public interface ISuggestionDAO<T> extends DAO,IAddDAO<T> {
+public interface ISuggestionOperations<T> extends DAO,IAddDAO<T> {
 
     void delete(Integer userID, Integer productID) throws SQLException;
+
+    List<T> getAll(Integer userId) throws SQLException;
 
 }

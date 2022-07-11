@@ -1,7 +1,7 @@
 package Classes.ShoppingItem;
 
 import Classes.Cart.CartModel;
-import Classes.Cart.ICartOperation;
+import Classes.Cart.ICartOperations;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductOperations;
 
@@ -12,8 +12,8 @@ import java.util.Optional;
 
 public class ShoppingItemOperations implements IShoppingItemOperations<ShoppingItemModel> {
 
-    ICartOperation cartOperation;
-    public ShoppingItemOperations(ICartOperation cartOperation){
+    ICartOperations cartOperation;
+    public ShoppingItemOperations(ICartOperations cartOperation){
         this.cartOperation = cartOperation;
     }
     @Override

@@ -1,4 +1,4 @@
-package Classes;
+package Classes.User.Hashing;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

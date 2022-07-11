@@ -9,5 +9,6 @@ import java.sql.SQLException;
  */
 
 public interface IGetAll<T>{
-    List<T> getAll(Integer id) throws SQLException;
+
+    List<T> getAll() throws SQLException;
 }

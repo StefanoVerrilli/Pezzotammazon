@@ -1,14 +1,16 @@
 package Classes.DataAnalysis;
 
-import Classes.Cart.CartOperation;
+import Classes.Cart.CartOperations;
 import Classes.Clustering.Record;
-import Classes.ConcreteHashAlg;
+import Classes.OrderCollection.IOrderCollectionOperations;
+import Classes.User.Hashing.ConcreteHashAlg;
 import Classes.FrontController.Action;
 import Classes.OrderCollection.OrderCollectionOperations;
 import Classes.SuggestionSystemFacede.DataAnalysisFacade;
+import Classes.User.IUserOperation;
 import Classes.User.UserModel;
 import Classes.User.UsersOperations;
-import Classes.OrderCollection.OrderCollection;
+import Classes.OrderCollection.OrderCollectionModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,11 +20,13 @@ import java.util.stream.Collectors;
 public class OrderElaboration implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        UsersOperations usersOperations = new UsersOperations(new ConcreteHashAlg());
+        IUserOperation<UserModel> usersOperations = new UsersOperations(new ConcreteHashAlg());
         Integer UserId = Integer.valueOf(request.getParameter("id"));
-        OrderCollectionOperations orderCollectionOperations =
-        new OrderCollectionOperations(new CartOperation());
-        List<OrderCollection> collection = orderCollectionOperations.getAll(UserId);
+
+        IOrderCollectionOperations<OrderCollectionModel> orderCollectionOperations =
+        new OrderCollectionOperations(new CartOperations());
+
+        List<OrderCollectionModel> collection = orderCollectionOperations.getAll(UserId);
         Optional<UserModel> user = usersOperations.get(UserId);
         if(user.isEmpty())
             throw new RuntimeException("User does not exist");

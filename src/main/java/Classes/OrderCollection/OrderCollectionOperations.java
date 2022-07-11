@@ -1,7 +1,7 @@
 package Classes.OrderCollection;
 
-import Classes.Cart.ICartOperation;
-import Classes.Order.Order;
+import Classes.Cart.ICartOperations;
+import Classes.Order.OrderModel;
 import Classes.Order.OrderOperations;
 import Classes.ShoppingItem.ShoppingItemModel;
 
@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class OrderCollectionOperations implements IOrderCollection<OrderCollection>
+public class OrderCollectionOperations implements IOrderCollectionOperations<OrderCollectionModel>
 {
-    private final ICartOperation cartOperation;
-    public OrderCollectionOperations(ICartOperation cartOperation){
+    private final ICartOperations cartOperation;
+    public OrderCollectionOperations(ICartOperations cartOperation){
         this.cartOperation = cartOperation;
     }
 @Override
-    public Optional<OrderCollection> get(Integer userId) throws SQLException {
+    public Optional<OrderCollectionModel> get(Integer userId) throws SQLException {
         String query = "SELECT OrderID,Timestamp "
                 + "FROM \"Order\" "
                 + "WHERE UserID = ? "
@@ -27,9 +27,9 @@ public class OrderCollectionOperations implements IOrderCollection<OrderCollecti
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1,userId);
         ResultSet rest = p.executeQuery();
-        Optional<OrderCollection> Collection = Optional.empty();
+        Optional<OrderCollectionModel> Collection = Optional.empty();
         if(rest.next()) {
-            Collection = Optional.of(new OrderCollection());
+            Collection = Optional.of(new OrderCollectionModel());
             Collection.get().setCollectionID(rest.getInt(1));
             Collection.get().setTimestamp(rest.getDate(2));
         }
@@ -38,7 +38,7 @@ public class OrderCollectionOperations implements IOrderCollection<OrderCollecti
     }
 
     @Override
-    public boolean add(OrderCollection collection) throws SQLException {
+    public boolean add(OrderCollectionModel collection) throws SQLException {
         String query = "INSERT INTO \"Order\" (UserID, Timestamp) "
                 + "VALUES (?,?) ";
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
@@ -56,15 +56,15 @@ public class OrderCollectionOperations implements IOrderCollection<OrderCollecti
         if(get(User_id).isEmpty())
             return false;
         for(ShoppingItemModel item: shoppingItems){
-            Order order = new Order(get(User_id).get().getCollectionID(),item);
-            orderOperations.add(order, get(User_id).get().getCollectionID());
+            OrderModel orderModel = new OrderModel(get(User_id).get().getCollectionID(),item);
+            orderOperations.add(orderModel, get(User_id).get().getCollectionID());
         }
         return true;
     }
 
-@Override
-    public List<OrderCollection> getAll(Integer User_id) throws SQLException {
-        List<OrderCollection> orderCollectionList = new ArrayList<>();
+
+    public List<OrderCollectionModel> getAll(int User_id) throws SQLException {
+        List<OrderCollectionModel> orderCollectionList = new ArrayList<>();
         String query = "SELECT OrderID,TimeStamp "
                 + "FROM \"Order\" "
                 + "WHERE UserID = ? ";
@@ -72,7 +72,7 @@ public class OrderCollectionOperations implements IOrderCollection<OrderCollecti
         p.setInt(1, User_id);
         ResultSet resultSet = p.executeQuery();
         while (resultSet.next()) {
-            OrderCollection orderCollection = new OrderCollection();
+            OrderCollectionModel orderCollection = new OrderCollectionModel();
             orderCollection.setUser_ID(User_id);
             orderCollection.setCollectionID(resultSet.getInt(1));
             orderCollection.setTimestamp(resultSet.getDate(2));

@@ -1,6 +1,6 @@
 package Classes.User;
 import Classes.DAO.DAO;
-import Classes.HashInterface;
+import Classes.User.Hashing.HashInterface;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;

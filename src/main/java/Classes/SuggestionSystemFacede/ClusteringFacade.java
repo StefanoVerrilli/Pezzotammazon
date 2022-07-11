@@ -2,8 +2,8 @@ package Classes.SuggestionSystemFacede;
 
 import Classes.Clustering.*;
 import Classes.Clustering.Record;
-import Classes.OrderCollection.IOrderCollection;
-import Classes.OrderCollection.OrderCollection;
+import Classes.OrderCollection.IOrderCollectionOperations;
+import Classes.OrderCollection.OrderCollectionModel;
 import Classes.User.IUserOperation;
 import Classes.User.UserModel;
 
@@ -22,12 +22,12 @@ private final Clustering ClusteringMethod;
     }
 
     public Map<centroid, List<Record>> ExecuteClustering(IUserOperation userOperation,
-    IOrderCollection orderOperations,
+    IOrderCollectionOperations orderOperations,
     Integer clusters,Integer iterations) throws SQLException {
         List<Record> recordList = new ArrayList<>();
         List<UserModel> users = DataPreparationFacade.getSuggestibleUsers(userOperation,orderOperations);
         for(UserModel user : users){
-            List<OrderCollection> orders = orderOperations.getAll(user.getId());
+            List<OrderCollectionModel> orders = orderOperations.getAll(user.getId());
             recordList.add(DataPreparationFacade.getData(user, orders));
         }
         return ClusteringMethod.fit(recordList, clusters, iterations);

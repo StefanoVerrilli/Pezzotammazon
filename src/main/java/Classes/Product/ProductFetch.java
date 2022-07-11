@@ -4,6 +4,7 @@ import Classes.Command.DiscriminatorFetch;
 import Classes.Command.Invoker;
 import Classes.Command.Dispatcher;
 import Classes.FrontController.Action;
+import Classes.Product.ProductCategory.IProductCategoryOperations;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductCategory.ProductCategoryModel;
 import Classes.User.UserModel;
@@ -18,7 +19,9 @@ public class ProductFetch implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserModel user = (UserModel) request.getSession().getAttribute("user");
         Optional<ProductModel> product;
-        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
+        IProductOperations<ProductModel> productOperations =
+        new ProductOperations(new ProductCategoriesOperations());
+
         Integer id = Integer.parseInt(request.getParameter("id"));
         product = productOperations.get(id);
         if(product.isEmpty()){
@@ -26,7 +29,9 @@ public class ProductFetch implements Action {
             return "/Homepage.jsp";
         }
 
-        ProductCategoriesOperations operation = new ProductCategoriesOperations();
+        IProductCategoryOperations<ProductCategoryModel> operation =
+        new ProductCategoriesOperations();
+
         List<ProductCategoryModel> categories = operation.getAll();
         request.getSession().setAttribute("categories", categories);
 

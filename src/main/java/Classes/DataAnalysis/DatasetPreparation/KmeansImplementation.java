@@ -2,16 +2,22 @@ package Classes.DataAnalysis.DatasetPreparation;
 
 import Classes.Adapter.DataToD3JSONAdapter;
 import Classes.Adapter.IJSONAdapter;
-import Classes.Cart.CartOperation;
+import Classes.Cart.CartOperations;
 import Classes.Clustering.EuclideanDistance;
 import Classes.Clustering.KMeans;
 import Classes.Clustering.Record;
 import Classes.Clustering.centroid;
-import Classes.ConcreteHashAlg;
+import Classes.OrderCollection.IOrderCollectionOperations;
+import Classes.OrderCollection.OrderCollectionModel;
+import Classes.Product.ProductCategory.IProductCategoryOperations;
+import Classes.Product.ProductCategory.ProductCategoryModel;
+import Classes.User.Hashing.ConcreteHashAlg;
 import Classes.FrontController.Action;
 import Classes.OrderCollection.OrderCollectionOperations;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.SuggestionSystemFacede.ClusteringFacade;
+import Classes.User.IUserOperation;
+import Classes.User.UserModel;
 import Classes.User.UsersOperations;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +28,11 @@ import java.util.Map;
 public class KmeansImplementation implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        UsersOperations usersOperations = new UsersOperations(new ConcreteHashAlg());
-        OrderCollectionOperations orderCollectionOperations =
-        new OrderCollectionOperations(new CartOperation());
-        ProductCategoriesOperations productCategoriesOperations =
+        IUserOperation<UserModel> usersOperations = new UsersOperations(new ConcreteHashAlg());
+        IOrderCollectionOperations<OrderCollectionModel> orderCollectionOperations =
+        new OrderCollectionOperations(new CartOperations());
+
+        IProductCategoryOperations<ProductCategoryModel> productCategoriesOperations =
         new ProductCategoriesOperations();
         int NumClusters = productCategoriesOperations.getCount();
 

@@ -1,7 +1,7 @@
 package Classes.DataAnalysis;
 
-import Classes.Cart.CartOperation;
-import Classes.ConcreteHashAlg;
+import Classes.Cart.CartOperations;
+import Classes.User.Hashing.ConcreteHashAlg;
 import Classes.FrontController.Action;
 import Classes.OrderCollection.OrderCollectionOperations;
 import Classes.SuggestionSystemFacede.DataAnalysisFacade;
@@ -38,7 +38,7 @@ public class UsersPageLogic implements Action {
          */
         List<UserModel> userModelList = dataAnalysisFacade.getSuggestibleUsers(
         new UsersOperations(new ConcreteHashAlg()),
-        new OrderCollectionOperations(new CartOperation()));
+        new OrderCollectionOperations(new CartOperations()));
 
         /**
          * Aggiunge un attributo di sessione contenente la lista degli utenti appena ottenuta

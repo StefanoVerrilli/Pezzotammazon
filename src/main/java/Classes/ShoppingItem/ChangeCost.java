@@ -1,7 +1,9 @@
 package Classes.ShoppingItem;
 
 import Classes.Cart.CartModel;
-import Classes.Cart.CartOperation;
+import Classes.Cart.CartOperations;
+import Classes.Cart.ICartOperations;
+import Classes.Product.IProductOperations;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductOperations;
 import Classes.FrontController.Action;
@@ -20,9 +22,12 @@ public class ChangeCost implements Action {
         int quantity = Integer.parseInt(request.getParameter("orderQuantity"));
         int id = Integer.parseInt(request.getParameter("orderId"));
         UserModel user = (UserModel) request.getSession().getAttribute("user");
-        CartOperation cartOperation = new CartOperation();
-        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
-        ShoppingItemOperations ordersOperations = new ShoppingItemOperations(cartOperation);
+
+        ICartOperations<CartModel,ShoppingItemModel> cartOperation = new CartOperations();
+        IProductOperations<ProductModel> productOperations =
+        new ProductOperations(new ProductCategoriesOperations());
+        IShoppingItemOperations<ShoppingItemModel> ordersOperations =
+         new ShoppingItemOperations(cartOperation);
 
         Optional<ProductModel> product = productOperations.get(id);
         if(product.isEmpty())

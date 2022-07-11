@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuggestionOperation implements ISuggestionDAO<SuggestionModel> {
+public class SuggestionOperation implements ISuggestionOperations<SuggestionModel> {
 
     @Override
     public boolean add(SuggestionModel suggestion) throws SQLException {

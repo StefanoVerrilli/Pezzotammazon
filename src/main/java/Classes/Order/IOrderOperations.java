@@ -8,4 +8,6 @@ import java.util.List;
 public interface IOrderOperations<T> extends DAO{
 
     List<T> getAllByCategory(String Category, Integer collectionID) throws SQLException;
+
+    List<T> getAll(Integer collectionID) throws SQLException;
 }

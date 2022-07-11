@@ -1,6 +1,7 @@
 package Classes.Suggestion;
 
 import Classes.FrontController.Action;
+import Classes.Product.IProductOperations;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductModel;
 import Classes.Product.ProductOperations;
@@ -20,11 +21,11 @@ public class AddSuggestion implements Action {
         List<ProductModel> suggestions = (List<ProductModel>) request.getSession().getAttribute("suggestions");
         suggestions.removeIf(e -> e.getID() == productId);
         request.getSession().setAttribute("suggestions",suggestions);
-        SuggestionOperation suggestionOperation = new SuggestionOperation();
-        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
+        ISuggestionOperations<SuggestionModel> suggestionOperation = new SuggestionOperation();
+        IProductOperations<ProductModel> productOperations = new ProductOperations(new ProductCategoriesOperations());
         Optional<ProductModel> product = productOperations.get(productId);
         if(product.isPresent())
             suggestionOperation.add(new SuggestionModel(userId,product.get()));
-        return "/Homepage";
+        return "/Error/404";
     }
 }

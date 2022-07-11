@@ -1,4 +1,6 @@
-package Classes;
+package Classes.User.Hashing;
+
+import Classes.User.Hashing.ConcreteHashAlg;
 
 import java.security.NoSuchAlgorithmException;
 

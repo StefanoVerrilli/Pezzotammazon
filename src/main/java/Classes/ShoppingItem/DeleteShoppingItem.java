@@ -1,6 +1,8 @@
 package Classes.ShoppingItem;
 
-import Classes.Cart.CartOperation;
+import Classes.Cart.CartModel;
+import Classes.Cart.CartOperations;
+import Classes.Cart.ICartOperations;
 import Classes.FrontController.Action;
 import Classes.User.UserModel;
 
@@ -14,8 +16,9 @@ public class DeleteShoppingItem implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
             int id = Integer.parseInt(request.getParameter("id"));
             UserModel user = (UserModel) request.getSession().getAttribute("user");
-            CartOperation cartOperation = new CartOperation();
-            ShoppingItemOperations itemOperations = new ShoppingItemOperations(cartOperation);
+            ICartOperations<CartModel,ShoppingItemModel> cartOperation = new CartOperations();
+            IShoppingItemOperations<ShoppingItemModel> itemOperations =
+            new ShoppingItemOperations(cartOperation);
             itemOperations.delete(id,user.getId());
             request.getSession().setAttribute("ShoppingList", cartOperation.getAll(user.getId()));
             return "/UserPages/Cart";

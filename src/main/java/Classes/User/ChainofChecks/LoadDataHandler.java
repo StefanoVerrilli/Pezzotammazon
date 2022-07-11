@@ -1,8 +1,10 @@
 package Classes.User.ChainofChecks;
 
+import Classes.Product.IProductOperations;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductModel;
 import Classes.Product.ProductOperations;
+import Classes.Suggestion.ISuggestionOperations;
 import Classes.Suggestion.SuggestionModel;
 import Classes.Suggestion.SuggestionOperation;
 import Classes.User.AccessLevels;
@@ -32,7 +34,7 @@ public class LoadDataHandler extends Handler {
     }
 
     private void getAllProductsFromDatabase() throws SQLException {
-        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
+        IProductOperations<ProductModel> productOperations = new ProductOperations(new ProductCategoriesOperations());
         this.product_list = productOperations.getAll();
     }
 
@@ -42,7 +44,7 @@ public class LoadDataHandler extends Handler {
     }
 
     private void getSuggestionsAndAddtoSession(HttpServletRequest request) {
-        SuggestionOperation suggestionOperation = new SuggestionOperation();
+        ISuggestionOperations<SuggestionModel> suggestionOperation = new SuggestionOperation();
         List<SuggestionModel> product_suggestions;
         try {
             product_suggestions = suggestionOperation.getAll(user.getId());

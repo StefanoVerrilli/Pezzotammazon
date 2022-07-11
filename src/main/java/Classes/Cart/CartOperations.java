@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CartOperation implements ICartOperation<CartModel,ShoppingItemModel>{
+public class CartOperations implements ICartOperations<CartModel,ShoppingItemModel> {
 
     @Override
     public void EmptyCart(CartModel cart) throws SQLException{

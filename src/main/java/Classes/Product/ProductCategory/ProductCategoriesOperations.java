@@ -57,7 +57,7 @@ public class ProductCategoriesOperations implements IProductCategoryOperations<P
         p.close();
         return Optional.of(category);
     }
-
+    @Override
     public List<ProductCategoryModel> getAll() throws SQLException {
         List<ProductCategoryModel> catList = new ArrayList<>();
         String query = "SELECT * "

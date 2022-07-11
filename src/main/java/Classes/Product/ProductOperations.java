@@ -27,8 +27,7 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         p.setInt(1,id);
         ResultSet rest = p.executeQuery();
 
-        ProductCategoryModel category =
-                                        new ProductCategoryModel(rest.getInt("Category"),
+        ProductCategoryModel category = new ProductCategoryModel(rest.getInt("Category"),
                                     rest.getString("CategoryDescription"));
 
         ProductModel product = new ProductModel.Builder(rest.getString("Name"))
@@ -42,7 +41,7 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         p.close();
         return Optional.of(product);
     }
-
+    @Override
     public List<ProductModel> getAll() throws SQLException {
         List<ProductModel> result = new ArrayList<>();
         String query = "SELECT * "

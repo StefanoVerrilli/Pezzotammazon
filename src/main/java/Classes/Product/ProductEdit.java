@@ -1,6 +1,7 @@
 package Classes.Product;
 
 import Classes.FrontController.Action;
+import Classes.Product.ProductCategory.IProductCategoryOperations;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductCategory.ProductCategoryModel;
 import org.apache.commons.io.IOUtils;
@@ -17,9 +18,12 @@ import java.util.Optional;
 public class ProductEdit implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ProductOperations productOperations = new ProductOperations(new ProductCategoriesOperations());
+        IProductOperations<ProductModel> productOperations =
+        new ProductOperations(new ProductCategoriesOperations());
 
-        ProductCategoriesOperations categoryOperations = new ProductCategoriesOperations();
+        IProductCategoryOperations<ProductCategoryModel> categoryOperations =
+        new ProductCategoriesOperations();
+
         Optional<ProductCategoryModel> category =
         categoryOperations.get(Integer.parseInt(request.getParameter("productCategory")));
 
@@ -34,6 +38,7 @@ public class ProductEdit implements Action {
         productToAdd.get().setAmount(Integer.parseInt(request.getParameter("productAmount")));
         productToAdd.get().setCategory(category.get());
         productToAdd.get().setID(Integer.parseInt(request.getParameter("productID")));
+
         if (request.getPart("productImage") != null) {
             Part filePart = request.getPart("productImage");
             InputStream is = filePart.getInputStream();
