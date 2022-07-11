@@ -29,16 +29,28 @@ public class ProductEdit implements Action {
 
         Optional<ProductModel> productToAdd = productOperations.
                 get(Integer.parseInt(request.getParameter("productID")));
+
         if(productToAdd.isEmpty()){
             request.getSession().setAttribute("error","product not found");
             return "/Error/404";}
-        productToAdd.get().setName(request.getParameter("productName"));
-        productToAdd.get().setDesc(request.getParameter("productDesc"));
-        productToAdd.get().setCost(Float.parseFloat(request.getParameter("productCost")));
-        productToAdd.get().setAmount(Integer.parseInt(request.getParameter("productAmount")));
-        productToAdd.get().setCategory(category.get());
-        productToAdd.get().setID(Integer.parseInt(request.getParameter("productID")));
 
+        try {
+            productToAdd.get()
+                    .setName(request.getParameter("productName"));
+            productToAdd.get()
+                    .setDesc(request.getParameter("productDesc"));
+            productToAdd.get()
+                    .setCost(Float.parseFloat(request.getParameter("productCost")));
+            productToAdd.get()
+                    .setAmount(Integer.parseInt(request.getParameter("productAmount")));
+            productToAdd.get()
+                    .setCategory(category.get());
+            productToAdd.get()
+                    .setID(Integer.parseInt(request.getParameter("productID")));
+        }catch (NumberFormatException e){
+            request.getSession().setAttribute("error","illegal arguments for product edit");
+            return "/AdminPages/Edit";
+        }
         if (request.getPart("productImage") != null) {
             Part filePart = request.getPart("productImage");
             InputStream is = filePart.getInputStream();

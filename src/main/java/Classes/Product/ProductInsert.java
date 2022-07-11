@@ -27,25 +27,29 @@ public class ProductInsert implements Action {
                                                         new ProductCategoriesOperations();
 
         Optional<ProductCategoryModel> category = productCategoryOperations
-                                        .get(Integer.parseInt(request.getParameter("productCategory")));
+        .get(Integer.parseInt(request.getParameter("productCategory")));
+
         if(category.isEmpty())
             throw new IllegalArgumentException("product category not found");
-
-        ProductModel productToAdd  = new ProductModel.Builder(request.getParameter("productName"))
-                                    .setCost(Float.parseFloat(request.getParameter("productCost")))
-                                    .setAmount(Integer.valueOf(request.getParameter("productAmount")))
-                                    .setDesc(request.getParameter("productDesc"))
-                                    .setCategory(category.get())
-                                    .setImage(Base64.getEncoder().encodeToString(bytesArray))
-                                    .build();
+        ProductModel productToAdd;
         try {
-            IProductOperations<ProductModel> productOperations =
-            new ProductOperations(new ProductCategoriesOperations());
-
-            productOperations.add(productToAdd);
-            return "";
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-}
+            productToAdd = new ProductModel.Builder(request.getParameter("productName"))
+                            .setCost(Float.parseFloat(request.getParameter("productCost")))
+                            .setAmount(Integer.valueOf(request.getParameter("productAmount")))
+                            .setDesc(request.getParameter("productDesc"))
+                            .setCategory(category.get())
+                            .setImage(Base64.getEncoder()
+                            .encodeToString(bytesArray))
+                            .build();
+            try {
+                IProductOperations<ProductModel> productOperations =
+                new ProductOperations(new ProductCategoriesOperations());
+                productOperations.add(productToAdd);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);}
+        }catch (NumberFormatException e){
+                request.getSession().setAttribute("error","Illegal arguments for product insert");
+                return "";
+            }
+        return "/AdminPages/InsertProduct";
+}}

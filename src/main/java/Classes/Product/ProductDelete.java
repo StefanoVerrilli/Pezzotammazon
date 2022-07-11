@@ -14,7 +14,7 @@ public class ProductDelete implements Action {
             IProductOperations<ProductModel> productOperations =
             new ProductOperations(new ProductCategoriesOperations());
             productOperations.delete(Integer.parseInt(id));
-            request.getSession().setAttribute("data",productOperations.getAll());
+            request.getSession().setAttribute("products_table",productOperations.getAll());
             return "/AdminPages/ProductsTable";
         }else{
             return "";
