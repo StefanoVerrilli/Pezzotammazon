@@ -6,7 +6,7 @@
     <jsp:param name="page_title" value="New account - Pezzotammazon"/>
 </jsp:include>
 
-<jsp:include page="Navbar.jsp">
+<jsp:include page="Navbar.jsp"/>
 
 <body>
 

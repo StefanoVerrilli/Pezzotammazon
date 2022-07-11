@@ -29,6 +29,6 @@ public class AddSuggestion implements Action {
         if(product.isEmpty())
             throw new LogicException(request,"error","NoProductFound");
         suggestionOperation.add(new SuggestionModel(userId,product.get()));
-        return "";
+        return "/AdminPages/UserStatistics";
     }
 }
