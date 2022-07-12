@@ -1,17 +1,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <jsp:include page="/Head.jsp">
-        <jsp:param name="page_title" value="Products - Pezzotammazon"/>
-    </jsp:include>
-
-    <jsp:include page="/Navbar.jsp"/>
 <body>
 <%
     if(session.getAttribute("user") == null) {
         response.sendRedirect("/LogIn.jsp");
     }
 %>
+
+<jsp:include page="/Head.jsp">
+    <jsp:param name="page_title" value="Products - Pezzotammazon"/>
+</jsp:include>
+
+<jsp:include page="/Navbar.jsp"/>
 
 <c:if test="${not empty product_suggestions}">
 <div class="block m-5">

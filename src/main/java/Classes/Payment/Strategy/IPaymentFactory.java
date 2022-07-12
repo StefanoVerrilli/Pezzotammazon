@@ -6,8 +6,6 @@ import java.util.List;
 
 public abstract class IPaymentFactory {
 
-    public static final List<IPayMethod> Payment = new ArrayList<>();
-
     public static HttpServletRequest request;
 
     public IPaymentFactory(HttpServletRequest request){
@@ -15,5 +13,5 @@ public abstract class IPaymentFactory {
     }
 
 
-    public abstract Payment PaymentMethod(String key);
+    public abstract IPayMethod PaymentMethod();
 }

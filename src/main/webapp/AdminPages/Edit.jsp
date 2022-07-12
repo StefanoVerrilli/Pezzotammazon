@@ -8,11 +8,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <html>
 <head>
-    <jsp:include page="/Head.jsp">
-        <jsp:param name="page_title" value="Edit ${Product.getName()} - Pezzotammazon"/>
-    </jsp:include>
-
-    <jsp:include page="/Navbar.jsp"/>
 
     <script>
             var result;
@@ -47,6 +42,11 @@
             response.sendRedirect("/LogIn.jsp");
         }
     %>
+    <jsp:include page="/Head.jsp">
+        <jsp:param name="page_title" value="Edit ${Product.getName()} - Pezzotammazon"/>
+    </jsp:include>
+
+    <jsp:include page="/Navbar.jsp"/>
 <body>
 <div class="container my-3">
     <form id="productForm" enctype="multipart/form-data" action="EditAction.do" method="POST" onsubmit="event.preventDefault();submitForm()">

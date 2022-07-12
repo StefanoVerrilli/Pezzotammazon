@@ -1,5 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
+<%
+  response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
+  if (session.getAttribute("user") == null) {
+    response.sendRedirect("/LogIn.jsp");
+  }
+%>
+
   <jsp:include page="/Head.jsp">
     <jsp:param name="page_title" value="Pay order - Pezzotammazon"/>
   </jsp:include>

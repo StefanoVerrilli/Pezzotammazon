@@ -2,17 +2,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-    <jsp:include page="/Head.jsp">
-        <jsp:param name="page_title" value="All products - Pezzotammazon"/>
-    </jsp:include>
-
-    <jsp:include page="/Navbar.jsp"/>
-
     <%
         response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
         if(session.getAttribute("user") == null)
             response.sendRedirect("/LogIn.jsp");
     %>
+<jsp:include page="/Head.jsp">
+    <jsp:param name="page_title" value="All products - Pezzotammazon"/>
+</jsp:include>
+
+<jsp:include page="/Navbar.jsp"/>
 </head>
 <body>
 

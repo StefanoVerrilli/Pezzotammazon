@@ -8,8 +8,7 @@ import Classes.FrontController.Action;
 import Classes.OrderCollection.IOrderCollectionOperations;
 import Classes.OrderCollection.OrderCollectionModel;
 import Classes.OrderCollection.OrderCollectionOperations;
-import Classes.Payment.Strategy.Payment;
-import Classes.Payment.Strategy.PaymentFactory;
+import Classes.Payment.Strategy.*;
 import Classes.Product.IProductOperations;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import Classes.Product.ProductModel;
@@ -26,6 +25,8 @@ import java.util.Optional;
 
 public class PaymentLogic implements Action {
 
+    HttpServletRequest request;
+
     /**
      * Esegue le azioni necessarie a eseguire il pagamento e modifica lo stato dell'ordine e degli articoli acquistati
      * @param request Variabile di richiesta HTTP
@@ -37,11 +38,11 @@ public class PaymentLogic implements Action {
      */
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+        this.request = request;
         UserModel user = (UserModel) request.getSession().getAttribute("user");
 
         try {
-            payOrderBySessionInformation(request);
+            payOrderBySessionInformation();
         } catch (Exception exception) {
             request.getSession().setAttribute("error", exception.toString());
             return "/UserPages/Pay";
@@ -49,7 +50,7 @@ public class PaymentLogic implements Action {
 
         ICartOperations<CartModel, ShoppingItemModel> cartOperation = new CartOperations();
 
-        decrementProductsAmount(request,cartOperation, user);
+        decrementProductsAmount(cartOperation, user);
 
         IOrderCollectionOperations<OrderCollectionModel> orderCollectionOperations =
         new OrderCollectionOperations(cartOperation);
@@ -60,7 +61,7 @@ public class PaymentLogic implements Action {
         orderCollectionOperations.add(orderCollection);
         if(!orderCollectionOperations.AddSingleOrders(user.getId()))
             throw new LogicException(request,"error","error during payment");
-        EmptyCartWrapper(request,user.getId());
+        EmptyCartWrapper(user.getId());
         return "/UserPages/ProductPage";
     }
 
@@ -71,7 +72,7 @@ public class PaymentLogic implements Action {
      * @throws SQLException Errore durante l'esecuzione di una query SQL
      * @see CartOperations
      */
-    private void EmptyCartWrapper(HttpServletRequest request,int User_id) throws LogicException,SQLException{
+    private void EmptyCartWrapper(int User_id) throws LogicException,SQLException{
         ICartOperations<CartModel,ShoppingItemModel> cartOperation = new CartOperations();
         Optional<CartModel> cart = cartOperation.get(User_id);
         if(cart.isEmpty())
@@ -81,19 +82,19 @@ public class PaymentLogic implements Action {
 
     /**
      * Esegue il pagamento
-     * @param request Variabile di richiesta HTTP, contenente i dati necessari per il pagamento
      * @throws Exception Errore durante il pagamento
      */
-    private void payOrderBySessionInformation(HttpServletRequest request) throws Exception {
+    private void payOrderBySessionInformation() {
         String method = request.getParameter("payment_type");
-        PaymentFactory factory = new PaymentFactory(request);
-        Payment Payment;
-        if((Payment = factory.PaymentMethod(method)) == null) {
-            throw new Exception("Transaction failed");
-        }
+        IPaymentFactory factory = switch (method) {
+            case "creditcard" -> new PayCreditCardFactory(request);
+            case "bancomat" -> new PayBancomatFactory(request);
+            default -> throw new LogicException(request, "invalid_payment", "Payment Method not found");
+        };
+        IPayMethod PaymentMethod = factory.PaymentMethod();
+        Payment Payment = PaymentMethod.Create(request);
         if(!Payment.Pay()) {
-            request.getSession().setAttribute("error", "Transaction failed");
-            throw new Exception("Transaction failed");
+            throw new LogicException(request,"invalid_payment","error during payment");
         }
     }
 
@@ -106,7 +107,7 @@ public class PaymentLogic implements Action {
      * @see UserModel
      */
 
-    private void decrementProductsAmount(HttpServletRequest request,ICartOperations operation, UserModel user) throws SQLException,LogicException {
+    private void decrementProductsAmount(ICartOperations operation, UserModel user) throws SQLException,LogicException {
         List<ShoppingItemModel> orderedItems = operation.getAll(user.getId());
         IProductOperations<ProductModel> productOperations =
         new ProductOperations(new ProductCategoriesOperations());
@@ -132,12 +133,13 @@ public class PaymentLogic implements Action {
      * @see ProductOperations
      * @see ProductModel
      */
-    private void decrementProductIstanceAmount(ProductModel product, IProductOperations operations, Integer amountOrdered) throws Exception {
+    private void decrementProductIstanceAmount(ProductModel product,
+    IProductOperations operations, Integer amountOrdered) throws Exception {
         if((product.getAmount() - amountOrdered)  >= 0) {
             product.setAmount(product.getAmount() - amountOrdered);
             operations.update(product);
         } else {
-            throw new Exception("Product can't be purchased");
+            throw new LogicException(request,"error","Product can't be purchased");
         }
     }
 }

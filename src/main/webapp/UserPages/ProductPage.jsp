@@ -1,16 +1,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    if(session.getAttribute("user") == null) {
+        response.sendRedirect("/LogIn.jsp");}
+%>
 <jsp:include page="/Head.jsp">
     <jsp:param name="page_title" value="${Product.getName()} - Pezzotammazon"/>
 </jsp:include>
 
 <jsp:include page="/Navbar.jsp"/>
 
-<%
-    if(session.getAttribute("user") == null) {
-        response.sendRedirect("/LogIn.jsp");}
-%>
 <body>
 <div class="mx-auto container is-fullhd columns is-flex is-flex-direction-row is-flex-wrap-wrap is-justify-content-space-between is-align-content-center is-align-items-center">
     <div class="column is-flex-grow-3 is-flex-shrink-1 container is-max-desktop" style="min-width:300px">

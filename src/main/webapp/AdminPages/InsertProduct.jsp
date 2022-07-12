@@ -1,11 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <jsp:include page="/Head.jsp">
-        <jsp:param name="page_title" value="Insert a new product - Pezzotammazon"/>
-    </jsp:include>
-
-    <jsp:include page="/Navbar.jsp"/>
 
     <script>
         var result;
@@ -30,12 +25,18 @@
             return false;
         }
     </script>
+<jsp:include page="/Head.jsp">
+    <jsp:param name="page_title" value="Insert a new product - Pezzotammazon"/>
+</jsp:include>
+
+<jsp:include page="/Navbar.jsp"/>
 </head>
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
     if(session.getAttribute("user") == null)
         response.sendRedirect("/LogIn.jsp");
 %>
+
 <body>
 <div class="container">
 <form id="productForm" enctype="multipart/form-data" method="post" action="Insert.do" onsubmit="event.preventDefault();submitForm()">
