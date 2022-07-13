@@ -27,20 +27,21 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1,id);
         ResultSet rest = p.executeQuery();
-
+        Optional<ProductModel> product = Optional.empty();
+        if(!rest.isClosed()){
         ProductCategoryModel category = new ProductCategoryModel(rest.getInt("Category"),
                                     rest.getString("CategoryDescription"));
 
-        ProductModel product = new ProductModel.Builder(rest.getString("Name"))
-                                       .setImage(rest.getString("Image"))
-                                       .setCost(rest.getFloat("Cost"))
-                                       .setId(rest.getInt("ID"))
-                                       .setAmount(rest.getInt("Amount"))
-                                       .setDesc(rest.getString("Description"))
-                                       .setCategory(category)
-                                       .build();
+        product = Optional.ofNullable(new ProductModel.Builder(rest.getString("Name"))
+                                              .setImage(rest.getString("Image"))
+                                              .setCost(rest.getFloat("Cost"))
+                                              .setId(rest.getInt("ID"))
+                                              .setAmount(rest.getInt("Amount"))
+                                              .setDesc(rest.getString("Description"))
+                                              .setCategory(category)
+                                              .build());}
         p.close();
-        return Optional.of(product);
+        return product;
     }
     @Override
     public List<ProductModel> getAll() throws SQLException {

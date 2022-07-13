@@ -151,7 +151,9 @@ public class UsersOperations implements IUserOperation<UserModel> {
         PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1,Id);
         ResultSet rest = p.executeQuery();
-         UserModel newUser = new UserModel.Builder(rest.getString(3))
+        if(rest.isClosed())
+            return Optional.empty();
+        UserModel newUser = new UserModel.Builder(rest.getString(3))
                                         .setMail(rest.getString(1))
                                         .setPassword(rest.getString(2))
                                         .setID(rest.getInt(5))
