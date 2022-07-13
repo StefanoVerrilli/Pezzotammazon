@@ -3,6 +3,13 @@ package Classes.Command;
 import Classes.User.AccessLevels;
 import Classes.User.UserModel;
 
+/**
+ * Implementa i metodi di {@link  Command}.  Seleziona l'esecuzione a seconda del tipo di utente.
+ * @see UserModel
+ * @see AccessLevels
+ * @see DiscriminatorInterface
+ */
+
 public class Dispatcher implements Command{
 
     private final UserModel user;

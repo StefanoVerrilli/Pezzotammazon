@@ -4,6 +4,14 @@ import Classes.ServletsRegulation.AdminState;
 import Classes.ServletsRegulation.Context;
 import Classes.ServletsRegulation.State;
 import Classes.ServletsRegulation.UserState;
+import Classes.User.AccessLevels;
+
+/**
+ * Implementa {@link DiscriminatorInterface} e ritorna la pagina adatta a seconda del tipo di utente.
+ * @see AccessLevels
+ * @see UserState
+ * @see Context
+ */
 
 public class DiscriminatorLinks implements DiscriminatorInterface{
 

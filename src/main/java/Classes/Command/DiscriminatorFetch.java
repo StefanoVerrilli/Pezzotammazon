@@ -8,6 +8,10 @@ public class DiscriminatorFetch implements DiscriminatorInterface{
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String UserPages(){return (id != null) ? "/UserPages/ProductPage" : "/Error/404";}
     @Override

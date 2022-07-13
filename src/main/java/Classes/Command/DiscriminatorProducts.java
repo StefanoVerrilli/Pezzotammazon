@@ -1,8 +1,16 @@
 package Classes.Command;
 
 import Classes.Product.ProductModel;
+import Classes.Product.ProductsPageLogic;
+import Classes.User.AccessLevels;
 
 import java.util.List;
+
+/**
+ * Implementa {@link DiscriminatorInterface} e rimanda alla pagina dei prodotti specifica a seconda dell'{@link AccessLevels} dell'utente.
+ * @see ProductsPageLogic
+ * @see ProductModel
+ */
 
 public class DiscriminatorProducts implements DiscriminatorInterface{
 
