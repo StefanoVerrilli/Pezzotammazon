@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * Servlet per la visualizzazione grafica del carrello.
+ */
+
 public class CartLogic implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

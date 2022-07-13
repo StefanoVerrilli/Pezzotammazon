@@ -10,6 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Definisce le operazioni sul carrello.
+ * @see ICartOperations
+ * @see CartModel
+ * @see ShoppingItemModel
+ */
+
 public class CartOperations implements ICartOperations<CartModel,ShoppingItemModel> {
     private final Database myDb = Database.getInstance();
     @Override

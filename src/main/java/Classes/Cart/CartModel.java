@@ -1,4 +1,9 @@
 package Classes.Cart;
+
+/**
+ * Modello che rappresenta il carrello.
+ */
+
 public class CartModel {
 
     private int Cart_id;
