@@ -7,7 +7,7 @@ import Classes.DAO.IGetDAO;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface IOrderCollectionOperations<T> extends DAO,IGetDAO<T>, IAddDAO<T> {
+public interface IOrderCollectionOperations<T> extends IGetDAO<T>, IAddDAO<T> {
 
     boolean AddSingleOrders(int User_id) throws SQLException;
 

@@ -1,6 +1,7 @@
 package Classes.OrderCollection;
 
 import Classes.Cart.ICartOperations;
+import Classes.DAO.Database;
 import Classes.Order.OrderModel;
 import Classes.Order.OrderOperations;
 import Classes.ShoppingItem.ShoppingItemModel;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 public class OrderCollectionOperations implements IOrderCollectionOperations<OrderCollectionModel>
 {
+    private Database myDb = Database.getInstance();
     private final ICartOperations cartOperation;
     public OrderCollectionOperations(ICartOperations cartOperation){
         this.cartOperation = cartOperation;

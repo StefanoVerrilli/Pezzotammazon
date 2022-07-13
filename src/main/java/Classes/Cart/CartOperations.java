@@ -1,4 +1,5 @@
 package Classes.Cart;
+import Classes.DAO.Database;
 import Classes.Product.ProductModel;
 import Classes.ShoppingItem.ShoppingItemModel;
 
@@ -17,7 +18,7 @@ import java.util.Optional;
  */
 
 public class CartOperations implements ICartOperations<CartModel,ShoppingItemModel> {
-
+    private final Database myDb = Database.getInstance();
     @Override
     public void EmptyCart(CartModel cart) throws SQLException{
         String query = "DELETE FROM ShoppingItem "

@@ -15,8 +15,7 @@ import java.util.List;
  * @see IAddDAO
  * @see IGetDAO
  */
-
-public interface ICartOperations<T,G> extends DAO, IAddDAO<T>, IGetDAO<T> {
+public interface ICartOperations<T,G> extends IAddDAO<T>, IGetDAO<T> {
     void EmptyCart(T cart) throws SQLException;
 
     List<G> getAll(Integer UserID) throws SQLException;

@@ -15,7 +15,7 @@ import java.util.Optional;
  * @param <T> Tipo generico
  */
 
-public interface IUserOperation<T> extends DAO,IAddDAO<T>,IGetDAO<T>, IGetAll<T> {
+public interface IUserOperation<T> extends IAddDAO<T>,IGetDAO<T>, IGetAll<T> {
 
     /**
      * Verifica le credenziali dell'utente

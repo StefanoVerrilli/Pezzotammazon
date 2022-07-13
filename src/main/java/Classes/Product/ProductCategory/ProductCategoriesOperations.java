@@ -12,12 +12,12 @@ import java.util.Optional;
 
 public class ProductCategoriesOperations implements IProductCategoryOperations<ProductCategoryModel> {
 
-
+    private final Database myDb = Database.getInstance();
     @Override
     public boolean add(ProductCategoryModel category) throws SQLException {
         String query = "INSERT INTO ProductCategories (CategoryID,CategoryDescription) "
                 + "VALUES(?,?)";
-        PreparedStatement p = DAO.myDb.getConnection().prepareStatement(query);
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1, category.getCategoryID());
         p.setString(2, category.getCategoryDescription());
         p.executeUpdate();
@@ -38,7 +38,7 @@ public class ProductCategoriesOperations implements IProductCategoryOperations<P
     public void delete(Integer id) throws SQLException {
         String query = "DELETE FROM ProductCategories "
                 + "WHERE CategoryID = ? ";
-        PreparedStatement p = DAO.myDb.getConnection().prepareStatement(query);
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1,id);
         p.executeUpdate();
         p.close();
@@ -49,7 +49,7 @@ public class ProductCategoriesOperations implements IProductCategoryOperations<P
         String query = "SELECT * "
                 + "FROM ProductCategories "
                 + "WHERE CategoryID = ? ";
-        PreparedStatement p = DAO.myDb.getConnection().prepareStatement(query);
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1,Id);
         ResultSet results = p.executeQuery();
         ProductCategoryModel category = new ProductCategoryModel(results.getInt("CategoryID"),
@@ -62,7 +62,7 @@ public class ProductCategoriesOperations implements IProductCategoryOperations<P
         List<ProductCategoryModel> catList = new ArrayList<>();
         String query = "SELECT * "
                 + "FROM ProductCategories ";
-        Statement stat = DAO.myDb.getConnection().createStatement();
+        Statement stat = myDb.getConnection().createStatement();
         ResultSet result = stat.executeQuery(query);
         while(result.next()){
             ProductCategoryModel category = new ProductCategoryModel(result.getInt("CategoryID"),
