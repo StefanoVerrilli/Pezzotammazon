@@ -46,7 +46,7 @@
                 <div class="card-image is-clipped" style="height:150px">
                     <figure class="image has-ratio 16by9" style="max-width:300px">
                         <img src="data:image/png;base64,${suggestion.getImage()}"
-                             alt="Image depicting ${suggestion.getName()}" style="height: 100%">
+                             alt="Image depicting ${suggestion.getName()}" style="height:100%; width:auto; margin:auto">
                     </figure>
                 </div>
                 <div class="content">
