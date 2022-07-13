@@ -14,7 +14,7 @@
         <a class="navbar-item" href="ProductsTable.do">
     </c:when>
     <c:otherwise>
-        <a class="navbar-item" href="LogIn.jsp">
+        <a class="navbar-item" href="/LogIn.jsp">
     </c:otherwise>
     </c:choose>
             <img src="/static/logo.png" width="150" height="80" style="max-height: initial">
