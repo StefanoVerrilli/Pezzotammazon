@@ -5,6 +5,14 @@ import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Classe che si occupa della costruzione effettiva della navbar, differente a seconda dello stato di
+ * accesso dell'utente, passandola alla view apposita.
+ * @see AccessLevels
+ * @see Navbar
+ * @see NavBarBuilder
+ */
+
 public class BuildNavbar{
 
     public static void GetNavbar(HttpServletRequest request) {

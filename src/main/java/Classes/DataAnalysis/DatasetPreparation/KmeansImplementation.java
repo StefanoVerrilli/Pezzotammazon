@@ -25,6 +25,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Classe che si occupa di gestire la richiesta per la generazione dei dati per la pagina di visualizzazione
+ * dati dell'utente (clustering).
+ * @see Action
+ */
+
 public class KmeansImplementation implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

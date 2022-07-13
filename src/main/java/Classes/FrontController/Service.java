@@ -16,16 +16,19 @@ import javax.servlet.annotation.*;
 @MultipartConfig(maxFileSize = 16177215)
 public class    Service extends HttpServlet {
     /**
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
+     * Gestisce le richieste dei Servlet.
+     * @param request Richiesta HTTP.
+     * @param response Risposta HTTP.
+     * @throws ServletException Eccezione servlet.
      */
     protected void Service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException{
         try {
             Action action = ActionFactory.getAction(request);
             String View = action.execute(request,response);
+            /**
+             * Esegue il redirect della pagina ottenuta dalla execute e aggiunge l'esensione .jsp.
+             */
             response.sendRedirect(View + ".jsp");
         } catch (Exception e) {
             throw new ServletException("Executing action failed",e);

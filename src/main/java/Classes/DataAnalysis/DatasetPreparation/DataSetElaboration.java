@@ -19,7 +19,21 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Contiene metodi per la gestione dei dati per il suggerimento dei prodotti.
+ */
+
 public class DataSetElaboration {
+
+    /**
+     * Ottiene informazioni sull'utente e la lista degli ordini effettuati.
+     * @see Record
+     * @param user Utente di cui si vogliono ottenere i dati.
+     * @see UserModel
+     * @param orderCollectionList Lista contenente gli ordini dell'utente.
+     * @return Record contenente i dati.
+     * @throws SQLException
+     */
 
     public Record getData(UserModel user, List<OrderCollectionModel> orderCollectionList) throws SQLException{
 
@@ -45,6 +59,12 @@ public class DataSetElaboration {
         return new Record(user,data);
     }
 
+    /**
+     * Permette di ottenere il nome della categoria con maggiori acquisti per l'utente.
+     * @param userRecord Record contentente l'utente e i dati dell'utente da cui calcolare la categoria con maggiori acquisti.
+     * @return Nome della categoria con maggiori acquisti.
+     * @see Record
+     */
     public String MaxPurchaseCategory(Record userRecord){
         Map<String,Integer> features = userRecord.getFeatures();
         Integer Max = 0;
@@ -59,6 +79,13 @@ public class DataSetElaboration {
     return Category;
     }
 
+    /**
+     * Ottiene i prodotti suggeriti per l'utente sulla base della categoria con maggiori acquisti.
+     * @param Category Categoria da cui ottenere i suggerimenti, solitamente si passa quella con il numero di acquisti maggiori.
+     * @param orderCollectionList Lista degli ordini effettuati dall'utente.
+     * @return Lista dei prodotti suggeriti.
+     * @throws SQLException Errore nell'esecuzione della query sul database.
+     */
     public List<ProductModel> getSuggestions(String Category,List<OrderCollectionModel> orderCollectionList) throws SQLException {
 
         IProductOperations<ProductModel> productOperations =
@@ -66,18 +93,28 @@ public class DataSetElaboration {
 
         List<ProductModel> products = productOperations.getAllByCategory(Category);
         Set<OrderModel> orderSet = new HashSet<>();
+
+
         for(OrderCollectionModel collection : orderCollectionList){
             IOrderOperations<OrderModel> orderOperations = new OrderOperations();
             List<OrderModel> orders = orderOperations.getAllByCategory(Category,collection.getCollectionID());
             orderSet.addAll(orders);
         }
+
+        /**
+         * Non suggerire se il prodotto è già stato acquistato.
+         */
         products.removeIf(e -> orderSet.stream()
         .anyMatch(order -> order.getItem().getID() == e.getID()));
 
         List<SuggestionModel> AlreadySuggested = new SuggestionOperation().getAll(orderCollectionList.get(0).getUser_ID());
 
+        /**
+         * Non mostrare tra i suggerimenti se il prodotto è già suggerito.
+         */
         products.removeIf(e-> AlreadySuggested.stream()
         .anyMatch(suggestion -> suggestion.getProductID() == e.getID()));
+
         return products;
     }
 

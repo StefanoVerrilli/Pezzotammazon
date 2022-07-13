@@ -18,6 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Gestisce la logica della pagina di visualizzazione dei maggiori acquisti per categoria
+ * dell'utente e visualizza la lista dei prodotti suggeriti, passandoli alla pagina.
+ */
+
 public class OrderElaboration implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

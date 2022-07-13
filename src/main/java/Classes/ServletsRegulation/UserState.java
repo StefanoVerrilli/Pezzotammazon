@@ -9,6 +9,10 @@ import Classes.ShoppingItem.ChangeCost;
 import Classes.ShoppingItem.DeleteShoppingItem;
 
 public class UserState implements State{
+
+    /**
+     * Imposta le azioni disponibili per il cliente.
+     */
     @Override
     public void LoadLink() {
         Actions.putAction("GET/PaymentPageLoad.do", new PaymentPageLoad());

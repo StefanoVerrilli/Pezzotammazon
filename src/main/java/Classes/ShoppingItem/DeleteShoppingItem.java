@@ -11,6 +11,10 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Elimina l'oggetto dal carrello.
+ */
+
 @MultipartConfig(maxFileSize = 16177215)
 public class DeleteShoppingItem implements Action {
     @Override

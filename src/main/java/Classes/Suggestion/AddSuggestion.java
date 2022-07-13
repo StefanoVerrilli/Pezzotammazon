@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Permette di aggiungere un prodotto ai suggeriti per un dato utente.
+ */
+
 @MultipartConfig(maxFileSize = 16177215)
 public class AddSuggestion implements Action {
     @Override

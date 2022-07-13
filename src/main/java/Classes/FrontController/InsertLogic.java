@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * Pagina che gestisce l'operazione di inserimento di un prodotto (lato amministratore).
+ */
 public class InsertLogic implements Action{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

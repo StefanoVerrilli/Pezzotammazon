@@ -3,12 +3,25 @@ package Classes.Order;
 import Classes.Product.ProductModel;
 import Classes.ShoppingItem.ShoppingItemModel;
 
+/**
+ * Modello che rappresenta un oggetto in un ordine.
+ */
+
 public class OrderModel {
 
+    /**
+     * Identificativo ordine.
+     */
     private Integer ContainerID;
 
+    /**
+     * Quantità del prodotto ordinata.
+     */
     private Integer quantity;
 
+    /**
+     * Prodotto ordinato.
+     */
     private ProductModel item;
 
 
@@ -24,6 +37,10 @@ public class OrderModel {
         this.ContainerID = OrderID;
     }
 
+    /**
+     * Ottiene la quantità.
+     * @return Quantità del prodotto ordinata.
+     */
     public int getQuantity() {
         return quantity;
     }
@@ -32,6 +49,10 @@ public class OrderModel {
         return ContainerID;
     }
 
+    /**
+     * Ottiene il prodotto ordinato.
+     * @return Prodotto ordinato.
+     */
     public ProductModel getItem(){return item;}
 
 }

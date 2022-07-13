@@ -3,12 +3,19 @@ package Classes.OrderCollection;
 
 import java.sql.Date;
 
+/**
+ * Modello di un'entrata nello storico degli ordini.
+ */
+
 public class OrderCollectionModel {
 
     private int User_ID;
 
     private int CollectionID;
 
+    /**
+     * Istante in cui l'ordine è stato sottomesso.
+     */
     private Date Timestamp;
 
 

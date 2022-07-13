@@ -10,9 +10,16 @@ import Classes.Product.ProductEdit;
 import Classes.Product.ProductInsert;
 import Classes.Suggestion.AddSuggestion;
 
+/**
+ * Imposta le azioni disponibili per l'amministratore.
+ * @see Actions
+ */
+
 public class AdminState implements State {
 
-
+    /**
+     * Imposta le azioni disponibili per l'amministratore.
+     */
     @Override
     public void LoadLink() {
         Actions.putAction("GET/delete.do", new ProductDelete());

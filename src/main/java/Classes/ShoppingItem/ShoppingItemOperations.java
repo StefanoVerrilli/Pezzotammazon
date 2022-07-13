@@ -11,6 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+/**
+ * Operazioni concrete sul database per il carrello.
+ */
+
 public class ShoppingItemOperations implements IShoppingItemOperations<ShoppingItemModel> {
 
     private Database myDb = Database.getInstance();

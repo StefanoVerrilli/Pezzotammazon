@@ -3,6 +3,10 @@ package Classes.ShoppingItem;
 
 import Classes.Product.ProductModel;
 
+/**
+ * Modello dei dati presenti nel carrello.
+ */
+
 public class ShoppingItemModel {
 
     private ProductModel product;

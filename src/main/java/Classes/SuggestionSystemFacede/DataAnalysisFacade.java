@@ -12,9 +12,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Facade per l'analisi dei dati degli utenti.
+ */
+
 public class DataAnalysisFacade {
 
-public List<ProductModel> getSuggestions(List<OrderCollectionModel> orderCollectionList,
+    /**
+     * Permette di ottenere i suggerimenti dei prodotti per un dato utente.
+     * @param orderCollectionList Lista di oggetti {@link OrderCollectionModel} contenenti gli ordini.
+     * @param User Oggetto {@link UserModel} contenente i dati dell'utente.
+     * @return Lista di oggetti {@link ProductModel} contenente i prodotti suggeriti per l'utente.
+     * @throws SQLException
+     */
+    public List<ProductModel> getSuggestions(List<OrderCollectionModel> orderCollectionList,
  UserModel User) throws SQLException{
     DataSetElaboration dataSetElaboration = new DataSetElaboration();
     Record record = dataSetElaboration.getData(User, orderCollectionList);
@@ -27,7 +38,14 @@ public Record getData(UserModel user, List<OrderCollectionModel> orderCollection
     return dataSetElaboration.getData(user,orderCollectionList);
 }
 
-public List<UserModel> getSuggestibleUsers(IUserOperation userOperation,
+    /**
+     * Permette di ottenere gli utenti che hanno effettuato almeno un ordine.
+     * @param userOperation Operazioni sugli utenti.
+     * @param orderCollection Operazioni sugli ordini.
+     * @return Lista di oggetti {@link UserModel} contenente gli utenti che hanno effettuato almeno un ordine.
+     * @throws SQLException
+     */
+    public List<UserModel> getSuggestibleUsers(IUserOperation userOperation,
 IOrderCollectionOperations orderCollection) throws SQLException {
     List<UserModel> users = userOperation.getAll();
     List<UserModel> result = new ArrayList<>();

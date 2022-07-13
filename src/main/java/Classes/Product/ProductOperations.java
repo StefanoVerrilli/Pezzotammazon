@@ -11,11 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Contiene le operazioni concrete sul database per ottenere i prodotti.
+ */
+
 public class ProductOperations implements IProductOperations<ProductModel> {
 
     private Database myDb = Database.getInstance();
     private final IProductCategoryOperations categoriesOperation;
 
+    /**
+     * Crea un'oggetto per l'esecuzione di operazioni sui prodotti.
+     * @param categoriesOperation Oggetto per l'esecuzione di operazioni sulle categorie.
+     */
     public ProductOperations(IProductCategoryOperations categoriesOperation) {
         this.categoriesOperation = categoriesOperation;
     }
@@ -42,6 +50,12 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         p.close();
         return Optional.of(product);
     }
+
+    /**
+     * Ottiene tutti i prodotti presenti sul database.
+     * @return Lista di oggetti {@link ProductModel} contenente i prodotti presenti sul database.
+     * @throws SQLException
+     */
     @Override
     public List<ProductModel> getAll() throws SQLException {
         List<ProductModel> result = new ArrayList<>();
@@ -68,6 +82,12 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         return result;
     }
 
+    /**
+     * Permette di aggiungere un prodotto sul database.
+     * @param product Oggetto {@link ProductModel} da cui ottenere i dati da aggiungere sul database.
+     * @return True se non vi sono stati errori.
+     * @throws SQLException Errore durante la ricerca.
+     */
     public boolean add(ProductModel product) throws SQLException {
         String query = "INSERT INTO products (Name,Description,Amount,Cost,Category,Image) "
                 + "VALUES(?,?,?,ROUND(?,2),?,?)";
@@ -83,6 +103,11 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         return true;
     }
 
+    /**
+     * Aggiorna i dati sul database.
+     * @param product Oggetto {@link ProductModel} con i dati aggiornati.
+     * @throws SQLException
+     */
     public void update(ProductModel product) throws SQLException {
         String query = "UPDATE products "
                 + "SET Name = ?, Description=?,Amount=?,Cost=?,Category=? ,Image=? "
@@ -99,6 +124,11 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         p.close();
     }
 
+    /**
+     * Elimina un prodotto dal database.
+     * @param id Identificativo del prodotto da eliminare.
+     * @throws SQLException
+     */
     @Override
     public void delete(Integer id) throws SQLException {
         String query = "DELETE FROM products "
@@ -109,6 +139,12 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         p.close();
     }
 
+    /**
+     * Permette di ottenere i prodotti per categoria.
+     * @param Category Identificativo della categoria.
+     * @return Lista di oggetti {@link ProductModel} contenente gli oggetti di quella categoria.
+     * @throws SQLException Errore durante la ricerca sul database.
+     */
     @Override
     public List<ProductModel> getAllByCategory(Integer Category) throws SQLException {
         String query = "SELECT Name,Image,Cost,ID,Amount,Description,CategoryDescription "
@@ -137,7 +173,12 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         return elements;
     }
 
-
+    /**
+     * Permette di ottenere i prodotti per categoria.
+     * @param CategoryDescription Stringa contenente il nome della categoria di cui ottenere i prodotti.
+     * @return Lista di oggetti {@link ProductModel} contenente gli oggetti di quella categoria.
+     * @throws SQLException Errore durante la ricerca sul database.
+     */
     public List<ProductModel> getAllByCategory(String CategoryDescription) throws SQLException {
         String query = "SELECT Name,Image,Cost,ID,Amount,Description,Category "
                 + "FROM products join ProductCategories "

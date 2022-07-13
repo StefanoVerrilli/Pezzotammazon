@@ -16,6 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
+/**
+ * Modifica il totale dell'ordine al variare della quantità di oggetti acquistati.
+ */
+
 @MultipartConfig(maxFileSize = 16177215)
 public class ChangeCost implements Action {
     @Override

@@ -2,6 +2,9 @@ package Classes.Suggestion;
 
 import Classes.Product.ProductModel;
 
+/**
+ * Modello per i suggerimenti.
+ */
 public class SuggestionModel {
 
     private Integer User_id;

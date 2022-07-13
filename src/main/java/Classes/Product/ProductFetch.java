@@ -16,6 +16,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Permette di ottenere i dati di un prodotto sul database.
+ */
+
 public class ProductFetch implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

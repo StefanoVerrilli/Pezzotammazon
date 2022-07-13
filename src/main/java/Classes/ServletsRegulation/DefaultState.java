@@ -7,6 +7,10 @@ import Classes.User.Access.LogIn;
 import Classes.User.Access.LogOut;
 import Classes.User.Access.Register;
 
+/**
+ * Stato di default dell'utente.
+ */
+
 public class DefaultState implements State {
 
     @Override

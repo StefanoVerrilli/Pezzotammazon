@@ -15,6 +15,10 @@ import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Optional;
 
+/**
+ * Permette di inserire un prodotto nel database.
+ */
+
 @MultipartConfig(maxFileSize = 16177215)
 public class ProductInsert implements Action {
     @Override

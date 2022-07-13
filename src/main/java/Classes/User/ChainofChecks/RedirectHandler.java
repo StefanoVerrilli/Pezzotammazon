@@ -7,6 +7,13 @@ import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Esegue il redirect alla pagina principale a seconda dell'utente.
+ * @see DiscriminatorLinks
+ * @see Invoker
+ * @see Dispatcher
+ */
+
 public class RedirectHandler extends Handler{
 
     @Override

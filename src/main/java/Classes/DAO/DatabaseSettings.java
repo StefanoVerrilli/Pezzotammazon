@@ -8,7 +8,7 @@ public class DatabaseSettings {
     /**
      * Percorso completo sul quale risiede il database
      */
-    public final static String DB_PATH = "/Users/stefanoverrilli/IdeaProjects/Pezzotammazon/db.sqlite";
+    public final static String DB_PATH = "/home/francesco/Documenti/Pezzotammazon/db.sqlite";
     /**
      * Driver del database utilizzato
      */

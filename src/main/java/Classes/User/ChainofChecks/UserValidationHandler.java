@@ -8,6 +8,10 @@ import Classes.User.UsersOperations;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
+/**
+ * Verifica la validità delle credenziali fornite per il login.
+ */
+
 public class UserValidationHandler extends Handler{
     @Override
     public String handle(HttpServletRequest request) throws Exception{

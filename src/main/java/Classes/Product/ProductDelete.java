@@ -7,6 +7,10 @@ import Classes.Product.ProductCategory.ProductCategoriesOperations;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * API per l'eliminazione di un prodotto dal database (amministratore).
+ */
+
 public class ProductDelete implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -10,6 +10,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Operazioni concrete sul database per l'ottenimento dei dati sulle ordinazioni eseguite.
+ * @see OrderModel
+ */
+
 public class OrderOperations implements IOrderOperations<OrderModel> {
 
     private Database myDb = Database.getInstance();

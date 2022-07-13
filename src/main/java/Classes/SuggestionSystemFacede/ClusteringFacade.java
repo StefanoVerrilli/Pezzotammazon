@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Facade per le operazioni di clustering.
+ */
+
 public class ClusteringFacade {
 
 private final DataAnalysisFacade DataPreparationFacade = new DataAnalysisFacade();
@@ -21,6 +25,15 @@ private final Clustering ClusteringMethod;
         ClusteringMethod = clusteringMethod;
     }
 
+    /**
+     * Esegue il clustering.
+     * @param userOperation Operazioni utente.
+     * @param orderOperations Operazioni ordini.
+     * @param clusters Cluster
+     * @param iterations Iterazioni per il cluster.
+     * @return Mappa centroide-lista di {@link Record}.
+     * @throws SQLException
+     */
     public Map<centroid, List<Record>> ExecuteClustering(IUserOperation userOperation,
     IOrderCollectionOperations orderOperations,
     Integer clusters,Integer iterations) throws SQLException {

@@ -18,6 +18,10 @@ import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Optional;
 
+/**
+ * API per la modifica del prodotto nel database (amministratore).
+ */
+
 @MultipartConfig(maxFileSize = 16177215)
 public class ProductEdit implements Action {
     @Override

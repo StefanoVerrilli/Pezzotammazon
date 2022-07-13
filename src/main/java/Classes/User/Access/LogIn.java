@@ -6,6 +6,12 @@ import Classes.User.ChainofChecks.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Esegue le operazioni di login. Utilizza una Chain of Responsibility per richiamare le azioni necessarie
+ * come {@link UserValidationHandler}, {@link CreateCartHandler}, {@link NavbarCreationHandler}, {@link LoadDataHandler} e
+ * {@link RedirectHandler}.
+ */
+
 public class LogIn implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

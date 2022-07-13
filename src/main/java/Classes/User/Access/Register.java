@@ -9,6 +9,10 @@ import Classes.User.UsersOperations;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Gestisce la registrazione degli utenti.
+ */
+
 public class Register implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

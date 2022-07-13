@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Contiene la logica per la generazione della pagina dei prodotti
+ */
+
 public class ProductsPageLogic implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -20,6 +24,13 @@ public class ProductsPageLogic implements Action {
         List<ProductModel> products = operations.getAll();
         request.getSession().setAttribute("products_table", products);
 
+        /**
+         * Reindirizza alla pagina corretta a seconda del tipo di utente.
+         * @see Dispatcher
+         * @see Invoker
+         * @see Classes.User.AccessLevels
+         * @see DiscriminatorProducts
+         */
         DiscriminatorProducts discriminatorProducts = new DiscriminatorProducts(products);
         UserModel user = (UserModel) request.getSession().getAttribute("user");
         Invoker invoker = new Invoker(new Dispatcher(discriminatorProducts,user));

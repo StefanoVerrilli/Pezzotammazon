@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementazione effettiva delle operazioni sulla gestione dello storico degli ordini sul database.
+ */
+
 public class OrderCollectionOperations implements IOrderCollectionOperations<OrderCollectionModel>
 {
     private Database myDb = Database.getInstance();

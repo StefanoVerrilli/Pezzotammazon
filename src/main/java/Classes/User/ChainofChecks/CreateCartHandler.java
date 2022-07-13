@@ -9,6 +9,10 @@ import Classes.User.UserModel;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Crea il carrello per l'utente.
+ */
+
 public class CreateCartHandler extends Handler{
     @Override
     public String handle(HttpServletRequest request) throws Exception {

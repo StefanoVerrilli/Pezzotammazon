@@ -15,6 +15,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Carica i dati dei prodotti.
+ */
+
 public class LoadDataHandler extends Handler {
 
     private List<ProductModel> product_list;

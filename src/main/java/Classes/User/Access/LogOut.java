@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Esegue il logout dell'utente.
+ */
 public class LogOut implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

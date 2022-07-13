@@ -11,10 +11,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Operazioni concrete sul database per i suggerimenti.
+ */
+
 public class SuggestionOperation implements ISuggestionOperations<SuggestionModel> {
 
     private final Database myDb = Database.getInstance();
 
+    /**
+     * Aggiunge un suggerimento.
+     * @param suggestion {@link SuggestionModel} per il suggerimento.
+     * @return Risultato dell'operazione, vero se tutto è andato bene.
+     * @throws SQLException
+     */
     @Override
     public boolean add(SuggestionModel suggestion) throws SQLException {
         String query = "INSERT INTO Suggestion(user_id, product_id) "
