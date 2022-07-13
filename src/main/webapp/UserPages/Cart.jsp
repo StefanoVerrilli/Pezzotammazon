@@ -69,7 +69,7 @@
             <div class="py-5" style="border-bottom: 1px solid gray; border-top: 1px solid gray">
                 <div class="columns">
                     <div class="is-pulled-right ">
-                        <figure class="image is-128x128">
+                        <figure class="image is-128x128" style="height:100%">
                             <img src="data:image/png;base64,${item.getProduct().getImage()}">
                         </figure>
                     </div>

@@ -41,7 +41,7 @@ public class KmeansImplementation implements Action {
 
         Map<centroid, List<Record>> result = clusteringFacade
         .ExecuteClustering(usersOperations,orderCollectionOperations,
-        NumClusters,10000);
+        NumClusters,2000);
 
         IJSONAdapter<Map<centroid,List<Record>>> adapter = new DataToD3JSONAdapter();
         adapter.DataToJSON(result);

@@ -1,6 +1,7 @@
 package Classes.Suggestion;
 
 
+import Classes.DAO.Database;
 import Classes.Product.ProductCategory.ProductCategoryModel;
 import Classes.Product.ProductModel;
 
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SuggestionOperation implements ISuggestionOperations<SuggestionModel> {
+
+    private final Database myDb = Database.getInstance();
 
     @Override
     public boolean add(SuggestionModel suggestion) throws SQLException {

@@ -28,7 +28,7 @@
                         <img src="data:image/png;base64,${product.getProduct().getImage()}" alt="Image depicting ${product.getProduct().getName()}">
                     </figure>
                 </div>
-                <p class="title is-5 mt-3"><c:out value="${product.getProduct().getName()}"/> </p>
+                <p class="title is-5 mt-3" style="width:300px"><c:out value="${product.getProduct().getName()}"/> </p>
                 <p class="title is-4 mt-3">
                     <c:choose>
                         <c:when test="${product.getProduct().decimalIsZero(product.getProduct().getCost())}">
@@ -61,7 +61,7 @@
                     <img src="data:image/png;base64,${product.getImage()}" alt="Image depicting ${product.getName()}">
                 </figure>
             </div>
-            <p class="title is-5 mt-3"><c:out value="${product.getName()}"/> </p>
+            <p class="title is-5 mt-3" style="width:300px"><c:out value="${product.getName()}"/> </p>
             <p class="title is-4 mt-3">
                 <c:choose>
                     <c:when test="${product.decimalIsZero(product.getCost())}">

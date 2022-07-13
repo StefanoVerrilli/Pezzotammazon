@@ -1,5 +1,5 @@
 package Classes.User;
-import Classes.DAO.DAO;
+import Classes.DAO.Database;
 import Classes.User.Hashing.HashInterface;
 
 import java.security.NoSuchAlgorithmException;
@@ -15,6 +15,8 @@ import java.util.Optional;
 public class UsersOperations implements IUserOperation<UserModel> {
 
     private final HashInterface hashFunction;
+
+    private final Database myDb = Database.getInstance();
 
     /**
      * Aggiunge l'implementazione dell'algoritmo di hashing da utilizzare
@@ -90,7 +92,7 @@ public class UsersOperations implements IUserOperation<UserModel> {
         String query = "SELECT * "
                 + "FROM users "
                 + "WHERE User_type = 0 ";
-        Statement stat = DAO.myDb.getConnection().createStatement();
+        Statement stat = myDb.getConnection().createStatement();
         ResultSet rest = stat.executeQuery(query);
         while(rest.next()){
                 UserModel currentUser = new UserModel.Builder(rest.getString("username"))

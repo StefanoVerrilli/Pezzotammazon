@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public class ProductOperations implements IProductOperations<ProductModel> {
 
+    private Database myDb = Database.getInstance();
     private final IProductCategoryOperations categoriesOperation;
 
     public ProductOperations(IProductCategoryOperations categoriesOperation) {
@@ -23,7 +24,7 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         String query = "SELECT * "
                 + "FROM products join ProductCategories on products.Category = ProductCategories.CategoryID "
                 + "WHERE ID = ? ";
-        PreparedStatement p = DAO.myDb.getConnection().prepareStatement(query);
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1,id);
         ResultSet rest = p.executeQuery();
 
@@ -46,7 +47,7 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         List<ProductModel> result = new ArrayList<>();
         String query = "SELECT * "
                 + "FROM products join ProductCategories on products.Category = ProductCategories.CategoryID ";
-        Statement stat = DAO.myDb.getConnection().createStatement();
+        Statement stat = myDb.getConnection().createStatement();
         ResultSet rest = stat.executeQuery(query);
         while(rest.next()){
 
@@ -70,7 +71,7 @@ public class ProductOperations implements IProductOperations<ProductModel> {
     public boolean add(ProductModel product) throws SQLException {
         String query = "INSERT INTO products (Name,Description,Amount,Cost,Category,Image) "
                 + "VALUES(?,?,?,ROUND(?,2),?,?)";
-        PreparedStatement p = DAO.myDb.getConnection().prepareStatement(query);
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setString(1,product.getName());
         p.setString(2,product.getDesc());
         p.setInt(3,product.getAmount());
@@ -102,7 +103,7 @@ public class ProductOperations implements IProductOperations<ProductModel> {
     public void delete(Integer id) throws SQLException {
         String query = "DELETE FROM products "
                 + "WHERE ID=? ";
-        PreparedStatement p = DAO.myDb.getConnection().prepareStatement(query);
+        PreparedStatement p = myDb.getConnection().prepareStatement(query);
         p.setInt(1,id);
         p.executeUpdate();
         p.close();
@@ -149,8 +150,8 @@ public class ProductOperations implements IProductOperations<ProductModel> {
         List<ProductModel> elements = new ArrayList<>();
         ProductCategoryModel categoryObject =
         new ProductCategoryModel(rest.getInt("Category"),CategoryDescription);
-        Optional<ProductCategoryModel> category = (Optional<ProductCategoryModel>) categoriesOperation
-                                        .get(categoryObject.getCategoryID());
+        Optional<ProductCategoryModel> category =
+        (Optional<ProductCategoryModel>) categoriesOperation.get(categoryObject.getCategoryID());
         if(category.isEmpty())
             return elements;
 

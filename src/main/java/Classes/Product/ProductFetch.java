@@ -3,6 +3,7 @@ package Classes.Product;
 import Classes.Command.DiscriminatorFetch;
 import Classes.Command.Invoker;
 import Classes.Command.Dispatcher;
+import Classes.Exceptions.LogicException;
 import Classes.FrontController.Action;
 import Classes.Product.ProductCategory.IProductCategoryOperations;
 import Classes.Product.ProductCategory.ProductCategoriesOperations;
@@ -27,8 +28,7 @@ public class ProductFetch implements Action {
         product = productOperations.get(id);
 
         if(product.isEmpty()){
-            request.getSession().setAttribute("error","Error during fetching of the product");
-            throw new SQLException();
+            throw new LogicException(request,"error","Error during fetching of the product");
         }
 
         IProductCategoryOperations<ProductCategoryModel> operation =

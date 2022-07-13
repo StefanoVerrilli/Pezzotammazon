@@ -46,11 +46,11 @@
                 <div class="card-image is-clipped" style="height:150px">
                     <figure class="image has-ratio 16by9" style="max-width:300px">
                         <img src="data:image/png;base64,${suggestion.getImage()}"
-                             alt="Image depicting ${suggestion.getName()}">
+                             alt="Image depicting ${suggestion.getName()}" style="height: 100%">
                     </figure>
                 </div>
                 <div class="content">
-                    <p class="title is-5 mt-3"><c:out value="${suggestion.getName()}"/></p>
+                    <p class="title is-5 mt-3" style="max-width:300px" ><c:out value="${suggestion.getName()}"/></p>
                     <p class="title is-4 mt-3">
                         <fmt:formatNumber value="${suggestion.getCost()}" type="currency" maxFractionDigits="2"
                                           currencyCode="EUR"/>
