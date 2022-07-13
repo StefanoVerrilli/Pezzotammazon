@@ -31,7 +31,12 @@
     <div style="min-width:250px" class="column is-flex-grow-2 is-flex-shink-4">
         <div class="block">
             <p class="title is-2"><fmt:formatNumber value="${Product.getCost()}" type="currency" maxFractionDigits="2" currencyCode="EUR"/></p>
-            <a href="AddCart.do?id=${Product.getID()}" class="button is-large is-fullwidth is-primary">Add to cart</a>
+            <a href="AddCart.do?id=${Product.getID()}" class="button is-large is-fullwidth is-primary">
+                <span class="icon">
+                    <i class="fa-solid fa-cart-arrow-down"></i>
+                </span>
+                <span>Add to cart</span>
+            </a>
         </div>
     </div>
 </div>

@@ -133,6 +133,8 @@
   <input type="submit" class="button is-warning is-fullwidth mt-3 is-large" value="Pay and continue">
 </form>
 
+  <p class="is-size-6 has-text-grey my-2"><i class="fa-solid fa-lock"></i> Secure payment (maybe).</p>
+
   <c:if test="${invalid_payment != null}">
     <p class="help is-danger"><c:out value="${invalid_payment}"></c:out></p>
   </c:if>

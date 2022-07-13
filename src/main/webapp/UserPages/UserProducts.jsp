@@ -20,6 +20,8 @@
     <h2 class="title has-text-info">Suggested for you</h2>
 
     <div class="block is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap has-background-info-light">
+        <div id="suggested-product-carousel" class="container is-fullwidth">
+            <div class="is-flex is-flex-direction-row is-flex-wrap-nowrap py-4" style="overflow-x: auto; overflow-y: hidden; box-shadow: 0 4px 2px -2px gray;">
         <c:forEach var="product" items="${product_suggestions}">
             <!-- PRODOTTO SINGOLO -->
             <a href="FetchProduct.do?id=${product.getProduct().getID()}" class="mx-5 my-3 box is-inline-block">
@@ -42,6 +44,8 @@
                 </p>
             </a>
         </c:forEach>
+            </div>
+        </div>
     </div>
 </div>
 </c:if>
